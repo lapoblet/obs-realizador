@@ -166,11 +166,14 @@ if(!selectedId) return;
 const item =
 items.find(i=>i.id===selectedId);
 
+if(item.type!=="text") return;
+
 item.color=e.target.value;
 
 await guardar();
 
 };
+
 
 document.getElementById("size")
 .oninput = async (e)=>{
@@ -179,6 +182,8 @@ if(!selectedId) return;
 
 const item =
 items.find(i=>i.id===selectedId);
+
+if(item.type!=="text") return;
 
 item.size=
 Number(e.target.value);
@@ -255,7 +260,17 @@ element.style.cursor =
 if(!element) return;
 
 if(selectedId===item.id){
+
 element.classList.add("selected");
+
+document.getElementById("color").value =
+item.color || "#ff0000";
+
+if(item.size){
+document.getElementById("size").value =
+item.size;
+}
+
 }
 
 element.style.position="absolute";
@@ -270,7 +285,9 @@ render();
 
 };
 
-div.ondblclick=async ()=>{
+if(item.type==="text"){
+
+element.ondblclick=async ()=>{
 
 const nuevo=
 prompt("Texto",item.text);
@@ -284,6 +301,8 @@ await guardar();
 }
 
 };
+
+}
 
 let startX,startY,startLeft,startTop;
 
