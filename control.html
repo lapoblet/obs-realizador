@@ -88,27 +88,26 @@ const db = getFirestore(app);
 
 window.enviar = async () => {
 
-    const texto =
-    document.getElementById("texto").value;
+const texto =
+document.getElementById("texto").value;
 
-    const color =
-    document.getElementById("color").value;
+const color =
+document.getElementById("color").value;
 
-    const size =
-    Number(document.getElementById("size").value);
+const size =
+Number(document.getElementById("size").value);
 
-    await setDoc(
-        doc(db,"overlay","main"),
-        {
-            texto,
-            color,
-            size,
-            x:300,
-            y:300
-        }
-    );
+await setDoc(
+doc(db,"overlay","main"),
+{
+texto,
+color,
+size
+}
+);
 
 };
+
 
 </script>
 
