@@ -149,6 +149,35 @@ overlay.appendChild(img);
 
 }  
 
+if(item.type==="video"){
+
+const video =
+document.createElement("video");
+
+video.src =
+item.url;
+
+video.autoplay = true;
+video.muted = true;
+video.loop = true;
+video.playsInline = true;
+
+video.style.position =
+"absolute";
+
+video.style.left =
+(item.x || 200) + "px";
+
+video.style.top =
+(item.y || 200) + "px";
+
+video.style.width =
+(item.width || 600) + "px";
+
+overlay.appendChild(video);
+
+}  
+
 if(item.type==="embed"){
 
 const iframe =
