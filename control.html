@@ -438,7 +438,8 @@ element.style.height="auto";
 element.style.border =
 "2px solid #ffaa00";
 
-
+element.style.cursor =
+"move";
 
 }  
 
@@ -489,6 +490,106 @@ document.getElementById("imgWidth").value =
 item.width || 300;
 
 }
+ 
+}
+
+if(
+selectedId===item.id &&
+(
+item.type==="text" ||
+item.type==="image" ||
+item.type==="gif"
+)
+){
+
+const resizeHandle =
+document.createElement("div");
+
+resizeHandle.style.position = "absolute";
+resizeHandle.style.width = "16px";
+resizeHandle.style.height = "16px";
+resizeHandle.style.right = "-8px";
+resizeHandle.style.bottom = "-8px";
+resizeHandle.style.background = "#00aaff";
+resizeHandle.style.border = "2px solid white";
+resizeHandle.style.borderRadius = "50%";
+resizeHandle.style.cursor = "nwse-resize";
+resizeHandle.style.zIndex = "9999";
+
+element.appendChild(resizeHandle);
+
+resizeHandle.onmousedown = (e)=>{
+
+e.stopPropagation();
+
+const startX = e.clientX;
+
+const startWidth =
+item.width || 300;
+
+const startSize =
+item.size || 72;
+
+function resize(ev){
+
+if(
+item.type==="image" ||
+item.type==="gif"
+){
+
+item.width =
+Math.max(
+50,
+startWidth + (ev.clientX - startX)
+);
+
+element.style.width =
+item.width + "px";
+
+}
+
+if(item.type==="text"){
+
+item.size =
+Math.max(
+10,
+startSize + ((ev.clientX - startX) / 2)
+);
+
+element.style.fontSize =
+item.size + "px";
+
+}
+
+}
+
+async function stopResize(){
+
+document.removeEventListener(
+"mousemove",
+resize
+);
+
+document.removeEventListener(
+"mouseup",
+stopResize
+);
+
+await guardar();
+
+}
+
+document.addEventListener(
+"mousemove",
+resize
+);
+
+document.addEventListener(
+"mouseup",
+stopResize
+);
+
+};
 
 }
 
