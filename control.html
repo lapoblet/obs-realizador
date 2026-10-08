@@ -146,6 +146,7 @@ x:100,
 y:100,
 size:72,
 color:"#ff0000"
+visible:true
 });
 
 selectedId=id;
@@ -172,6 +173,7 @@ url:url,
 x:200,
 y:200,
 width:300
+visible:true
 });
 
 selectedId=id;
@@ -198,6 +200,7 @@ url:url,
 x:200,
 y:200,
 width:300
+visible:true
 });
 
 selectedId=id;
@@ -261,6 +264,7 @@ url:url,
 x:200,
 y:200,
 width:600
+visible:true
 });
 
 }else{
@@ -273,6 +277,7 @@ x:200,
 y:200,
 width:600,
 height:400
+visible:true
 });
 
 }
@@ -524,11 +529,7 @@ item.width || 300;
 
 if(
 selectedId===item.id &&
-(
 item.type==="text" ||
-item.type==="image" ||
-item.type==="gif"
-)
 ){
 
 const resizeHandle =
