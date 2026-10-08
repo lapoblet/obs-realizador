@@ -14,12 +14,12 @@ overflow:hidden;
 
 #texto{
 position:absolute;
-top:100px;
-left:100px;
+left:300px;
+top:300px;
 font-size:72px;
 font-family:Arial;
-color:red;
 font-weight:bold;
+color:red;
 }
 
 </style>
@@ -57,14 +57,15 @@ onSnapshot(
 doc(db,"overlay","main"),
 (snapshot)=>{
 
-const data=snapshot.data();
+const data = snapshot.data();
 
 if(data){
 
 const t =
 document.getElementById("texto");
 
-t.innerText = data.texto || "";
+t.innerText =
+data.texto || "";
 
 t.style.color =
 data.color || "#ff0000";
@@ -72,15 +73,13 @@ data.color || "#ff0000";
 t.style.fontSize =
 (data.size || 72) + "px";
 
-t.style.left =
-(data.x || 300) + "px";
-
-t.style.top =
-(data.y || 300) + "px";
+}
 
 }
+);
 
 </script>
 
 </body>
 </html>
+``
