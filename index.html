@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Overlay OBS</title>
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent;
+}
+
+#canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+#texto{
+  position:absolute;
+  top:100px;
+  left:100px;
+  color:red;
+  font-size:60px;
+  font-family:Arial;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div id="texto">
+Hola Twitch
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+
+canvas.width=1920;
+canvas.height=1080;
+
+ctx.strokeStyle="red";
+ctx.lineWidth=5;
+
+ctx.beginPath();
+ctx.moveTo(100,100);
+ctx.lineTo(400,300);
+ctx.stroke();
+</script>
+
+</body>
+</html>
