@@ -2,77 +2,71 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Control</title>
+<title>Panel del Realizador</title>
+
+<style>
+body{
+    font-family:Arial;
+    padding:20px;
+}
+
+input[type=text]{
+    width:400px;
+    padding:10px;
+}
+
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+.control{
+    margin-bottom:15px;
+}
+</style>
+
 </head>
 
 <body>
 
 <h1>Panel del realizador</h1>
 
-<input
-id="texto"
-placeholder="Escribe texto">
+<div class="control">
+    <input
+    id="texto"
+    type="text"
+    placeholder="Escribe un texto">
+</div>
 
-<br><br>
+<div class="control">
+    Color:
+    <input
+    type="color"
+    id="color"
+    value="#ff0000">
+</div>
 
-Color:
-<input type="color" id="color" value="#ff0000">
+<div class="control">
+    Tamaño:
+    <input
+    type="range"
+    id="size"
+    min="20"
+    max="300"
+    value="72">
+</div>
 
-<br><br>
-
-Tamaño:
-<input type="range" id="size" min="20" max="200" value="72">
-
-<br><br>
-
-X:
-<input type="range" id="x" min="0" max="1800" value="100">
-
-<br><br>
-
-Y:
-<input type="range" id="y" min="0" max="1000" value="100">
-
-<br><br>
-
-<button onclick="enviar()">
-Actualizar
-</button>
-
-window.enviar = async function() {
-
-const texto =
-document.getElementById("texto").value;
-
-const color =
-document.getElementById("color").value;
-
-const size =
-Number(document.getElementById("size").value);
-
-const x =
-Number(document.getElementById("x").value);
-
-const y =
-Number(document.getElementById("y").value);
-
-await setDoc(
-doc(db,"overlay","main"),
-{
-texto,
-color,
-size,
-x,
-y
-}
-);
-
-};
-``
+<div class="control">
+    <button onclick="enviar()">
+        Actualizar texto
+    </button>
+</div>
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
 import {
 getFirestore,
 doc,
@@ -81,29 +75,42 @@ setDoc
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyAzJT8QDjb7nBjvN_YGWTXUUI3zU__lfdk",
-authDomain: "obs-realizador.firebaseapp.com",
-projectId: "obs-realizador",
-storageBucket: "obs-realizador.firebasestorage.app",
-messagingSenderId: "1034928961680",
-appId: "1:1034928961680:web:3c785128a4b33a61c2c015"
+  apiKey: "AIzaSyAzJT8QDjb7nBjvN_YGWTXUUI3zU__lfdk",
+  authDomain: "obs-realizador.firebaseapp.com",
+  projectId: "obs-realizador",
+  storageBucket: "obs-realizador.firebasestorage.app",
+  messagingSenderId: "1034928961680",
+  appId: "1:1034928961680:web:3c785128a4b33a61c2c015"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.enviar = async function() {
+window.enviar = async () => {
 
-const texto =
-document.getElementById("texto").value;
+    const texto =
+    document.getElementById("texto").value;
 
-await setDoc(
-doc(db,"overlay","main"),
-{
-texto:texto
-}
-);
+    const color =
+    document.getElementById("color").value;
+
+    const size =
+    Number(document.getElementById("size").value);
+
+    await setDoc(
+        doc(db,"overlay","main"),
+        {
+            texto,
+            color,
+            size,
+            x:300,
+            y:300
+        }
+    );
 
 };
 
 </script>
+
+</body>
+</html>
