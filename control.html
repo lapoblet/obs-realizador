@@ -529,7 +529,11 @@ item.width || 300;
 
 if(
 selectedId===item.id &&
+(
 item.type==="text" ||
+item.type==="image" ||
+item.type==="gif"
+)
 ){
 
 const resizeHandle =
