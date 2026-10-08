@@ -13,9 +13,62 @@
 id="texto"
 placeholder="Escribe texto">
 
+<br><br>
+
+Color:
+<input type="color" id="color" value="#ff0000">
+
+<br><br>
+
+Tamaño:
+<input type="range" id="size" min="20" max="200" value="72">
+
+<br><br>
+
+X:
+<input type="range" id="x" min="0" max="1800" value="100">
+
+<br><br>
+
+Y:
+<input type="range" id="y" min="0" max="1000" value="100">
+
+<br><br>
+
 <button onclick="enviar()">
-Enviar
+Actualizar
 </button>
+
+window.enviar = async function() {
+
+const texto =
+document.getElementById("texto").value;
+
+const color =
+document.getElementById("color").value;
+
+const size =
+Number(document.getElementById("size").value);
+
+const x =
+Number(document.getElementById("x").value);
+
+const y =
+Number(document.getElementById("y").value);
+
+await setDoc(
+doc(db,"overlay","main"),
+{
+texto,
+color,
+size,
+x,
+y
+}
+);
+
+};
+``
 
 <script type="module">
 
@@ -54,6 +107,3 @@ texto:texto
 };
 
 </script>
-
-</body>
-</html>
