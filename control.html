@@ -56,13 +56,17 @@ outline:2px dashed #00aaff;
 + Imagen
 </button>
 
-<button id="eliminarElemento">
-🗑 Eliminar
-</button>
-
 <button id="nuevoGif">
 🎞 GIF
 </button>
+
+ <button id="nuevoVideo">
+🎥 Vídeo
+</button> 
+
+<button id="eliminarElemento">
+🗑 Eliminar
+</button> 
 
 <input type="color" id="color" value="#ff0000">
 
@@ -198,6 +202,32 @@ await guardar();
 
 };
 
+document.getElementById("nuevoVideo")
+.onclick = async ()=>{
+
+const url =
+prompt("Pega la URL del vídeo mp4");
+
+if(!url) return;
+
+const id =
+Date.now().toString();
+
+items.push({
+id,
+type:"video",
+url:url,
+x:200,
+y:200,
+width:500
+});
+
+selectedId=id;
+
+await guardar();
+
+};  
+
 document.getElementById("eliminarElemento")
 .onclick = async ()=>{
 
@@ -265,7 +295,8 @@ if(!item) return;
 
 if(
 item.type !== "image" &&
-item.type !== "gif"
+item.type !== "gif" &&
+item.type !== "video"
 ) return;
 
 item.width =
@@ -355,6 +386,32 @@ element.style.height="auto";
 
 element.style.border =
 "2px solid #ffaa00";
+
+element.style.cursor =
+"move";
+
+}  
+
+if(item.type==="video"){
+
+element =
+document.createElement("video");
+
+element.src=item.url;
+
+element.autoplay = true;
+
+element.loop = true;
+
+element.muted = true;
+
+element.playsInline = true;
+
+element.style.width =
+(item.width || 500)+"px";
+
+element.style.border =
+"2px solid red";
 
 element.style.cursor =
 "move";
