@@ -68,6 +68,12 @@ min="20"
 max="200"
 value="72">
 
+<input type="range"
+id="imgWidth"
+min="50"
+max="1000"
+value="300">
+  
 </div>
 
 <div id="canvas"></div>
@@ -197,17 +203,22 @@ await guardar();
 document.getElementById("size")
 .oninput = async (e)=>{
 
+document.getElementById("imgWidth")
+.oninput = async (e)=>{
+
 if(!selectedId) return;
 
 const item =
-items.find(i=>i.id===selectedId);
+items.find(i => i.id === selectedId);
 
-if(item.type!=="text") return;
+if(item.type!=="image") return;
 
-item.size=
+item.width =
 Number(e.target.value);
 
 await guardar();
+
+};
 
 };
 
@@ -282,12 +293,21 @@ if(selectedId===item.id){
 
 element.classList.add("selected");
 
+if(item.type==="text"){
+
 document.getElementById("color").value =
 item.color || "#ff0000";
 
-if(item.size){
 document.getElementById("size").value =
-item.size;
+item.size || 72;
+
+}
+
+if(item.type==="image"){
+
+document.getElementById("imgWidth").value =
+item.width || 300;
+
 }
 
 }
