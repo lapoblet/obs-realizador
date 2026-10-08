@@ -168,40 +168,24 @@ await guardar();
 
 };
 
-document.getElementById("eliminarElemento")
-.onclick = async ()=>{
-
-if(!selectedId) return;
-
-items = items.filter(
-item => item.id !== selectedId
-);
-
-selectedId = null;
-
-await guardar();
-
-};
-
-document.getElementById("color")
+document.getElementById("size")
 .oninput = async (e)=>{
 
 if(!selectedId) return;
 
 const item =
-items.find(i=>i.id===selectedId);
+items.find(i => i.id === selectedId);
 
-if(item.type!=="text") return;
+if(!item) return;
 
-item.color=e.target.value;
+if(item.type !== "text") return;
+
+item.size =
+Number(e.target.value);
 
 await guardar();
 
 };
-
-
-document.getElementById("size")
-.oninput = async (e)=>{
 
 document.getElementById("imgWidth")
 .oninput = async (e)=>{
@@ -211,14 +195,14 @@ if(!selectedId) return;
 const item =
 items.find(i => i.id === selectedId);
 
-if(item.type!=="image") return;
+if(!item) return;
+
+if(item.type !== "image") return;
 
 item.width =
 Number(e.target.value);
 
 await guardar();
-
-};
 
 };
 
