@@ -210,25 +210,46 @@ canvas.innerHTML="";
 
 items.forEach(item=>{
 
-if(item.type!=="text") return;
+let element;
 
-const div =
+if(item.type==="text"){
+
+element =
 document.createElement("div");
 
-div.className="text-item";
+element.className="text-item";
 
-if(selectedId===item.id){
-div.classList.add("selected");
+element.innerText=item.text;
+
+element.style.color=item.color;
+
+element.style.fontSize=item.size+"px";
+
 }
 
-div.innerText=item.text;
+if(item.type==="image"){
 
-div.style.left=item.x+"px";
-div.style.top=item.y+"px";
-div.style.color=item.color;
-div.style.fontSize=item.size+"px";
+element =
+document.createElement("img");
 
-div.onclick=()=>{
+element.src=item.url;
+
+element.style.width=
+(item.width || 300)+"px";
+
+}
+
+if(!element) return;
+
+if(selectedId===item.id){
+element.classList.add("selected");
+}
+
+element.style.position="absolute";
+element.style.left=item.x+"px";
+element.style.top=item.y+"px";
+
+element.onclick=()=>{
 
 selectedId=item.id;
 
@@ -253,7 +274,7 @@ await guardar();
 
 let startX,startY,startLeft,startTop;
 
-div.onmousedown=(e)=>{
+element.onmousedown=(e)=>{
 
 selectedId=item.id;
 
@@ -271,10 +292,10 @@ startLeft+(ev.clientX-startX);
 item.y=
 startTop+(ev.clientY-startY);
 
-div.style.left=
+element.style.left=
 item.x+"px";
 
-div.style.top=
+element.style.top=
 item.y+"px";
 
 }
@@ -307,7 +328,7 @@ stop
 
 };
 
-canvas.appendChild(div);
+canvas.appendChild(element);
 
 });
 
