@@ -206,7 +206,7 @@ document.getElementById("nuevoVideo")
 .onclick = async ()=>{
 
 const url =
-prompt("Pega la URL del vídeo mp4");
+prompt("Pega la URL del vídeo");
 
 if(!url) return;
 
@@ -245,6 +245,22 @@ url.split("/video/")[1]?.split("?")[0];
 
 }
 
+if(
+url.toLowerCase().endsWith(".mp4") ||
+url.toLowerCase().includes(".mp4?")
+){
+
+items.push({
+id,
+type:"video",
+url:url,
+x:200,
+y:200,
+width:600
+});
+
+}else{
+
 items.push({
 id,
 type:"embed",
@@ -254,12 +270,14 @@ y:200,
 width:600,
 height:400
 });
- 
+
+}
+
 selectedId=id;
 
 await guardar();
 
-};  
+};
 
 document.getElementById("eliminarElemento")
 .onclick = async ()=>{
