@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Control</title>
+</head>
+
+<body>
+
+<h1>Panel del realizador</h1>
+
+<input
+id="texto"
+placeholder="Escribe texto">
+
+<button onclick="enviar()">
+Enviar
+</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import {
+getFirestore,
+doc,
+setDoc
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAzJT8QDjb7nBjvN_YGWTXUUI3zU__lfdk",
+authDomain: "obs-realizador.firebaseapp.com",
+projectId: "obs-realizador",
+storageBucket: "obs-realizador.firebasestorage.app",
+messagingSenderId: "1034928961680",
+appId: "1:1034928961680:web:3c785128a4b33a61c2c015"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.enviar = async function() {
+
+const texto =
+document.getElementById("texto").value;
+
+await setDoc(
+doc(db,"overlay","main"),
+{
+texto:texto
+}
+);
+
+};
+
+</script>
+
+</body>
+</html>
