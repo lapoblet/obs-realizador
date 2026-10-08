@@ -601,11 +601,11 @@ element.style.left=item.x+"px";
 element.style.top=item.y+"px";
 element.style.overflow="visible";
  
-element.onclick=()=>{
+element.onclick=(e)=>{
 
-selectedId=item.id;
+e.stopPropagation();
 
-render();
+};
 
 };
 
