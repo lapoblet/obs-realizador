@@ -61,23 +61,22 @@ const data=snapshot.data();
 
 if(data){
 
-const texto =
+const t =
 document.getElementById("texto");
 
-texto.innerText =
-data.texto || "";
+t.innerText = data.texto || "";
 
-texto.style.color =
-data.color || "red";
+t.style.color =
+data.color || "#ff0000";
 
-texto.style.fontSize =
+t.style.fontSize =
 (data.size || 72) + "px";
 
-texto.style.left =
-(data.x || 100) + "px";
+t.style.left =
+(data.x || 300) + "px";
 
-texto.style.top =
-(data.y || 100) + "px";
+t.style.top =
+(data.y || 300) + "px";
 
 }
 
