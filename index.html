@@ -12,14 +12,17 @@ background:transparent;
 overflow:hidden;
 }
 
-#texto{
+#overlay{
+width:100%;
+height:100%;
+position:relative;
+}
+
+.text-item{
 position:absolute;
-left:300px;
-top:300px;
-font-size:72px;
 font-family:Arial;
 font-weight:bold;
-color:red;
+pointer-events:none;
 }
 
 </style>
@@ -28,7 +31,7 @@ color:red;
 
 <body>
 
-<div id="texto"></div>
+<div id="overlay"></div>
 
 <script type="module">
 
@@ -57,23 +60,48 @@ onSnapshot(
 doc(db,"overlay","main"),
 (snapshot)=>{
 
-const data = snapshot.data();
+const data =
+snapshot.data();
 
-if(data){
+const overlay =
+document.getElementById("overlay");
 
-const t =
-document.getElementById("texto");
+overlay.innerHTML="";
 
-t.innerText =
-data.texto || "";
+if(!data) return;
 
-t.style.color =
-data.color || "#ff0000";
+const items =
+data.items || [];
 
-t.style.fontSize =
-(data.size || 72) + "px";
+items.forEach(item=>{
+
+if(item.type==="text"){
+
+const div =
+document.createElement("div");
+
+div.className="text-item";
+
+div.innerText =
+item.text || "";
+
+div.style.left =
+(item.x || 100)+"px";
+
+div.style.top =
+(item.y || 100)+"px";
+
+div.style.color =
+item.color || "#ff0000";
+
+div.style.fontSize =
+(item.size || 72)+"px";
+
+overlay.appendChild(div);
 
 }
+
+});
 
 }
 );
@@ -82,4 +110,3 @@ t.style.fontSize =
 
 </body>
 </html>
-``
