@@ -60,6 +60,10 @@ outline:2px dashed #00aaff;
 🗑 Eliminar
 </button>
 
+<button id="nuevoGif">
+🎞 GIF
+</button>
+
 <input type="color" id="color" value="#ff0000">
 
 <input type="range"
@@ -168,6 +172,32 @@ await guardar();
 
 };
 
+document.getElementById("nuevoGif")
+.onclick = async ()=>{
+
+const url =
+prompt("Pega la URL del GIF");
+
+if(!url) return;
+
+const id =
+Date.now().toString();
+
+items.push({
+id,
+type:"gif",
+url:url,
+x:200,
+y:200,
+width:300
+});
+
+selectedId=id;
+
+await guardar();
+
+};
+
 document.getElementById("eliminarElemento")
 .onclick = async ()=>{
 
@@ -233,7 +263,10 @@ items.find(i => i.id === selectedId);
 
 if(!item) return;
 
-if(item.type !== "image") return;
+if(
+item.type !== "image" &&
+item.type !== "gif"
+) return;
 
 item.width =
 Number(e.target.value);
@@ -308,6 +341,26 @@ element.style.cursor =
 
 }
 
+if(item.type==="gif"){
+
+element =
+document.createElement("img");
+
+element.src=item.url;
+
+element.style.width =
+(item.width || 300)+"px";
+
+element.style.height="auto";
+
+element.style.border =
+"2px solid #ffaa00";
+
+element.style.cursor =
+"move";
+
+}  
+
 if(!element) return;
 
 if(selectedId===item.id){
@@ -324,7 +377,10 @@ item.size || 72;
 
 }
 
-else if(item.type==="image"){
+else if(
+item.type==="image" ||
+item.type==="gif"
+){
 
 document.getElementById("imgWidth").value =
 item.width || 300;
