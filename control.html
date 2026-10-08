@@ -168,6 +168,25 @@ await guardar();
 
 };
 
+document.getElementById("color")
+.oninput = async (e)=>{
+
+if(!selectedId) return;
+
+const item =
+items.find(i => i.id === selectedId);
+
+if(!item) return;
+
+if(item.type !== "text") return;
+
+item.color =
+e.target.value;
+
+await guardar();
+
+};
+  
 document.getElementById("size")
 .oninput = async (e)=>{
 
