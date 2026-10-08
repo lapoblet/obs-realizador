@@ -61,13 +61,25 @@ const data=snapshot.data();
 
 if(data){
 
-document.getElementById("texto")
-.innerText=data.texto || "";
+const texto =
+document.getElementById("texto");
+
+texto.innerText =
+data.texto || "";
+
+texto.style.color =
+data.color || "red";
+
+texto.style.fontSize =
+(data.size || 72) + "px";
+
+texto.style.left =
+(data.x || 100) + "px";
+
+texto.style.top =
+(data.y || 100) + "px";
 
 }
-
-}
-);
 
 </script>
 
