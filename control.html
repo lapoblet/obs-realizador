@@ -168,6 +168,21 @@ await guardar();
 
 };
 
+document.getElementById("eliminarElemento")
+.onclick = async ()=>{
+
+if(!selectedId) return;
+
+items = items.filter(
+item => item.id !== selectedId
+);
+
+selectedId = null;
+
+await guardar();
+
+};  
+
 document.getElementById("color")
 .oninput = async (e)=>{
 
@@ -179,6 +194,8 @@ items.find(i => i.id === selectedId);
 if(!item) return;
 
 if(item.type !== "text") return;
+
+console.log("color",e.target.value);
 
 item.color =
 e.target.value;
@@ -264,8 +281,9 @@ element.style.background =
   
 element.innerText=item.text;
 
-element.style.color=item.color;
-
+element.style.color =
+item.color || "#ff0000";
+  
 element.style.fontSize=item.size+"px";
 
 }
