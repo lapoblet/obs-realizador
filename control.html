@@ -56,6 +56,10 @@ outline:2px dashed #00aaff;
 + Imagen
 </button>
 
+<button id="eliminarElemento">
+🗑 Eliminar
+</button>
+
 <input type="color" id="color" value="#ff0000">
 
 <input type="range"
@@ -153,6 +157,21 @@ width:300
 });
 
 selectedId=id;
+
+await guardar();
+
+};
+
+document.getElementById("eliminarElemento")
+.onclick = async ()=>{
+
+if(!selectedId) return;
+
+items = items.filter(
+item => item.id !== selectedId
+);
+
+selectedId = null;
 
 await guardar();
 
