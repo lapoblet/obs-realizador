@@ -149,6 +149,36 @@ overlay.appendChild(img);
 
 }  
 
+if(item.type==="embed"){
+
+const iframe =
+document.createElement("iframe");
+
+iframe.src =
+item.url;
+
+iframe.style.position =
+"absolute";
+
+iframe.style.left =
+(item.x || 200) + "px";
+
+iframe.style.top =
+(item.y || 200) + "px";
+
+iframe.width =
+item.width || 600;
+
+iframe.height =
+item.height || 400;
+
+iframe.style.border =
+"none";
+
+overlay.appendChild(iframe);
+
+}  
+
 });
 
 }
