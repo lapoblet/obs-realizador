@@ -213,15 +213,48 @@ if(!url) return;
 const id =
 Date.now().toString();
 
+let finalUrl = url;
+
+if(url.includes("youtube.com/watch?v=")){
+
+const videoId =
+url.split("watch?v=")[1].split("&")[0];
+
+finalUrl =
+"https://www.youtube.com/embed/" +
+videoId;
+
+}
+
+else if(url.includes("youtu.be/")){
+
+const videoId =
+url.split("youtu.be/")[1].split("?")[0];
+
+finalUrl =
+"https://www.youtube.com/embed/" +
+videoId;
+
+}
+
+else if(url.includes("tiktok.com")){
+
+finalUrl =
+"https://www.tiktok.com/embed/v2/" +
+url.split("/video/")[1]?.split("?")[0];
+
+}
+
 items.push({
 id,
-type:"video",
-url:url,
+type:"embed",
+url:finalUrl,
 x:200,
 y:200,
-width:500
+width:600,
+height:400
 });
-
+ 
 selectedId=id;
 
 await guardar();
@@ -392,23 +425,19 @@ element.style.cursor =
 
 }  
 
-if(item.type==="video"){
+if(item.type==="embed"){
 
 element =
-document.createElement("video");
+document.createElement("iframe");
 
-element.src=item.url;
+element.src =
+item.url;
 
-element.autoplay = true;
+element.width =
+item.width || 600;
 
-element.loop = true;
-
-element.muted = true;
-
-element.playsInline = true;
-
-element.style.width =
-(item.width || 500)+"px";
+element.height =
+item.height || 400;
 
 element.style.border =
 "2px solid red";
