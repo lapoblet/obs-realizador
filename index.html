@@ -75,6 +75,10 @@ data.items || [];
 
 items.forEach(item=>{
 
+if(item.visible === false){
+return;
+}
+  
 if(item.type==="text"){
 
 const div =
