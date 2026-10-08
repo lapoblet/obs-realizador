@@ -125,6 +125,29 @@ overlay.appendChild(img);
 
 }
 
+if(item.type==="gif"){
+
+const img =
+document.createElement("img");
+
+img.src =
+item.url;
+
+img.style.position =
+"absolute";
+
+img.style.left =
+(item.x || 200) + "px";
+
+img.style.top =
+(item.y || 200) + "px";
+
+img.style.width =
+(item.width || 300) + "px";
+
+overlay.appendChild(img);
+
+}  
 
 });
 
