@@ -52,6 +52,10 @@ outline:2px dashed #00aaff;
 + Texto
 </button>
 
+<button id="nuevaImagen">
++ Imagen
+</button>
+
 <input type="color" id="color" value="#ff0000">
 
 <input type="range"
@@ -120,6 +124,32 @@ x:100,
 y:100,
 size:72,
 color:"#ff0000"
+});
+
+selectedId=id;
+
+await guardar();
+
+};
+
+document.getElementById("nuevaImagen")
+.onclick = async ()=>{
+
+const url =
+prompt("Pega la URL de la imagen");
+
+if(!url) return;
+
+const id =
+Date.now().toString();
+
+items.push({
+id,
+type:"image",
+url:url,
+x:200,
+y:200,
+width:300
 });
 
 selectedId=id;
