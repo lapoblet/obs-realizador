@@ -328,13 +328,14 @@ await guardar();
 
 };
 
-let redimensionando = false;  
+let redimensionando = false; 
+let moviendo = false;  
   
 onSnapshot(
 doc(db,"overlay","main"),
 (snapshot)=>{
 
-if(redimensionando){
+if(redimensionando || moviendo){
 return;
 }
 
@@ -650,6 +651,8 @@ await guardar();
 let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
+  
+moviendo = true;
 
 selectedId=item.id;
 
@@ -673,6 +676,20 @@ item.x+"px";
 element.style.top=
 item.y+"px";
 
+const ahora = Date.now();
+
+if(!window.ultimoGuardadoMove){
+window.ultimoGuardadoMove = 0;
+}
+
+if(ahora - window.ultimoGuardadoMove > 30){
+
+window.ultimoGuardadoMove = ahora;
+
+guardar();
+
+}
+
 }
 
 async function stop(){
@@ -686,6 +703,8 @@ document.removeEventListener(
 "mouseup",
 stop
 );
+
+moviendo = false;  
  
 await guardar();
 
