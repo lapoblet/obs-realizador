@@ -492,7 +492,7 @@ item.color || "#ff0000";
 
 }
 
-}  // <-- ESTA LLAVE FALTA
+}  
 
 if(
 selectedId===item.id &&
@@ -502,6 +502,9 @@ item.type==="image" ||
 item.type==="gif"
 )
 ){
+
+const resizeHandle =
+document.createElement("div");
   
 resizeHandle.style.position = "absolute";
 resizeHandle.style.width = "16px";
