@@ -73,18 +73,6 @@ outline:2px dashed #00aaff;
 </button> 
 
 <input type="color" id="color" value="#ff0000">
-
-<input type="range"
-id="size"
-min="20"
-max="200"
-value="72">
-
-<input type="range"
-id="imgWidth"
-min="50"
-max="1000"
-value="300">
   
 </div>
 
@@ -550,7 +538,7 @@ element.querySelector("img");
 img.style.width =
 item.width + "px";
 
-}  // ← ESTA LLAVE FALTA
+}
 
 if(item.type==="text"){
 
@@ -565,6 +553,8 @@ item.size + "px";
 
 }
 
+guardar();
+  
 }
 
 async function stopResize(){
