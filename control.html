@@ -430,41 +430,59 @@ element.style.fontSize=item.size+"px";
 
 if(item.type==="image"){
 
-element =
+const wrapper =
+document.createElement("div");
+
+wrapper.style.display = "inline-block";
+
+const img =
 document.createElement("img");
 
-element.src=item.url;
+img.src = item.url;
 
-element.style.width =
+img.style.width =
 (item.width || 300)+"px";
 
-element.style.height="auto";
+img.style.height="auto";
 
-element.style.border =
+img.style.border =
 "2px solid #00aaff";
 
-element.style.cursor =
+img.style.cursor =
 "move";
+
+wrapper.appendChild(img);
+
+element = wrapper;
 
 }
 
 if(item.type==="gif"){
 
-element =
+const wrapper =
+document.createElement("div");
+
+wrapper.style.display = "inline-block";
+
+const img =
 document.createElement("img");
 
-element.src=item.url;
+img.src = item.url;
 
-element.style.width =
+img.style.width =
 (item.width || 300)+"px";
 
-element.style.height="auto";
+img.style.height="auto";
 
-element.style.border =
+img.style.border =
 "2px solid #ffaa00";
 
-element.style.cursor =
+img.style.cursor =
 "move";
+
+wrapper.appendChild(img);
+
+element = wrapper;
 
 }
 
@@ -581,7 +599,12 @@ Math.max(
 startWidth + (ev.clientX - startX)
 );
 
-element.style.width =
+if(item.type==="image" || item.type==="gif"){
+
+const img =
+element.querySelector("img");
+
+img.style.width =
 item.width + "px";
 
 }
