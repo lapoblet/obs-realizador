@@ -505,6 +505,8 @@ resizeHandle.style.zIndex = "9999";
 
 element.appendChild(resizeHandle);
 
+let ultimoGuardado = 0;
+
 resizeHandle.onmousedown = (e)=>{
 
 e.stopPropagation();
@@ -552,6 +554,16 @@ startSize + ((ev.clientX - startX) / 2)
 
 element.style.fontSize =
 item.size + "px";
+
+}
+
+const ahora = Date.now();
+
+if(ahora - ultimoGuardado > 100){
+
+ultimoGuardado = ahora;
+
+guardar();
 
 }
 
