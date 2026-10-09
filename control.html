@@ -599,15 +599,13 @@ Math.max(
 startWidth + (ev.clientX - startX)
 );
 
-if(item.type==="image" || item.type==="gif"){
-
 const img =
 element.querySelector("img");
 
 img.style.width =
 item.width + "px";
 
-}
+}  // ← ESTA LLAVE FALTA
 
 if(item.type==="text"){
 
