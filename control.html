@@ -327,10 +327,16 @@ item.visible = !item.visible;
 await guardar();
 
 };
+
+let redimensionando = false;  
   
 onSnapshot(
 doc(db,"overlay","main"),
 (snapshot)=>{
+
+if(redimensionando){
+return;
+}
 
 const data =
 snapshot.data();
@@ -344,6 +350,7 @@ render();
 
 }
 );
+
 
 function render(){
 
@@ -509,6 +516,8 @@ let ultimoGuardado = 0;
 
 resizeHandle.onmousedown = (e)=>{
 
+redimensionando = true;
+
 e.stopPropagation();
 
 const startX = e.clientX;
@@ -557,8 +566,18 @@ item.size + "px";
 
 }
 
+const ahora = Date.now();
+
+if(ahora - ultimoGuardado > 100){
+
+ultimoGuardado = ahora;
+
+guardar();
+
 }
 
+}
+  
 async function stopResize(){
 
 document.removeEventListener(
@@ -570,6 +589,8 @@ document.removeEventListener(
 "mouseup",
 stopResize
 );
+
+redimensionando = false;
 
 await guardar();
 
