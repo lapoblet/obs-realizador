@@ -388,9 +388,15 @@ const wrapper =
 document.createElement("div");
 
 wrapper.style.display = "inline-block";
+wrapper.style.cursor = "move";
+wrapper.style.width =
+(item.width || 300)+"px";
 
 const img =
 document.createElement("img");
+
+img.draggable = false;
+img.style.pointerEvents = "none";
 
 img.src = item.url;
 
@@ -554,6 +560,9 @@ img.style.width =
 item.width + "px";
 
 }
+
+element.style.width =
+item.width + "px";
 
 }
 
