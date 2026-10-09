@@ -323,48 +323,6 @@ e.target.value;
 await guardar();
 
 };
-  
-document.getElementById("size")
-.oninput = async (e)=>{
-
-if(!selectedId) return;
-
-const item =
-items.find(i => i.id === selectedId);
-
-if(!item) return;
-
-if(item.type !== "text") return;
-
-item.size =
-Number(e.target.value);
-
-await guardar();
-
-};
-
-document.getElementById("imgWidth")
-.oninput = async (e)=>{
-
-if(!selectedId) return;
-
-const item =
-items.find(i => i.id === selectedId);
-
-if(!item) return;
-
-if(
-item.type !== "image" &&
-item.type !== "gif" &&
-item.type !== "video"
-) return;
-
-item.width =
-Number(e.target.value);
-
-await guardar();
-
-};
 
 document.getElementById("toggleVisible")
 .onclick = async ()=>{
@@ -532,20 +490,12 @@ if(item.type==="text"){
 document.getElementById("color").value =
 item.color || "#ff0000";
 
-document.getElementById("size").value =
-item.size || 72;
-
 }
 
 else if(
 item.type==="image" ||
 item.type==="gif"
-){
-
-document.getElementById("imgWidth").value =
-item.width || 300;
-
-}
+)
 
 }
 
