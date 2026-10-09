@@ -470,7 +470,6 @@ element.style.cursor =
 
 if(!element) return;
 
-/* ELEMENTOS OCULTOS */
 
 if(item.visible === false){
 
@@ -478,7 +477,7 @@ element.style.opacity = "0.2";
 
 }
 
-if(selectedId===item.id){
+if(selectedId===item.id && !redimensionando){
 
 element.classList.add("selected");
 
@@ -493,6 +492,7 @@ item.color || "#ff0000";
 
 if(
 selectedId===item.id &&
+!redimensionando &&
 (
 item.type==="text" ||
 item.type==="image" ||
