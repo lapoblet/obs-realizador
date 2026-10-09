@@ -540,21 +540,20 @@ item.width + "px";
 
 }
 
-if(item.type==="text"){
+async function stopResize(){
 
-item.size =
-Math.max(
-10,
-startSize + ((ev.clientX - startX) / 2)
+document.removeEventListener(
+"mousemove",
+resize
 );
 
-element.style.fontSize =
-item.size + "px";
-
-}
+document.removeEventListener(
+"mouseup",
+stopResize
+);
 
 await guardar();
-  
+
 }
 
 async function stopResize(){
