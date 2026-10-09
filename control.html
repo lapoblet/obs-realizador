@@ -535,8 +535,12 @@ startWidth + (ev.clientX - startX)
 const img =
 element.querySelector("img");
 
+if(img){
+
 img.style.width =
 item.width + "px";
+
+}
 
 }
 
@@ -553,6 +557,8 @@ item.size + "px";
 
 }
 
+}
+
 async function stopResize(){
 
 document.removeEventListener(
@@ -566,8 +572,6 @@ stopResize
 );
 
 await guardar();
-
-}
 
 }
 
