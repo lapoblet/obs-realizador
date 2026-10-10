@@ -45,14 +45,17 @@ outline:2px dashed #00aaff;
 
 #safeArea{
 position:absolute;
-left:0;
-top:0;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
 
-width:1920px;
-height:1080px;
+width:960px;
+height:540px;
 
 border:3px solid #ff0000;
-box-sizing:border-box;
+
+box-shadow:
+0 0 0 99999px rgba(0,0,0,0.45);
 
 pointer-events:none;
 z-index:0;
@@ -387,6 +390,8 @@ canvas.innerHTML =
 
 canvas.style.background="#f5f5f5";
 
+const ESCALA = 0.5;  
+
 items.forEach(item=>{
 
 let element;
@@ -409,7 +414,8 @@ element.innerText=item.text;
 element.style.color =
 item.color || "#ff0000";
 
-element.style.fontSize=item.size+"px";
+element.style.fontSize=
+(item.size * ESCALA)+"px";
 
 }
 
@@ -433,7 +439,7 @@ img.style.pointerEvents = "none";
 img.src = item.url;
 
 img.style.width =
-(item.width || 300)+"px";
+((item.width || 300) * ESCALA)+"px";
 
 img.style.height="auto";
 
@@ -728,8 +734,10 @@ stopResize
 }  
   
 element.style.position="absolute";
-element.style.left=item.x+"px";
-element.style.top=item.y+"px";
+element.style.left=
+(item.x * ESCALA)+"px";
+element.style.top=
+(item.y * ESCALA)+"px";
 element.style.overflow="visible";
 element.style.transformOrigin = "center center";
 element.style.transform =
