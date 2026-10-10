@@ -38,6 +38,7 @@ user-select:none;
 
 .selected{
 outline:2px dashed #00aaff;
+outline-offset:4px;
 }
 
 </style>
@@ -490,9 +491,8 @@ element.style.opacity = "0.2";
 
 if(selectedId===item.id && !redimensionando){
 
-.selected{
-outline:2px dashed #00aaff;
-outline-offset:4px;
+element.classList.add("selected");
+  
 }
 
 if(item.type==="text"){
