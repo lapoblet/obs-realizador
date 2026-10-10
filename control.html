@@ -83,25 +83,20 @@ outline:2px dashed #00aaff;
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-import {
-getFirestore,
-doc,
-setDoc,
-onSnapshot
-}
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+const supabaseUrl =
+"https://dzbxgfxtdijdzrfophow.supabase.co";
 
-const firebaseConfig = {
-apiKey: "AIzaSyAzJT8QDjb7nBjvN_YGWTXUUI3zU__lfdk",
-authDomain: "obs-realizador.firebaseapp.com",
-projectId: "obs-realizador",
-storageBucket: "obs-realizador.firebasestorage.app",
-messagingSenderId: "1034928961680",
-appId: "1:1034928961680:web:3c785128a4b33a61c2c015"
-};
+const supabaseKey =
+"sb_publishable_w--FJvX0mYUZoeraWkQkUg_xAF8e5tR";
+
+const supabase =
+createClient(
+supabaseUrl,
+supabaseKey
+);
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -114,14 +109,17 @@ document.getElementById("canvas");
 
 async function guardar(){
 
-console.log("GUARDANDO");  
+const { error } =
+await supabase
+.from("overlay")
+.update({
+data: { items }
+})
+.eq("id","main");
 
-await setDoc(
-doc(db,"overlay","main"),
-{
-items
+if(error){
+console.error(error);
 }
-);
 
 }
 
@@ -341,27 +339,28 @@ await guardar();
 let redimensionando = false; 
 let moviendo = false;  
   
-onSnapshot(
-doc(db,"overlay","main"),
-(snapshot)=>{
+async function cargar(){
 
-if(redimensionando || moviendo){
+const { data, error } =
+await supabase
+.from("overlay")
+.select("*")
+.eq("id","main")
+.single();
+
+if(error){
+console.error(error);
 return;
 }
 
-const data =
-snapshot.data();
-
-if(!data) return;
-
 items =
-data.items || [];
+data.data.items || [];
 
 render();
 
 }
-);
 
+cargar();
 
 function render(){
 
