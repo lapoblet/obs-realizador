@@ -35,50 +35,49 @@ pointer-events:none;
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-import {
-getFirestore,
-doc,
-onSnapshot
+const supabaseUrl =
+"https://dzbxgfxtdijdzrfophow.supabase.co";
+
+const supabaseKey =
+"sb_publishable_w--FJvX0mYUZoeraWkQkUg_xAF8e5tR";
+
+const supabase =
+createClient(
+supabaseUrl,
+supabaseKey
+);
+
+async function cargar(){
+
+const { data, error } =
+await supabase
+.from("overlay")
+.select("*")
+.eq("id","main")
+.single();
+
+if(error){
+console.error(error);
+return;
 }
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyAzJT8QDjb7nBjvN_YGWTXUUI3zU__lfdk",
-authDomain: "obs-realizador.firebaseapp.com",
-projectId: "obs-realizador",
-storageBucket: "obs-realizador.firebasestorage.app",
-messagingSenderId: "1034928961680",
-appId: "1:1034928961680:web:3c785128a4b33a61c2c015"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-onSnapshot(
-doc(db,"overlay","main"),
-(snapshot)=>{
-
-const data =
-snapshot.data();
 
 const overlay =
 document.getElementById("overlay");
 
 overlay.innerHTML="";
 
-if(!data) return;
-
 const items =
-data.items || [];
+data.data.items || [];
 
 items.forEach(item=>{
 
 if(item.visible === false){
 return;
 }
-  
+
 if(item.type==="text"){
 
 const div =
@@ -107,7 +106,7 @@ div.style.transformOrigin =
 div.style.transform =
 "rotate(" +
 (item.rotation || 0) +
-"deg)";  
+"deg)";
 
 overlay.appendChild(div);
 
@@ -139,7 +138,7 @@ img.style.transformOrigin =
 img.style.transform =
 "rotate(" +
 (item.rotation || 0) +
-"deg)";  
+"deg)";
 
 overlay.appendChild(img);
 
@@ -171,11 +170,11 @@ img.style.transformOrigin =
 img.style.transform =
 "rotate(" +
 (item.rotation || 0) +
-"deg)";  
+"deg)";
 
 overlay.appendChild(img);
 
-}  
+}
 
 if(item.type==="video"){
 
@@ -208,11 +207,11 @@ video.style.transformOrigin =
 video.style.transform =
 "rotate(" +
 (item.rotation || 0) +
-"deg)";  
+"deg)";
 
 overlay.appendChild(video);
 
-}  
+}
 
 if(item.type==="embed"){
 
@@ -240,22 +239,25 @@ item.height || 400;
 iframe.style.border =
 "none";
 
- iframe.style.transformOrigin =
+iframe.style.transformOrigin =
 "center center";
 
 iframe.style.transform =
 "rotate(" +
 (item.rotation || 0) +
-"deg)"; 
+"deg)";
 
 overlay.appendChild(iframe);
 
-}  
+}
 
 });
 
 }
-);
+
+cargar();
+
+setInterval(cargar,1000);
 
 </script>
 
