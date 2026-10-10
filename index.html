@@ -50,6 +50,8 @@ supabaseUrl,
 supabaseKey
 );
 
+const elementos = {};
+  
 async function cargar(){
 
 const { data, error } =
@@ -67,8 +69,6 @@ return;
 const overlay =
 document.getElementById("overlay");
 
-overlay.innerHTML="";
-
 const items =
 data.data.items || [];
 
@@ -80,8 +80,19 @@ return;
 
 if(item.type==="text"){
 
-const div =
-document.createElement("div");
+let div = elementos[item.id];
+
+if(!div){
+
+div = document.createElement("div");
+
+div.className="text-item";
+
+overlay.appendChild(div);
+
+elementos[item.id] = div;
+
+}  
 
 div.className="text-item";
 
