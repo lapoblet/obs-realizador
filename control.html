@@ -805,10 +805,10 @@ startTop=item.y;
 function move(ev){
 
 item.x =
-startLeft + ((ev.clientX - startX) * 2);
+startLeft + (ev.clientX - startX);
 
 item.y =
-startTop + ((ev.clientY - startY) * 2);
+startTop + (ev.clientY - startY);
 
 element.style.left=
 item.x+"px";
