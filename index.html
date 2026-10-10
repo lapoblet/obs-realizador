@@ -257,7 +257,22 @@ overlay.appendChild(iframe);
 
 cargar();
 
-setInterval(cargar,1000);
+supabase
+.channel('overlay-changes')
+.on(
+'postgres_changes',
+{
+event: '*',
+schema: 'public',
+table: 'overl*y'
+},
+() => {
+
+cargar();
+
+}
+)
+.sub*cribe();
 
 </script>
 
