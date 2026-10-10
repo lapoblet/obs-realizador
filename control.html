@@ -667,7 +667,7 @@ item.rotation +
 
 const ahora = Date.now();
 
-if(ahora - ultimoGuardado > 30){
+if(ahora - ultimoGuardado > 300){
 
 ultimoGuardado = ahora;
 
@@ -784,11 +784,11 @@ if(!window.ultimoGuardadoMove){
 window.ultimoGuardadoMove = 0;
 }
 
-if(ahora - window.ultimoGuardadoMove > 30){
+if(ahora - window.ultimoGuardadoMove > 300){
 
 window.ultimoGuardadoMove = ahora;
 
-guardar();
+// guardar();
 
 }
 
