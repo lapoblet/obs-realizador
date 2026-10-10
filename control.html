@@ -34,24 +34,38 @@ height:2000px;
 margin:auto;
 }
 
+#workspace{
+height:calc(100vh - 60px);
+background:#ccc;
+overflow:auto;
+position:relative;
+}
+
 #safeArea{
 position:absolute;
-
-width:960px;
-height:540px;
 
 left:500px;
 top:250px;
 
+width:960px;
+height:540px;
+
 border:4px solid red;
 
-background:white;
+background:transparent;
 
 pointer-events:none;
 
-z-index:0;
-
 box-sizing:border-box;
+
+z-index:1;
+}
+
+#canvas{
+position:relative;
+
+width:3000px;
+height:2000px;
 }
 
 .text-item{
@@ -114,6 +128,7 @@ outline:2px dashed #00aaff;
 
 </div>
 
+
 <script type="module">
 
 import { createClient }
@@ -137,8 +152,8 @@ let selectedId=null;
 const canvas =
 document.getElementById("canvas");
 
-const OBS_OFFSET_X = 500;
-const OBS_OFFSET_Y = 250;  
+item.x + "px"
+item.y + "px"
 
 async function guardar(){
 
@@ -417,8 +432,7 @@ cargar();
 
 function render(){
 
-canvas.innerHTML =
-'<div id="safeArea"></div>';
+canvas.innerHTML =;
 
 canvas.style.background="#f5f5f5";
 
@@ -764,10 +778,8 @@ stopResize
   
 element.style.position="absolute";
 element.style.zIndex = "10";
-element.style.left =
-(item.x + OBS_OFFSET_X) + "px";
-element.style.top =
-(item.y + OBS_OFFSET_Y) + "px";
+element.style.left = item.x + "px";
+element.style.top = item.y + "px";
 element.style.overflow="visible";
 element.style.transformOrigin = "center center";
 element.style.transform =
