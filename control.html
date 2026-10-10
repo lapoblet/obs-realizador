@@ -9,6 +9,7 @@
 body{
 margin:0;
 font-family:Arial;
+user-select:none;
 }
 
 .toolbar{
@@ -810,11 +811,11 @@ startTop=item.y;
 
 function move(ev){
 
-item.x=
-startLeft+(ev.clientX-startX);
+item.x =
+startLeft + ((ev.clientX - startX) * 2);
 
-item.y=
-startTop+(ev.clientY-startY);
+item.y =
+startTop + ((ev.clientY - startY) * 2);
 
 element.style.left=
 item.x+"px";
