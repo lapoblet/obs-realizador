@@ -623,6 +623,9 @@ startSize + dx / 2
 const anchoAnterior =
 element.offsetWidth;
 
+const altoAnterior =
+element.offsetHeight;
+
 item.size =
 nuevoSize;
 
@@ -632,8 +635,14 @@ item.size + "px";
 const anchoNuevo =
 element.offsetWidth;
 
+const altoNuevo =
+element.offsetHeight;
+
 item.x =
 item.x - ((anchoNuevo - anchoAnterior) / 2);
+
+item.y =
+item.y - ((altoNuevo - altoAnterior) / 2);
 
 element.style.fontSize =
 item.size + "px";
