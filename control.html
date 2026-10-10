@@ -548,8 +548,20 @@ item.size || 72;
 
 const startRotation =
 item.rotation || 0;   
+let modo = null;
 
 function resize(ev){
+
+if(!modo){
+
+if(modo === "resize"){
+modo = "resize";
+}
+else{
+modo = "rotate";
+}
+
+}  
 
 const dx =
 ev.clientX - startX;
@@ -562,7 +574,7 @@ item.type==="image" ||
 item.type==="gif"
 ){
 
-if(Math.abs(dx) > Math.abs(dy)){
+if(modo === "resize"){
 
 item.width =
 Math.max(
@@ -612,7 +624,7 @@ startSize + ((ev.clientX - startX) / 2)
 element.style.fontSize =
 item.size + "px";
 
-if(Math.abs(dy) > Math.abs(dx)){
+if(modo === "rotate"){
 
 item.rotation =
 startRotation + (dy * 0.5);
