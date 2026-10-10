@@ -546,10 +546,6 @@ item.width || 300;
 const startSize =
 item.size || 72;
 
-const startRotation =
-item.rotation || 0;   
-let modo = null;
-
 function resize(ev){
 
 const dx =
@@ -558,27 +554,10 @@ ev.clientX - startX;
 const dy =
 ev.clientY - startY;
 
-if(!modo){
-
-if(Math.abs(dx) > Math.abs(dy)){
-
-modo = "resize";
-
-}
-else{
-
-modo = "rotate";
-
-}
-
-}
-
 if(
 item.type==="image" ||
 item.type==="gif"
 ){
-
-if(modo === "resize"){
 
 item.width =
 Math.max(
@@ -603,23 +582,8 @@ img.offsetHeight + "px";
 }
 
 }
-else{
-
-item.rotation =
-startRotation + (dy * 0.5);
-
-element.style.transform =
-"rotate(" +
-item.rotation +
-"deg)";
-
-}
-
-}
 
 if(item.type==="text"){
-
-if(modo === "resize"){
 
 item.size =
 Math.max(
@@ -629,20 +593,6 @@ startSize + dx / 2
 
 element.style.fontSize =
 item.size + "px";
-
-}
-
-if(modo === "rotate"){
-
-item.rotation =
-startRotation + (dy * 0.5);
-
-element.style.transform =
-"rotate(" +
-item.rotation +
-"deg)";
-
-}
 
 }
 
@@ -694,10 +644,6 @@ element.style.position="absolute";
 element.style.left=item.x+"px";
 element.style.top=item.y+"px";
 element.style.overflow="visible";
-element.style.transform =
-"rotate(" +
-(item.rotation || 0) +
-"deg)";  
  
 element.onclick=(e)=>{
 
