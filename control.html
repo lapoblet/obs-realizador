@@ -114,6 +114,8 @@ document.getElementById("canvas");
 
 async function guardar(){
 
+console.log("GUARDANDO");  
+
 await setDoc(
 doc(db,"overlay","main"),
 {
@@ -723,8 +725,6 @@ element.onclick=(e)=>{
 e.stopPropagation();
 
 selectedId=item.id;
-
-render();
 
 };
 
