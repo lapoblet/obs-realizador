@@ -628,9 +628,13 @@ element.style.left=item.x+"px";
 element.style.top=item.y+"px";
 element.style.overflow="visible";
  
-element.onclick=()=>{
+element.onclick=(e)=>{
+
+e.stopPropagation();
 
 selectedId=item.id;
+
+render();
 
 };
 
@@ -657,6 +661,8 @@ await guardar();
 let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
+
+e.stopPropagation();  
   
 moviendo = true;
 
