@@ -414,7 +414,7 @@ table: 'overlay'
 },
 (payload) => {
 
-if(redimensionando || moviendo){
+if(redimensionando){
 return;
 }
 
@@ -781,7 +781,7 @@ element.style.transform =
 (item.rotation || 0) +
 "deg)";
 
- 
+/*
 element.onclick=(e)=>{
 
 e.stopPropagation();
@@ -790,7 +790,7 @@ selectedId=item.id;
 
 render();
 
-};
+};*/
 
 
 if(item.type==="text"){
@@ -819,11 +819,11 @@ element.onmousedown=(e)=>{
 e.preventDefault();
 e.stopPropagation();
 
-moviendo = true;
-
 selectedId=item.id;
 
 render();
+
+moviendo = true;
 
 startX=e.clientX;
 startY=e.clientY;
