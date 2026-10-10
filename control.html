@@ -34,6 +34,9 @@ position:absolute;
 cursor:move;
 font-weight:bold;
 user-select:none;
+display:inline-block;
+transform-origin:center center;
+white-space:nowrap;
 }
 
 .selected{
@@ -374,6 +377,9 @@ element =
 document.createElement("div");
 
 element.className="text-item";
+
+element.style.display = 
+"inline-block";  
 
 element.style.background =
 "rgba(255,255,255,0.4)";
