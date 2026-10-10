@@ -308,8 +308,6 @@ if(!item) return;
 
 if(item.type !== "text") return;
 
-console.log("color",e.target.value);
-
 item.color =
 e.target.value;
 
@@ -350,7 +348,6 @@ console.error(error);
 return;
 }
 
-console.log("SUPABASE DATA", data);
   
 items =
 data.data.items || [];
