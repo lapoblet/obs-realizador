@@ -101,6 +101,14 @@ item.color || "#ff0000";
 div.style.fontSize =
 (item.size || 72)+"px";
 
+div.style.transformOrigin =
+"center center";
+
+div.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";  
+
 overlay.appendChild(div);
 
 }
@@ -125,6 +133,14 @@ img.style.top =
 img.style.width =
 (item.width || 300)+"px";
 
+img.style.transformOrigin =
+"center center";
+
+img.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";  
+
 overlay.appendChild(img);
 
 }
@@ -148,6 +164,14 @@ img.style.top =
 
 img.style.width =
 (item.width || 300) + "px";
+
+img.style.transformOrigin =
+"center center";
+
+img.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";  
 
 overlay.appendChild(img);
 
@@ -178,6 +202,14 @@ video.style.top =
 video.style.width =
 (item.width || 600) + "px";
 
+video.style.transformOrigin =
+"center center";
+
+video.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";  
+
 overlay.appendChild(video);
 
 }  
@@ -207,6 +239,14 @@ item.height || 400;
 
 iframe.style.border =
 "none";
+
+ iframe.style.transformOrigin =
+"center center";
+
+iframe.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)"; 
 
 overlay.appendChild(iframe);
 
