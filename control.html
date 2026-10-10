@@ -137,12 +137,25 @@ document.getElementById("canvas");
 
 async function guardar(){
 
+try{
+
+console.log("GUARDANDO", items);
+
 await setDoc(
 doc(db,"overlay","main"),
 {
 items
 }
 );
+
+console.log("GUARDADO OK");
+
+}
+catch(error){
+
+console.error("ERROR FIREBASE", error);
+
+}
 
 }
 
