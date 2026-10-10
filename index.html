@@ -50,7 +50,7 @@ supabaseUrl,
 supabaseKey
 );
 
-const elementos = {};
+const elementos = new Map();
   
 async function cargar(){
 
@@ -72,200 +72,141 @@ document.getElementById("overlay");
 const items =
 data.data.items || [];
 
+const idsActuales = new Set();
+
 items.forEach(item=>{
 
 if(item.visible === false){
 return;
 }
 
+idsActuales.add(item.id);
+
+let el = elementos.get(item.id);
+
+if(!el){
+
 if(item.type==="text"){
 
-let div = elementos[item.id];
+el = document.createElement("div");
+el.className = "text-item";
 
-if(!div){
+}
 
-div = document.createElement("div");
+else if(item.type==="image" || item.type==="gif"){
 
-div.className="text-item";
+el = document.createElement("img");
 
-overlay.appendChild(div);
+}
 
-elementos[item.id] = div;
+else if(item.type==="video"){
 
-}  
+el = document.createElement("video");
 
-div.className="text-item";
+el.autoplay = true;
+el.muted = true;
+el.loop = true;
+el.playsInline = true;
 
-div.innerText =
+}
+
+else if(item.type==="embed"){
+
+el = document.createElement("iframe");
+
+el.style.border = "none";
+
+}
+
+if(!el) return;
+
+el.style.position = "absolute";
+
+overlay.appendChild(el);
+
+elementos.set(item.id, el);
+
+}
+
+if(item.type==="text"){
+
+el.innerText =
 item.text || "";
 
-div.style.left =
-(item.x || 100)+"px";
-
-div.style.top =
-(item.y || 100)+"px";
-
-div.style.color =
+el.style.color =
 item.color || "#ff0000";
 
-div.style.fontSize =
-(item.size || 72)+"px";
-
-div.style.transformOrigin =
-"center center";
-
-div.style.transform =
-"rotate(" +
-(item.rotation || 0) +
-"deg)";
-
-overlay.appendChild(div);
+el.style.fontSize =
+(item.size || 72) + "px";
 
 }
 
-if(item.type==="image"){
+else if(item.type==="image" || item.type==="gif"){
 
-const img =
-document.createElement("img");
-
-img.src =
-item.url;
-
-img.style.position =
-"absolute";
-
-img.style.left =
-(item.x || 200)+"px";
-
-img.style.top =
-(item.y || 200)+"px";
-
-img.style.width =
-(item.width || 300)+"px";
-
-img.style.transformOrigin =
-"center center";
-
-img.style.transform =
-"rotate(" +
-(item.rotation || 0) +
-"deg)";
-
-overlay.appendChild(img);
-
+if(el.src !== item.url){
+el.src = item.url;
 }
 
-if(item.type==="gif"){
-
-const img =
-document.createElement("img");
-
-img.src =
-item.url;
-
-img.style.position =
-"absolute";
-
-img.style.left =
-(item.x || 200) + "px";
-
-img.style.top =
-(item.y || 200) + "px";
-
-img.style.width =
+el.style.width =
 (item.width || 300) + "px";
 
-img.style.transformOrigin =
-"center center";
-
-img.style.transform =
-"rotate(" +
-(item.rotation || 0) +
-"deg)";
-
-overlay.appendChild(img);
-
 }
 
-if(item.type==="video"){
+else if(item.type==="video"){
 
-const video =
-document.createElement("video");
+if(el.src !== item.url){
+el.src = item.url;
+}
 
-video.src =
-item.url;
-
-video.autoplay = true;
-video.muted = true;
-video.loop = true;
-video.playsInline = true;
-
-video.style.position =
-"absolute";
-
-video.style.left =
-(item.x || 200) + "px";
-
-video.style.top =
-(item.y || 200) + "px";
-
-video.style.width =
+el.style.width =
 (item.width || 600) + "px";
 
-video.style.transformOrigin =
-"center center";
-
-video.style.transform =
-"rotate(" +
-(item.rotation || 0) +
-"deg)";
-
-overlay.appendChild(video);
-
 }
 
-if(item.type==="embed"){
+else if(item.type==="embed"){
 
-const iframe =
-document.createElement("iframe");
+if(el.src !== item.url){
+el.src = item.url;
+}
 
-iframe.src =
-item.url;
-
-iframe.style.position =
-"absolute";
-
-iframe.style.left =
-(item.x || 200) + "px";
-
-iframe.style.top =
-(item.y || 200) + "px";
-
-iframe.width =
+el.width =
 item.width || 600;
 
-iframe.height =
+el.height =
 item.height || 400;
 
-iframe.style.border =
-"none";
+}
 
-iframe.style.transformOrigin =
+el.style.left =
+(item.x || 0) + "px";
+
+el.style.top =
+(item.y || 0) + "px";
+
+el.style.transformOrigin =
 "center center";
 
-iframe.style.transform =
+el.style.transform =
 "rotate(" +
 (item.rotation || 0) +
 "deg)";
-
-overlay.appendChild(iframe);
-
-}
 
 });
 
+for(const [id, el] of elementos){
+
+if(!idsActuales.has(id)){
+
+el.remove();
+
+elementos.delete(id);
+
 }
 
+}
+
+}
+  
 cargar();
 
 const channel = supabase
@@ -277,14 +218,14 @@ event: 'UPDATE',
 schema: 'public',
 table: 'overlay'
 },
-(payload) => {
+() => {
 
 cargar();
 
 }
 )
 .subscribe();
-
+  
 </script>
 
 </body>
