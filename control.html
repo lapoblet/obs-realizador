@@ -620,14 +620,20 @@ Math.max(
 startSize + dx / 2
 );
 
-const diferencia =
-nuevoSize - item.size;
-
-item.x =
-item.x - (diferencia / 2);
+const anchoAnterior =
+element.offsetWidth;
 
 item.size =
 nuevoSize;
+
+element.style.fontSize =
+item.size + "px";
+
+const anchoNuevo =
+element.offsetWidth;
+
+item.x =
+item.x - ((anchoNuevo - anchoAnterior) / 2);
 
 element.style.fontSize =
 item.size + "px";
