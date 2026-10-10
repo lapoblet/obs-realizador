@@ -554,14 +554,18 @@ function resize(ev){
 
 if(!modo){
 
-if(modo === "resize"){
+if(Math.abs(dx) > Math.abs(dy)){
+
 modo = "resize";
+
 }
 else{
+
 modo = "rotate";
+
 }
 
-}  
+}
 
 const dx =
 ev.clientX - startX;
@@ -615,14 +619,23 @@ item.rotation +
 
 if(item.type==="text"){
 
+if(modo === "resize"){
+
 item.size =
 Math.max(
 10,
-startSize + ((ev.clientX - startX) / 2)
+startSize + dx / 2
 );
 
 element.style.fontSize =
 item.size + "px";
+
+}
+
+element.style.fontSize =
+item.size + "px";
+
+}
 
 if(modo === "rotate"){
 
