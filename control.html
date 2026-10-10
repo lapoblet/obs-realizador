@@ -401,11 +401,7 @@ render();
 function render(){
 
 canvas.innerHTML =
-`
-<div id="workspace">
-  <div id="safeArea"></div>
-</div>
-`;
+'<div id="safeArea"></div>';
 
 canvas.style.background="#f5f5f5";
 
@@ -869,9 +865,7 @@ stop
 
 };
 
-document
-.getElementById("workspace")
-.appendChild(element);
+canvas.appendChild(element);
 
 });
 
