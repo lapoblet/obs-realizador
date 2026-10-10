@@ -358,7 +358,26 @@ render();
 
 cargar();
 
-setInterval(cargar,1000);
+supabase
+.channel('overlay-changes')
+.on(
+'postgres_changes',
+{
+event: '*',
+schema: 'public',
+table: 'overlay'
+},
+(payload) => {
+
+if(redimensionando || moviendo){
+return;
+}
+
+cargar();
+
+}
+)
+.subscribe();
 
 function render(){
 
