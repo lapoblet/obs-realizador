@@ -594,6 +594,14 @@ startSize + dx / 2
 element.style.fontSize =
 item.size + "px";
 
+item.rotation =
+(startRotation || 0) + (dy * 0.5);
+
+element.style.transform =
+"rotate(" +
+item.rotation +
+"deg)";  
+
 }
 
 const ahora = Date.now();
