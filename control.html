@@ -135,6 +135,7 @@ y:100,
 size:72,
 color:"#ff0000",
 visible:true
+rotation:0
 });
 
 selectedId=id;
@@ -162,6 +163,7 @@ x:200,
 y:200,
 width:300,
 visible:true
+rotation:0
 });
 
 selectedId=id;
@@ -189,6 +191,7 @@ x:200,
 y:200,
 width:300,
 visible:true
+rotation:0  
 });
 
 selectedId=id;
@@ -253,6 +256,7 @@ x:200,
 y:200,
 width:600,
 visible:true
+rotation:0  
 });
 
 }else{
@@ -266,6 +270,7 @@ y:200,
 width:600,
 height:400,
 visible:true
+rotation:0  
 });
 
 }
@@ -530,7 +535,7 @@ redimensionando = true;
 
 e.stopPropagation();
 
-const startX = e.clientX;
+const startX = e.clientX; 
 
 const startWidth =
 item.width || 300;
@@ -538,17 +543,28 @@ item.width || 300;
 const startSize =
 item.size || 72;
 
+const startRotation =
+item.rotation || 0;   
+
 function resize(ev){
+
+const dx =
+ev.clientX - startX;
+
+const dy =
+ev.clientY - startY;  
 
 if(
 item.type==="image" ||
 item.type==="gif"
 ){
 
+if(Math.abs(dx) > Math.abs(dy)){
+
 item.width =
 Math.max(
 50,
-startWidth + (ev.clientX - startX)
+startWidth + dx
 );
 
 const img =
@@ -561,8 +577,18 @@ item.width + "px";
 
 }
 
-element.style.width =
-item.width + "px";
+}
+else{
+
+item.rotation =
+startRotation + dy;
+
+element.style.transform =
+"rotate(" +
+item.rotation +
+"deg)";
+
+}
 
 }
 
@@ -576,6 +602,18 @@ startSize + ((ev.clientX - startX) / 2)
 
 element.style.fontSize =
 item.size + "px";
+
+if(Math.abs(dy) > Math.abs(dx)){
+
+item.rotation =
+startRotation + dy;
+
+element.style.transform =
+"rotate(" +
+item.rotation +
+"deg)";
+
+}  
 
 }
 
@@ -627,6 +665,10 @@ element.style.position="absolute";
 element.style.left=item.x+"px";
 element.style.top=item.y+"px";
 element.style.overflow="visible";
+element.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";  
  
 element.onclick=(e)=>{
 
