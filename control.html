@@ -74,6 +74,11 @@ white-space:nowrap;
 outline:2px dashed #00aaff;
 }
 
+*{
+user-select:none;
+-webkit-user-select:none;
+}
+
 
 
 </style>
@@ -817,6 +822,8 @@ e.stopPropagation();
 moviendo = true;
 
 selectedId=item.id;
+
+render();
 
 startX=e.clientX;
 startY=e.clientY;
