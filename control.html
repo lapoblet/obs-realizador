@@ -584,6 +584,14 @@ img.offsetHeight + "px";
 
 }
 
+item.rotation =
+(startRotation || 0) + (dy * 0.5);
+
+element.style.transform =
+"rotate(" +
+item.rotation +
+"deg)";
+  
 }
 
 if(item.type==="text"){
@@ -655,6 +663,12 @@ element.style.position="absolute";
 element.style.left=item.x+"px";
 element.style.top=item.y+"px";
 element.style.overflow="visible";
+element.style.transformOrigin = "center center";
+element.style.transform =
+"rotate(" +
+(item.rotation || 0) +
+"deg)";
+
  
 element.onclick=(e)=>{
 
