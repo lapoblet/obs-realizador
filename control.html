@@ -562,11 +562,20 @@ item.type==="image" ||
 item.type==="gif"
 ){
 
-item.width =
+const nuevoAncho =
 Math.max(
 50,
 startWidth + dx
 );
+
+const diferencia =
+nuevoAncho - item.width;
+
+item.x =
+item.x - (diferencia / 2);
+
+item.width =
+nuevoAncho;
 
 const img =
 element.querySelector("img");
@@ -584,6 +593,9 @@ img.offsetHeight + "px";
 
 }
 
+element.style.left =
+item.x + "px";  
+
 item.rotation =
 (startRotation || 0) + (dy * 0.5);
 
@@ -596,11 +608,23 @@ item.rotation +
 
 if(item.type==="text"){
 
-item.size =
+const nuevoSize =
 Math.max(
 10,
 startSize + dx / 2
 );
+
+const diferencia =
+nuevoSize - item.size;
+
+item.x =
+item.x - (diferencia / 4);
+
+item.y =
+item.y - (diferencia / 4);
+
+item.size =
+nuevoSize;
 
 element.style.fontSize =
 item.size + "px";
