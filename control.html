@@ -44,21 +44,7 @@ white-space:nowrap;
 outline:2px dashed #00aaff;
 }
 
-#workspace{
-position:absolute;
-left:50%;
-top:50%;
-
-width:1920px;
-height:1080px;
-
-transform:
-translate(-50%,-50%)
-scale(0.5);
-
-transform-origin:center center;
-}
-  
+ 
 #safeArea{
 position:absolute;
 left:0;
@@ -764,8 +750,6 @@ element.onclick=(e)=>{
 e.stopPropagation();
 
 selectedId=item.id;
-
-render();
 
 };
 
