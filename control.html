@@ -811,8 +811,9 @@ let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
 
-e.stopPropagation();  
-  
+e.preventDefault();
+e.stopPropagation();
+
 moviendo = true;
 
 selectedId=item.id;
