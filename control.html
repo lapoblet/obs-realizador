@@ -43,15 +43,29 @@ white-space:nowrap;
 outline:2px dashed #00aaff;
 }
 
-#safeArea{
+#workspace{
 position:absolute;
 left:50%;
 top:50%;
-transform:translate(-50%,-50%);
 
-width:960px;
-height:540px;
+width:1920px;
+height:1080px;
 
+transform:
+translate(-50%,-50%)
+scale(0.5);
+
+transform-origin:center center;
+}
+  
+#safeArea{
+position:absolute;
+left:0;
+top:0;
+
+width:1920px;
+height:1080px;
+  
 border:3px solid #ff0000;
 
 box-shadow:
@@ -386,11 +400,13 @@ render();
 function render(){
 
 canvas.innerHTML =
-'<div id="safeArea"></div>';
+`
+<div id="workspace">
+  <div id="safeArea"></div>
+</div>
+`;
 
 canvas.style.background="#f5f5f5";
-
-const ESCALA = 0.5;  
 
 items.forEach(item=>{
 
@@ -415,7 +431,7 @@ element.style.color =
 item.color || "#ff0000";
 
 element.style.fontSize=
-(item.size * ESCALA)+"px";
+item.size+"px";
 
 }
 
@@ -439,7 +455,7 @@ img.style.pointerEvents = "none";
 img.src = item.url;
 
 img.style.width =
-((item.width || 300) * ESCALA)+"px";
+(item.width || 300)+"px";
 
 img.style.height="auto";
 
@@ -735,9 +751,9 @@ stopResize
   
 element.style.position="absolute";
 element.style.left=
-(item.x * ESCALA)+"px";
+item.x+"px";
 element.style.top=
-(item.y * ESCALA)+"px";
+item.y+"px";
 element.style.overflow="visible";
 element.style.transformOrigin = "center center";
 element.style.transform =
@@ -852,7 +868,9 @@ stop
 
 };
 
-canvas.appendChild(element);
+document
+.getElementById("workspace")
+.appendChild(element);
 
 });
 
