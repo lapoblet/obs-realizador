@@ -552,6 +552,12 @@ let modo = null;
 
 function resize(ev){
 
+const dx =
+ev.clientX - startX;
+
+const dy =
+ev.clientY - startY;
+
 if(!modo){
 
 if(Math.abs(dx) > Math.abs(dy)){
@@ -626,11 +632,6 @@ Math.max(
 10,
 startSize + dx / 2
 );
-
-element.style.fontSize =
-item.size + "px";
-
-}
 
 element.style.fontSize =
 item.size + "px";
