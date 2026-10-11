@@ -561,7 +561,7 @@ element.style.opacity = "0.2";
 
 if(selectedId===item.id && !redimensionando){
 
-// element.classList.add("selected");
+element.classList.add("selected");
   
 if(item.type==="text"){
 
@@ -804,10 +804,11 @@ let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
 
+console.log("ID ACTUAL:", selectedId);
+console.log("ID OBJETO:", item.id);  
+
 e.preventDefault();
 e.stopPropagation();
-
-console.log("SELECT", item.id);
   
 selectedId=item.id;
 
@@ -818,8 +819,6 @@ startY=e.clientY;
 
 startLeft=item.x;
 startTop=item.y;  
-
-console.log("MOVE");  
   
 function move(ev){
 
