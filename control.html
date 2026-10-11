@@ -809,7 +809,10 @@ e.stopPropagation();
   
 selectedId=item.id; 
 
-element.classList.add("selected");  
+canvas.querySelectorAll(".selected")
+.forEach(el => el.classList.remove("selected"));
+
+element.classList.add("selected");
 
 moviendo = true;
 
