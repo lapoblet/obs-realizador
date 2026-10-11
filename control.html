@@ -117,6 +117,14 @@ user-select:none;
 🎥 Vídeo
 </button> 
 
+<button id="toggleVisible">
+👁 Mostrar/Ocultar
+</button>
+
+<button id="eliminarElemento">
+🗑 Eliminar
+</button>   
+
 <button id="drawMode">
 🎨 Dibujar
 </button>  
@@ -133,14 +141,6 @@ value="#ff0000">
 <button id="clearDraw">
 🗑 Limpiar dibujo
 </button>  
-
-<button id="toggleVisible">
-👁 Mostrar/Ocultar
-</button>
-
-<button id="eliminarElemento">
-🗑 Eliminar
-</button> 
   
 </div>
 
@@ -187,6 +187,7 @@ drawLayer.getContext("2d");
 let drawMode = false;
 let eraserMode = false;
 let drawing = false;  
+let drawData = [];  
 
 const canvas =
 document.getElementById("canvas");
@@ -497,15 +498,40 @@ e.offsetX,
 e.offsetY
 );
 
+drawData.push({
+x:e.offsetX,
+y:e.offsetY,
+color:eraserMode ? "eraser" :
+document.getElementById("drawColor").value,
+size:eraserMode ? 30 : 5
+});
+  
 ctx.stroke();
 
 };  
 
 document.addEventListener(
 "mouseup",
-()=>{
+async ()=>{
+
+if(!drawing) return;
 
 drawing = false;
+
+const { error } =
+await supabase
+.from("overlay")
+.update({
+data:{
+items,
+drawData
+}
+})
+.eq("id","main");
+
+if(error){
+console.error(error);
+}
 
 }
 );  
@@ -530,6 +556,9 @@ return;
   
 items =
 data.data.items || [];
+
+drawData =
+data.data.drawData || [];  
 
 render();
 
