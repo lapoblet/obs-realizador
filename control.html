@@ -428,6 +428,8 @@ function render(){
 
 canvas.innerHTML = "";
 
+console.log("RENDER");  
+
 canvas.style.background="transparent";
 
 items.forEach(item=>{
@@ -803,9 +805,6 @@ await guardar();
 let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
-
-console.log("ID ACTUAL:", selectedId);
-console.log("ID OBJETO:", item.id);  
 
 e.preventDefault();
 e.stopPropagation();
