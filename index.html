@@ -93,7 +93,7 @@ const items =
 data.data.items || [];
 
 const drawData =
-data.data.drawData || [];
+data.data.drawData || [];  
 
 drawCtx.clearRect(
 0,
@@ -105,6 +105,14 @@ drawLayer.height
 let lastPoint = null;
 
 drawData.forEach(point=>{
+
+if(point.newStroke){
+
+lastPoint = null;
+
+return;
+
+}
 
 if(!lastPoint){
 
@@ -132,6 +140,8 @@ point.color;
 drawCtx.lineWidth =
 point.size;
 
+drawCtx.lineCap = "round";
+
 drawCtx.beginPath();
 
 drawCtx.moveTo(
@@ -148,8 +158,7 @@ drawCtx.stroke();
 
 lastPoint = point;
 
-});  
-
+});
 const idsActuales = new Set();
 
 items.forEach(item=>{
