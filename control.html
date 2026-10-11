@@ -807,20 +807,9 @@ element.onmousedown=(e)=>{
 e.preventDefault();
 e.stopPropagation();
 
-if(selectedId !== item.id){
-
-selectedId = item.id;
-
-render();
-
-return;
-
-}
+selectedId=item.id;
 
 moviendo = true;
-
-startX=e.clientX;
-startY=e.clientY;
 
 function move(ev){
 
