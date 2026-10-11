@@ -41,6 +41,16 @@ top:250px;
   
 }
 
+#drawLayer{
+position:absolute;
+left:0;
+top:0;
+width:3000px;
+height:2000px;
+pointer-events:none;
+z-index:100;
+}  
+
 #safeArea{
 position:absolute;
 
@@ -93,6 +103,8 @@ user-select:none;
 + Texto
 </button>
 
+<input type="color" id="color" value="#ff0000"> 
+
 <button id="nuevaImagen">
 + Imagen
 </button>
@@ -105,6 +117,23 @@ user-select:none;
 🎥 Vídeo
 </button> 
 
+<button id="nuevoDibujo">
+🎨 Dibujar
+</button>  
+
+<input
+type="color"
+id="drawColor"
+value="#ff0000">  
+
+<button id="eraserMode">
+🩹 Borrador
+</button>
+
+<button id="clearDraw">
+🗑 Limpiar dibujo
+</button>  
+
 <button id="toggleVisible">
 👁 Mostrar/Ocultar
 </button>
@@ -112,8 +141,6 @@ user-select:none;
 <button id="eliminarElemento">
 🗑 Eliminar
 </button> 
-
-<input type="color" id="color" value="#ff0000">
   
 </div>
 
@@ -122,6 +149,8 @@ user-select:none;
   <div id="safeArea"></div>
 
   <div id="canvas"></div>
+
+  <canvas id="drawLayer"></canvas>
 
 </div>
 
@@ -145,6 +174,19 @@ supabaseKey
 
 let items=[];
 let selectedId=null;
+
+const drawLayer =
+document.getElementById("drawLayer");
+
+drawLayer.width = 3000;
+drawLayer.height = 2000;
+
+const ctx =
+drawLayer.getContext("2d");
+
+let drawMode = false;
+let eraserMode = false;
+let drawing = false;  
 
 const canvas =
 document.getElementById("canvas");
@@ -375,6 +417,98 @@ item.visible = !item.visible;
 await guardar();
 
 };
+
+document.getElementById("drawMode")
+.onclick = ()=>{
+
+drawMode = true;
+eraserMode = false;
+
+drawLayer.style.pointerEvents =
+"auto";
+
+};  
+
+document.getElementById("eraserMode")
+.onclick = ()=>{
+
+drawMode = false;
+eraserMode = true;
+
+drawLayer.style.pointerEvents =
+"auto";
+
+};  
+
+document.getElementById("clearDraw")
+.onclick = ()=>{
+
+ctx.clearRect(
+0,
+0,
+drawLayer.width,
+drawLayer.height
+);
+
+};  
+
+drawLayer.onmousedown = (e)=>{
+
+drawing = true;
+
+ctx.beginPath();
+
+ctx.moveTo(
+e.offsetX,
+e.offsetY
+);
+
+};  
+
+drawLayer.onmousemove = (e)=>{
+
+if(!drawing) return;
+
+if(eraserMode){
+
+ctx.globalCompositeOperation =
+"destination-out";
+
+ctx.lineWidth = 30;
+
+}else{
+
+ctx.globalCompositeOperation =
+"source-over";
+
+ctx.strokeStyle =
+document.getElementById(
+"drawColor"
+).value;
+
+ctx.lineWidth = 5;
+
+}
+
+ctx.lineCap = "round";
+
+ctx.lineTo(
+e.offsetX,
+e.offsetY
+);
+
+ctx.stroke();
+
+};  
+
+document.addEventListener(
+"mouseup",
+()=>{
+
+drawing = false;
+
+}
+);  
 
 let redimensionando = false; 
 let moviendo = false;  
