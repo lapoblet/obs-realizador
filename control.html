@@ -475,8 +475,8 @@ drawLayer.onmousedown = (e)=>{
 drawing = true;
 
 drawData.push({
-newStroke:true
-});  
+x:e.offsetX - 500,
+y:e.offsetY - 250,
 
 ctx.beginPath();
 
