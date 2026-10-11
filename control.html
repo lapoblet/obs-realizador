@@ -836,18 +836,6 @@ item.x+"px";
 element.style.top=
 item.y+"px";
 
-const ahora = Date.now();
-
-if(!window.ultimoGuardadoMove){
-window.ultimoGuardadoMove = 0;
-}
-
-if(ahora - window.ultimoGuardadoMove > 250){
-
-window.ultimoGuardadoMove = ahora;
-
- // guardar();
-
 }
 
 }
@@ -864,8 +852,8 @@ document.removeEventListener(
 stop
 );
 
-moviendo = false;  
- 
+moviendo = false;
+
 await guardar();
 
 }
