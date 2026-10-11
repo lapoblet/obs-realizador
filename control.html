@@ -804,7 +804,7 @@ let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
 
-// e.preventDefault();
+e.preventDefault();
 e.stopPropagation();
   
 selectedId=item.id; 
@@ -835,6 +835,18 @@ item.x+"px";
 
 element.style.top=
 item.y+"px";
+
+const ahora = Date.now();
+
+if(!window.ultimoGuardadoMove){
+window.ultimoGuardadoMove = 0;
+}
+
+if(ahora - window.ultimoGuardadoMove > 250){
+
+window.ultimoGuardadoMove = ahora;
+
+guardar();  
 
 }
 
@@ -867,6 +879,8 @@ document.addEventListener(
 "mouseup",
 stop
 );
+
+};  
 
 canvas.appendChild(element);
 
