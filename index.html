@@ -25,6 +25,15 @@ font-weight:bold;
 pointer-events:none;
 }
 
+#drawLayer{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+  
 </style>
 
 </head>
@@ -32,6 +41,8 @@ pointer-events:none;
 <body>
 
 <div id="overlay"></div>
+
+<canvas id="drawLayer"></canvas>  
 
 <script type="module">
 
@@ -51,6 +62,15 @@ supabaseKey
 );
 
 const elementos = new Map();
+
+const drawLayer =
+document.getElementById("drawLayer");
+
+drawLayer.width = 1920;
+drawLayer.height = 1080;
+
+const drawCtx =
+drawLayer.getContext("2d");
   
 async function cargar(){
 
@@ -71,6 +91,64 @@ document.getElementById("overlay");
 
 const items =
 data.data.items || [];
+
+const drawData =
+data.data.drawData || [];
+
+drawCtx.clearRect(
+0,
+0,
+drawLayer.width,
+drawLayer.height
+);
+
+let lastPoint = null;
+
+drawData.forEach(point=>{
+
+if(!lastPoint){
+
+lastPoint = point;
+
+return;
+
+}
+
+if(point.color === "eraser"){
+
+drawCtx.globalCompositeOperation =
+"destination-out";
+
+}else{
+
+drawCtx.globalCompositeOperation =
+"source-over";
+
+drawCtx.strokeStyle =
+point.color;
+
+}
+
+drawCtx.lineWidth =
+point.size;
+
+drawCtx.beginPath();
+
+drawCtx.moveTo(
+lastPoint.x,
+lastPoint.y
+);
+
+drawCtx.lineTo(
+point.x,
+point.y
+);
+
+drawCtx.stroke();
+
+lastPoint = point;
+
+});  
 
 const idsActuales = new Set();
 
