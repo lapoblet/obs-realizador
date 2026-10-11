@@ -807,9 +807,9 @@ element.onmousedown=(e)=>{
 e.preventDefault();
 e.stopPropagation();
   
-selectedId=item.id;
+selectedId=item.id; 
 
-render();  
+element.classList.add("selected");  
 
 moviendo = true;
 
