@@ -572,7 +572,15 @@ item.color || "#ff0000";
 
 } 
 
-if(false){
+if(
+selectedId===item.id &&
+!redimensionando &&
+(
+item.type==="text" ||
+item.type==="image" ||
+item.type==="gif"
+)
+){
 
 const resizeHandle =
 document.createElement("div");
@@ -800,6 +808,8 @@ e.preventDefault();
 e.stopPropagation();
   
 selectedId=item.id;
+
+render();  
 
 moviendo = true;
 
