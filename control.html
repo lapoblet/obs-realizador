@@ -728,7 +728,7 @@ item.rotation +
 
 const ahora = Date.now();
 
-if(ahora - ultimoGuardado > 80){
+if(ahora - ultimoGuardado > 250){
 
 ultimoGuardado = ahora;
 
@@ -830,20 +830,20 @@ item.x+"px";
 
 element.style.top=
 item.y+"px";
-/*
+
 const ahora = Date.now();
 
 if(!window.ultimoGuardadoMove){
 window.ultimoGuardadoMove = 0;
 }
 
-if(ahora - window.ultimoGuardadoMove > 80){
+if(ahora - window.ultimoGuardadoMove > 250){
 
 window.ultimoGuardadoMove = ahora;
 
 guardar();
 
-}*/
+}
 
 }
 
