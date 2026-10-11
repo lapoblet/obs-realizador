@@ -475,8 +475,8 @@ drawLayer.onmousedown = (e)=>{
 drawing = true;
 
 drawData.push({
-x:e.offsetX - 500,
-y:e.offsetY - 250,
+newStroke:true
+});
 
 ctx.beginPath();
 
@@ -485,7 +485,7 @@ e.offsetX,
 e.offsetY
 );
 
-};  
+};
 
 drawLayer.onmousemove = (e)=>{
 
@@ -520,8 +520,8 @@ e.offsetY
 );
 
 drawData.push({
-x:e.offsetX,
-y:e.offsetY,
+x:e.offsetX - 500,
+y:e.offsetY - 250,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
