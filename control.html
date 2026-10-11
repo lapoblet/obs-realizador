@@ -442,7 +442,33 @@ drawLayer.style.pointerEvents =
 };  
 
 document.getElementById("clearDraw")
-.onclick = ()=>{
+.onclick = async ()=>{
+
+ctx.clearRect(
+0,
+0,
+drawLayer.width,
+drawLayer.height
+);
+
+drawData = [];
+
+const { error } =
+await supabase
+.from("overlay")
+.update({
+data:{
+items,
+drawData
+}
+})
+.eq("id","main");
+
+if(error){
+console.error(error);
+}
+
+};
 
 ctx.clearRect(
 0,
