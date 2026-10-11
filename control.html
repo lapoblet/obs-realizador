@@ -807,6 +807,8 @@ element.onmousedown=(e)=>{
 e.preventDefault();
 e.stopPropagation();
 
+console.log("SELECT", item.id);
+  
 selectedId=item.id;
 
 moviendo = true;
@@ -817,6 +819,8 @@ startY=e.clientY;
 startLeft=item.x;
 startTop=item.y;  
 
+console.log("MOVE");  
+  
 function move(ev){
 
 item.x=
