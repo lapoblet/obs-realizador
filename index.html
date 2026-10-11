@@ -118,6 +118,18 @@ if(!lastPoint){
 
 lastPoint = point;
 
+drawCtx.globalCompositeOperation =
+point.color === "eraser"
+? "destination-out"
+: "source-over";
+
+drawCtx.beginPath();
+
+drawCtx.moveTo(
+point.x,
+point.y
+);
+
 return;
 
 }
@@ -141,6 +153,7 @@ drawCtx.lineWidth =
 point.size;
 
 drawCtx.lineCap = "round";
+drawCtx.lineJoin = "round";
 
 drawCtx.beginPath();
 
