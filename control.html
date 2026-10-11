@@ -457,6 +457,10 @@ drawLayer.onmousedown = (e)=>{
 
 drawing = true;
 
+drawData.push({
+newStroke:true
+});  
+
 ctx.beginPath();
 
 ctx.moveTo(
@@ -501,14 +505,37 @@ e.offsetY
 drawData.push({
 x:e.offsetX,
 y:e.offsetY,
-color:eraserMode ? "eraser" :
-document.getElementById("drawColor").value,
+color:eraserMode
+? "eraser"
+: document.getElementById("drawColor").value,
 size:eraserMode ? 30 : 5
 });
-  
+
 ctx.stroke();
 
-};  
+const ahora = Date.now();
+
+if(!window.ultimoGuardadoDraw){
+window.ultimoGuardadoDraw = 0;
+}
+
+if(ahora - window.ultimoGuardadoDraw > 100){
+
+window.ultimoGuardadoDraw = ahora;
+
+supabase
+.from("overlay")
+.update({
+data:{
+items,
+drawData
+}
+})
+.eq("id","main");
+
+}
+
+};
 
 document.addEventListener(
 "mouseup",
@@ -534,7 +561,7 @@ console.error(error);
 }
 
 }
-);  
+);
 
 let redimensionando = false; 
 let moviendo = false;  
