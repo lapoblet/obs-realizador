@@ -105,6 +105,12 @@ user-select:none;
 
 <input type="color" id="color" value="#ff0000"> 
 
+<button id="selectMode">
+🖱 Seleccionar
+</button>  
+
+<input type="color" id="color" value="#ff0000">  
+
 <button id="nuevaImagen">
 + Imagen
 </button>
@@ -429,6 +435,17 @@ eraserMode = false;
 
 drawLayer.style.pointerEvents =
 "auto";
+
+};  
+
+document.getElementById("selectMode")
+.onclick = ()=>{
+
+drawMode = false;
+eraserMode = false;
+
+drawLayer.style.pointerEvents =
+"none";
 
 };  
 
