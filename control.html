@@ -70,7 +70,7 @@ z-index:1;
   
 }
 
-#twitchPreview{
+#twitch-embed{
 
 position:absolute;
 
@@ -80,13 +80,9 @@ top:100px;
 width:1920px;
 height:1080px;
 
-border:none;
-
 z-index:0;
 
-pointer-events:none;
-
-}  
+}
 
 .text-item{
 position:absolute;
@@ -172,14 +168,7 @@ value="#ff0000">
 
   <div id="safeArea"></div>
 
-<iframe
-id="twitchPreview"
-src="https://player.twitch.tv/?channel=auronplay&parent=obs-realizador.vercel.app&muted=true"
-width="1920"
-height="1080"
-frameborder="0"
-allowfullscreen>
-</iframe>
+  <div id="twitch-embed"></div>
 
   <div id="canvas"></div>
 
@@ -1141,5 +1130,24 @@ canvas.appendChild(element);
   
 </script>
 
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+<script>
+
+new Twitch.Embed(
+"twitch-embed",
+{
+width: 1920,
+height: 1080,
+channel: "auronplay",
+parent: [
+"obs-realizador.vercel.app"
+],
+muted: true
+}
+);
+
+</script>
+  
 </body>
 </html>
