@@ -33,11 +33,11 @@ position:relative;
 #canvas{
 position:relative;
 
-width:2000px;
-height:1000px;
+width:2300px;
+height:1400px;
 
-left:500px;
-top:250px;
+left:100px;
+top:100px;
   
 }
 
@@ -45,8 +45,8 @@ top:250px;
 position:absolute;
 left:0;
 top:0;
-width:3000px;
-height:2000px;
+width:2300px;
+height:1400px;
 pointer-events:none;
 z-index:100;
 }  
@@ -54,8 +54,8 @@ z-index:100;
 #safeArea{
 position:absolute;
 
-left:500px;
-top:250px;
+left:100px;
+top:100px;
 
 width:1920px;
 height:1080px;
@@ -184,8 +184,8 @@ let selectedId=null;
 const drawLayer =
 document.getElementById("drawLayer");
 
-drawLayer.width = 3000;
-drawLayer.height = 2000;
+drawLayer.width = 2300;
+drawLayer.height = 1400;
 
 const ctx =
 drawLayer.getContext("2d");
@@ -537,8 +537,8 @@ e.offsetY
 );
 
 drawData.push({
-x:e.offsetX - 500,
-y:e.offsetY - 250,
+x:e.offsetX - 100,
+y:e.offsetY - 100,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
