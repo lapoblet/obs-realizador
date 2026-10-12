@@ -1134,16 +1134,36 @@ canvas.appendChild(element);
 
 <script>
 
+var embed =
 new Twitch.Embed(
 "twitch-embed",
 {
 width: 1920,
 height: 1080,
+
 channel: "auronplay",
+
+layout: "video",
+
+muted: true,
+
+autoplay: false,
+
 parent: [
 "obs-realizador.vercel.app"
-],
-muted: true
+]
+}
+);
+
+embed.addEventListener(
+Twitch.Embed.VIDEO_READY,
+() => {
+
+var player =
+embed.getPlayer();
+
+player.play();
+
 }
 );
 
