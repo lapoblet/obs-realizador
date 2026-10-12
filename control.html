@@ -70,6 +70,24 @@ z-index:1;
   
 }
 
+#twitchPreview{
+
+position:absolute;
+
+left:100px;
+top:100px;
+
+width:1920px;
+height:1080px;
+
+border:none;
+
+z-index:0;
+
+pointer-events:none;
+
+}  
+
 .text-item{
 position:absolute;
 cursor:move;
@@ -153,6 +171,12 @@ value="#ff0000">
 <div id="workspace">
 
   <div id="safeArea"></div>
+
+  <iframe
+id="twitchPreview"
+src="https://player.twitch.tv/?channel=auronplay&parent=https://obs-realizador.vercel.app/control.html"
+allowfullscreen>
+</iframe>
 
   <div id="canvas"></div>
 
