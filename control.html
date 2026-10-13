@@ -84,7 +84,6 @@ pointer-events:none;
 
 #twitch-embed iframe{
 pointer-events:none !important;
-}
 
 }
 
@@ -1130,12 +1129,11 @@ canvas.appendChild(element);
   
 </script>
 
-<script src="https://embed.twitch.tv/embed/v1.js"></script>
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 
 <script>
 
-var embed =
-new Twitch.Embed(
+var player = new Twitch.Player(
 "twitch-embed",
 {
 width: 1920,
@@ -1143,11 +1141,9 @@ height: 1080,
 
 channel: "auronplay",
 
-layout: "video",
-
 muted: true,
 
-autoplay: false,
+autoplay: true,
 
 parent: [
 "obs-realizador.vercel.app"
@@ -1155,14 +1151,17 @@ parent: [
 }
 );
 
-embed.addEventListener(
-Twitch.Embed.VIDEO_READY,
-() => {
+player.addEventListener(
+Twitch.Player.READY,
+function() {
 
-var player =
-embed.getPlayer();
+player.setMuted(true);
+
+setTimeout(function(){
 
 player.play();
+
+},1000);
 
 }
 );
