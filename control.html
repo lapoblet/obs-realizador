@@ -39,7 +39,6 @@ height:1400px;
 left:100px;
 top:100px;
 
-z-index:1;
 pointer-events:none;
   
 }
@@ -85,7 +84,6 @@ pointer-events:none;
 
 #twitch-embed iframe{
 pointer-events:none !important;
-
 }
 
 .text-item{
@@ -1054,6 +1052,8 @@ canvas.querySelectorAll(".selected")
 
 element.classList.add("selected");
 
+element.style.zIndex = "10000";  
+
 moviendo = true;
 
 startX=e.clientX;
@@ -1105,6 +1105,8 @@ stop
 );
 
 moviendo = false;
+
+element.style.zIndex = "10";  
 
 await guardar();
 
