@@ -1012,7 +1012,7 @@ stopResize
   
 element.style.position="absolute";
 element.style.position = "absolute";
-element.style.zIndex = "20000";
+element.style.zIndex = "10";
 element.style.left = item.x + "px";
 element.style.top = item.y + "px";
 element.style.overflow="visible";
@@ -1054,8 +1054,6 @@ canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
 
 element.classList.add("selected");
-
-element.style.zIndex = "20000";  
 
 moviendo = true;
 
@@ -1110,7 +1108,7 @@ stop
 moviendo = false;
 
 element.style.position = "absolute";
-element.style.zIndex = "20000";
+element.style.zIndex = "10";
 
 await guardar();
 
