@@ -33,6 +33,8 @@ position:relative;
 #canvas{
 position:relative;
 
+z-index:5;  
+
 width:2300px;
 height:1400px;
 
@@ -1009,7 +1011,8 @@ stopResize
 }  
   
 element.style.position="absolute";
-element.style.zIndex = "10";
+element.style.position = "absolute";
+element.style.zIndex = "20000";
 element.style.left = item.x + "px";
 element.style.top = item.y + "px";
 element.style.overflow="visible";
@@ -1052,7 +1055,7 @@ canvas.querySelectorAll(".selected")
 
 element.classList.add("selected");
 
-element.style.zIndex = "10000";  
+element.style.zIndex = "20000";  
 
 moviendo = true;
 
@@ -1106,7 +1109,8 @@ stop
 
 moviendo = false;
 
-element.style.zIndex = "10";  
+element.style.position = "absolute";
+element.style.zIndex = "20000";
 
 await guardar();
 
