@@ -71,18 +71,13 @@ z-index:1;
 }
 
 #twitch-embed{
-
 position:absolute;
-
 left:100px;
 top:100px;
-
 width:1920px;
 height:1080px;
-
 z-index:9999;
-
-pointer-events:none;
+}
 
 }
 
@@ -167,17 +162,10 @@ value="#ff0000">
 </div>
 
 <div id="workspace">
-
   <div id="safeArea"></div>
-
-  <div id="twitch-embed">
-
-      <div id="canvas"></div>
-
-  </div>
-
+  <div id="twitch-embed"></div>
+  <div id="canvas"></div>
   <canvas id="drawLayer"></canvas>
-
 </div>
 
 
@@ -1171,14 +1159,6 @@ player.play();
 
 }
 );
-
-setTimeout(()=>{
-
-document.getElementById(
-"twitch-embed"
-).style.zIndex = 0;
-
-},5000);  
 
 </script>
   
