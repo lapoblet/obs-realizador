@@ -68,12 +68,29 @@ z-index:1;
   
 }
 
+#twitch-embed{
+position:absolute;
+
+left:100px;
+top:100px;
+
+width:1920px;
+height:1080px;
+
+overflow:hidden;
+
+z-index:0;
+}
+  
 #youtubeFrame{
 position:absolute;
+
 left:0;
 top:0;
+
 width:100%;
 height:100%;
+
 border:none;
 }
   
@@ -171,12 +188,8 @@ value="#ff0000">
 
 <iframe
 id="youtubeFrame"
-width="100%"
-height="100%"
 src="https://www.youtube.com/embed/hqU2GCOxGQ0?autoplay=1&mute=1"
-title="YouTube live"
-frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allow="autoplay; fullscreen"
 allowfullscreen>
 </iframe>
 
