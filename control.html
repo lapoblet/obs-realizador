@@ -178,24 +178,21 @@ value="#ff0000">
 
   <div id="twitch-embed">
 
+    <img
+      id="previewFrame"
+      src="https://static-cdn.jtvnw.net/previews-ttv/live_user_el_yuste-1920x1080.jpg"
+      style="
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      "
+    >
+
   </div>
 
   <div id="canvas"></div>
 
   <canvas id="drawLayer"></canvas>
-
-</div>
-
-<div id="twitch-embed">
-
-<img
-id="previewFrame"
-src="https://static-cdn.jtvnw.net/previews-ttv/live_user_el_yuste-1920x1080.jpg"
-style="
-width:100%;
-height:100%;
-object-fit:cover;
-">
 
 </div>
 
@@ -1170,11 +1167,15 @@ setInterval(() => {
 const img =
 document.getElementById("previewFrame");
 
+if(img){
+
 img.src =
 "https://static-cdn.jtvnw.net/previews-ttv/live_user_el_yuste-1920x1080.jpg?t=" +
 Date.now();
 
-},2000);  
+}
+
+},2000);
   
 </script>
 
