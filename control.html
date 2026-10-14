@@ -74,12 +74,7 @@ left:100px;
 top:100px;
 width:1920px;
 height:1080px;
-z-index:9999;
-pointer-events:none;
-}
-
-#twitch-embed iframe{
-pointer-events:none !important;
+z-index:0;
 }
   
 .text-item{
@@ -164,9 +159,24 @@ value="#ff0000">
 
 <div id="workspace">
   <div id="safeArea"></div>
-  <div id="twitch-embed"></div>
   <div id="canvas"></div>
   <canvas id="drawLayer"></canvas>
+</div>
+
+<div id="twitch-embed">
+
+<iframe
+src="https://player.twitch.tv/?channel=auronplay&parent=obs-realizador.vercel.app&muted=true"
+width="1920"
+height="1080"
+allowfullscreen
+style="
+width:100%;
+height:100%;
+border:none;
+">
+</iframe>
+
 </div>
 
 
@@ -1128,44 +1138,7 @@ canvas.appendChild(element);
   
 </script>
 
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 
-<script>
-
-var player = new Twitch.Player(
-"twitch-embed",
-{
-width: 1920,
-height: 1080,
-
-channel: "lapoblet",
-
-muted: true,
-
-autoplay: true,
-
-parent: [
-"obs-realizador.vercel.app"
-]
-}
-);
-
-player.addEventListener(
-Twitch.Player.READY,
-function() {
-
-player.setMuted(true);
-
-setTimeout(function(){
-
-player.play();
-
-},1000);
-
-}
-);
-
-</script>
   
 </body>
 </html>
