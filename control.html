@@ -178,13 +178,6 @@ value="#ff0000">
 
   <div id="twitch-embed">
 
-<iframe
-id="twitchFrame"
-allow="autoplay; fullscreen"
-src="https://player.twitch.tv/?channel=el_yuste&parent=obs-realizador.vercel.app&autoplay=true&muted=true"
-allowfullscreen>
-</iframe>
-
   </div>
 
   <div id="canvas"></div>
@@ -193,7 +186,18 @@ allowfullscreen>
 
 </div>
 
+<div id="twitch-embed">
 
+<img
+id="previewFrame"
+src="https://static-cdn.jtvnw.net/previews-ttv/live_user_el_yuste-1920x1080.jpg"
+style="
+width:100%;
+height:100%;
+object-fit:cover;
+">
+
+</div>
 
 
 <script type="module">
@@ -1160,6 +1164,17 @@ document.getElementById("twitchFrame");
 frame.src = frame.src;
 
 };
+
+setInterval(() => {
+
+const img =
+document.getElementById("previewFrame");
+
+img.src =
+"https://static-cdn.jtvnw.net/previews-ttv/live_user_el_yuste-1920x1080.jpg?t=" +
+Date.now();
+
+},2000);  
   
 </script>
 
