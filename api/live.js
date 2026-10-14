@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const url =
     `https://www.googleapis.com/youtube/v3/search` +
     `?part=snippet` +
-    `&channelId=UCLKpB5WGbfi1GH2zMNzx4DA` +
+    `&channelId=UChs0pSaEoNLV4mevBFGaoKA` +
     `&eventType=live` +
     `&type=video` +
     `&maxResults=1` +
