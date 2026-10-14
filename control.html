@@ -74,19 +74,13 @@ left:100px;
 top:100px;
 width:1920px;
 height:1080px;
-overflow:hidden;
-border:4px solid green;
-z-index:0;
+z-index:9999;
+pointer-events:none;
 }
 
-#twitchFrame{
-position:absolute;
-left:0;
-top:0;
-width:100%;
-height:100%;
-border:none;
-}  
+#twitch-embed iframe{
+pointer-events:none !important;
+} 
   
 .text-item{
 position:absolute;
