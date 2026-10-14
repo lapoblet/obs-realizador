@@ -68,19 +68,24 @@ z-index:1;
   
 }
 
+#twitchFrame{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+border:none;
+}
+
 #twitch-embed{
 position:absolute;
 left:100px;
 top:100px;
 width:1920px;
 height:1080px;
-z-index:9999;
-pointer-events:none;
-}
-
-#twitch-embed iframe{
-pointer-events:none !important;
-} 
+overflow:hidden;
+z-index:0;
+}  
   
 .text-item{
 position:absolute;
@@ -163,18 +168,22 @@ value="#ff0000">
 </div>
 
 <div id="workspace">
+
   <div id="safeArea"></div>
+
+  <div id="twitch-embed">
+
+    <iframe
+      id="twitchFrame"
+      src="https://player.twitch.tv/?channel=el_yuste&parent=obs-realizador.vercel.app&autoplay=false&muted=true"
+      allowfullscreen>
+    </iframe>
+
+  </div>
+
   <div id="canvas"></div>
+
   <canvas id="drawLayer"></canvas>
-</div>
-
-<div id="twitch-embed">
-
-<iframe
-id="twitchFrame"
-src="https://player.twitch.tv/?channel=el_yuste&parent=obs-realizador.vercel.app&autoplay=true&muted=true"
-allowfullscreen>
-</iframe>
 
 </div>
 
