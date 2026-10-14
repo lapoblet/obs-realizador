@@ -187,12 +187,12 @@ value="#ff0000">
 
   <div id="twitch-embed">
 
-    <iframe
-    id="youtubeFrame"
-    src="https://www.youtube.com/embed/hqU2GCOxGQ0?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&disablekb=1"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-    </iframe>
+ <iframe
+id="youtubeFrame"
+src="about:blank"
+allow="autoplay; fullscreen"
+allowfullscreen>
+</iframe>
 
   </div>
 
@@ -1156,6 +1156,52 @@ canvas.appendChild(element);
 });
 
 }
+
+async function actualizarDirecto() {
+
+  try {
+
+    const response =
+      await fetch("/api/live");
+
+    const data =
+      await response.json();
+
+    if (
+      !data.live ||
+      !data.videoId
+    ) {
+      return;
+    }
+
+    const frame =
+      document.getElementById(
+        "youtubeFrame"
+      );
+
+    const nuevaUrl =
+      `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&disablekb=1`;
+
+    if (
+      frame.src !== nuevaUrl
+    ) {
+      frame.src = nuevaUrl;
+    }
+
+  } catch(err) {
+
+    console.error(err);
+
+  }
+
+}
+
+actualizarDirecto();
+
+setInterval(
+  actualizarDirecto,
+  60000
+);
   
 </script>
 
