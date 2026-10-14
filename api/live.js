@@ -1,30 +1,19 @@
 export default async function handler(req, res) {
 
-  const API_KEY = process.env.YOUTUBE_API_KEY;
+  try {
 
-const url =
-  `https://www.googleapis.com/youtube/v3/search` +
-  `?part=snippet` +
-  `&channelId=UCLKpB5WGbfi1GH2zMNzx4DA` +
-  `&order=date` +
-  `&type=video` +
-  `&maxResults=10` +
-  `&key=${API_KEY}`;
-
-  const response = await fetch(url);
-  const data = await response.json();
-
-  if (!data.items || data.items.length === 0) {
+    const API_KEY = process.env.YOUTUBE_API_KEY;
 
     return res.status(200).json({
-      live: false
+      apiKeyExiste: !!API_KEY
+    });
+
+  } catch (err) {
+
+    return res.status(500).json({
+      error: err.message
     });
 
   }
-
-  return res.status(200).json(data);
-    live: true,
-    videoId: data.items[0].id.videoId
-  });
 
 }
