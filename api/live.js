@@ -5,15 +5,26 @@ export default async function handler(req, res) {
   const url =
     `https://www.googleapis.com/youtube/v3/search` +
     `?part=snippet` +
-    `&channelId=UChs0pSaEoNLV4mevBFGaoKA` +
-    `&type=video` +
+    `&channelId=UCLKpB5WGbfi1GH2zMNzx4DA` +
     `&order=date` +
-    `&maxResults=5` +
+    `&type=video` +
+    `&maxResults=1` +
     `&key=${API_KEY}`;
 
   const response = await fetch(url);
   const data = await response.json();
 
-  return res.status(200).json(data);
+  if (!data.items || !data.items.length) {
+
+    return res.status(200).json({
+      live:false
+    });
+
+  }
+
+  return res.status(200).json({
+    live:true,
+    videoId:data.items[0].id.videoId
+  });
 
 }
