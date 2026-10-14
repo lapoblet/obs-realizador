@@ -83,9 +83,8 @@ left:100px;
 top:100px;
 width:1920px;
 height:1080px;
-overflow:hidden;
 z-index:0;
-}  
+}
   
 .text-item{
 position:absolute;
@@ -167,8 +166,8 @@ value="#ff0000">
 
 <span style="margin-left:100px;"></span> 
 
-<button id="playTwitch">
-▶ Iniciar Twitch
+<button id="playVideo">
+▶ PLAY
 </button>  
   
 </div>
@@ -181,7 +180,8 @@ value="#ff0000">
 
 <iframe
 id="twitchFrame"
-src="https://player.twitch.tv/?channel=el_yuste&parent=obs-realizador.vercel.app&autoplay=false&muted=true"
+allow="autoplay; fullscreen"
+src="https://player.twitch.tv/?channel=el_yuste&parent=obs-realizador.vercel.app&autoplay=true&muted=true"
 allowfullscreen>
 </iframe>
 
