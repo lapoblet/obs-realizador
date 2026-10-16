@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const searchResponse = await fetch(
       `https://www.googleapis.com/youtube/v3/search` +
       `?part=snippet` +
-      `&channelId=UC-KNOeH9Cz2Ch3HMujlaTow` +
+      `&channelId=UCRsUoZYC1ULUspipMRnMhwg` +
       `&eventType=live` +
       `&type=video` +
       `&maxResults=1` +
