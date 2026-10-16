@@ -14,14 +14,30 @@ export default async function handler(req, res) {
       `&key=${API_KEY}`
     );
 
-    const searchData = await searchResponse.json();
+    const searchData =
+      await searchResponse.json();
 
-    return res.status(200).json(searchData);
+    if (
+      !searchData.items ||
+      searchData.items.length === 0
+    ) {
+
+      return res.status(200).json({
+        live:false
+      });
+
+    }
+
+    return res.status(200).json({
+      live:true,
+      videoId:
+        searchData.items[0].id.videoId
+    });
 
   } catch(err) {
 
     return res.status(500).json({
-      error: err.message
+      error:err.message
     });
 
   }
