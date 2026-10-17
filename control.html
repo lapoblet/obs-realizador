@@ -25,7 +25,7 @@ margin-right:10px;
 #workspace{
 height:calc(100vh - 60px);
 background:#ccc;
-overflow:auto;
+overflow:hidden;
 
 display:flex;
 justify-content:center;
@@ -109,9 +109,12 @@ zoom:0.50;
 width:2300px;
 height:1400px;
 
-position:relative;
+position:absolute;
 
-margin:350px auto 0 auto;
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
 }
   
 .text-item{
