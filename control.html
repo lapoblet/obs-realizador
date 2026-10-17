@@ -97,6 +97,10 @@ border:none;
 pointer-events:none;  
 }
 
+#editorArea{
+zoom:0.65;
+}  
+
   
 .text-item{
 position:absolute;
@@ -131,7 +135,7 @@ user-select:none;
 🖱 Seleccionar
 </button>    
 
-<span style="margin-left:30;"></span>     
+<span style="margin-left:100 px;"></span>     
 
 <button id="nuevaImagen">
 + Imagen
@@ -159,7 +163,7 @@ user-select:none;
 🗑 Eliminar
 </button>  
 
-<span style="margin-left:30;"></span>  
+<span style="margin-left:100 px;"></span>  
 
 <button id="drawMode">
 🎨 Dibujar
@@ -183,6 +187,8 @@ value="#ff0000">
 
 <div id="workspace">
 
+  <div id="editorArea">
+  
     <div id="safeArea"></div>
 
     <div id="twitch-embed">
@@ -199,6 +205,8 @@ allowfullscreen>
     <div id="canvas"></div>
 
     <canvas id="drawLayer"></canvas>
+
+  </div>
 
   </div>
 
