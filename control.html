@@ -606,8 +606,8 @@ e.offsetY / EDITOR_SCALE
 );
 
 drawData.push({
-x:(e.offsetX / EDITOR_SCALE) - 100,
-y:(e.offsetY / EDITOR_SCALE) - 100,
+x:e.offsetX,
+y:e.offsetY,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
