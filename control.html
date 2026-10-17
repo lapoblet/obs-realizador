@@ -115,8 +115,7 @@ left:50%;
 top:50%;
 
 transform:translate(-50%,-50%);
-
-border:6px solid lime;  
+ 
 }
   
 .text-item{
@@ -600,13 +599,13 @@ ctx.lineWidth = 5;
 ctx.lineCap = "round";
 
 ctx.lineTo(
-e.offsetX,
-e.offsetY
+e.offsetX / EDITOR_SCALE,
+e.offsetY / EDITOR_SCALE
 );
 
 drawData.push({
-x:e.offsetX - 100,
-y:e.offsetY - 100,
+x:(e.offsetX / EDITOR_SCALE) - 100,
+y:(e.offsetY / EDITOR_SCALE) - 100,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
