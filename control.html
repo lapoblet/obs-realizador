@@ -107,7 +107,7 @@ position:relative;
 width:2300px;
 height:1400px;
 
-transform:scale(0.65);
+zoom:0.65;
 transform-origin:top center;
 }  
   
@@ -1106,8 +1106,6 @@ startLeft=item.x;
 startTop=item.y;  
   
 function move(ev){
-
-const SCALE = 0.65;  
 
 item.x=
 startLeft+(ev.clientX-startX);
