@@ -30,6 +30,7 @@ position:relative;
 display:flex;
 justify-content:center;
 align-items:flex-start;
+zoom:0.65;  
 }
 
 #canvas{
@@ -241,6 +242,8 @@ let drawData = [];
 
 const canvas =
 document.getElementById("canvas");
+
+const EDITOR_SCALE = 0.65;  
 
 async function guardar(){
 
@@ -1085,19 +1088,24 @@ element.classList.add("selected");
 
 moviendo = true;
 
-startX=e.clientX;
-startY=e.clientY;
+startX =
+e.clientX / EDITOR_SCALE;
+
+startY =
+e.clientY / EDITOR_SCALE;
 
 startLeft=item.x;
 startTop=item.y;  
   
 function move(ev){
 
-item.x=
-startLeft+(ev.clientX-startX);
+item.x =
+startLeft +
+((ev.clientX / EDITOR_SCALE) - startX);
 
-item.y=
-startTop+(ev.clientY-startY);
+item.y =
+startTop +
+((ev.clientY / EDITOR_SCALE) - startY);
 
 element.style.left=
 item.x+"px";
