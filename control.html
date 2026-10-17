@@ -27,6 +27,9 @@ height:calc(100vh - 60px);
 background:#ccc;
 overflow:auto;
 position:relative;
+display:flex;
+justify-content:center;
+align-items:flex-start;
   
 }
 
@@ -97,6 +100,16 @@ border:none;
 
 pointer-events:none;  
 }
+
+#viewport{
+position:relative;
+
+width:2300px;
+height:1400px;
+
+transform:scale(0.65);
+transform-origin:top center;
+}  
   
 .text-item{
 position:absolute;
@@ -183,9 +196,11 @@ value="#ff0000">
 
 <div id="workspace">
 
-  <div id="safeArea"></div>
+  <div id="viewport">
 
-  <div id="twitch-embed">
+    <div id="safeArea"></div>
+
+    <div id="twitch-embed">
 
  <iframe
 id="youtubeFrame"
@@ -196,9 +211,11 @@ allowfullscreen>
 
   </div>
 
-  <div id="canvas"></div>
+    <div id="canvas"></div>
 
-  <canvas id="drawLayer"></canvas>
+    <canvas id="drawLayer"></canvas>
+
+  </div>
 
 </div>
 
