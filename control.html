@@ -567,8 +567,8 @@ newStroke:true
 ctx.beginPath();
 
 ctx.moveTo(
-e.offsetX,
-e.offsetY
+e.offsetX / EDITOR_SCALE,
+e.offsetY / EDITOR_SCALE
 );
 
 };
@@ -601,13 +601,13 @@ ctx.lineWidth = 5;
 ctx.lineCap = "round";
 
 ctx.lineTo(
-e.offsetX,
-e.offsetY
+e.offsetX / EDITOR_SCALE,
+e.offsetY / EDITOR_SCALE
 );
 
 drawData.push({
-x:e.offsetX,
-y:e.offsetY,
+x:e.offsetX / EDITOR_SCALE,
+y:e.offsetY / EDITOR_SCALE,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
