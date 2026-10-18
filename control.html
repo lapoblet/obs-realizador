@@ -367,78 +367,73 @@ document.getElementById("nuevoVideo")
 .onclick = async ()=>{
 
 const url =
-prompt("Pega la URL del vídeo");
+prompt("Pega una URL de YouTube");
 
 if(!url) return;
 
 const id =
 Date.now().toString();
 
-let finalUrl = url;
+let videoId = null;
 
 if(url.includes("youtube.com/watch?v=")){
 
-const videoId =
-url.split("watch?v=")[1].split("&")[0];
-
-finalUrl =
-"https://www.youtube.com/embed/" +
-videoId;
+videoId =
+url.split("watch?v=")[1]
+.split("&")[0];
 
 }
 
 else if(url.includes("youtu.be/")){
 
-const videoId =
-url.split("youtu.be/")[1].split("?")[0];
-
-finalUrl =
-"https://www.youtube.com/embed/" +
-videoId;
+videoId =
+url.split("youtu.be/")[1]
+.split("?")[0];
 
 }
 
-else if(url.includes("tiktok.com")){
+else if(url.includes("youtube.com/shorts/")){
 
-finalUrl =
-"https://www.tiktok.com/embed/v2/" +
-url.split("/video/")[1]?.split("?")[0];
+videoId =
+url.split("/shorts/")[1]
+.split("?")[0];
 
 }
 
-if(
-url.toLowerCase().endsWith(".mp4") ||
-url.toLowerCase().includes(".mp4?")
-){
+if(!videoId){
+
+alert(
+"Solo se admiten URLs de YouTube por ahora"
+);
+
+return;
+
+}
 
 items.push({
-id,
-type:"video",
-url:url,
-x:200,
-y:200,
-width:600,
-visible:false,
-rotation:0  
-});
 
-}else{
-
-items.push({
 id,
+
 type:"embed",
-url:finalUrl,
+
+url:
+"https://www.youtube.com/embed/" +
+videoId +
+"?autoplay=1&mute=1&playsinline=1",
+
 x:200,
 y:200,
+
 width:600,
 height:400,
+
 visible:false,
-rotation:0  
+
+rotation:0
+
 });
 
-}
-
-selectedId=id;
+selectedId = id;
 
 await guardar();
 
@@ -834,6 +829,11 @@ item.width || 600;
 
 element.height =
 item.height || 400;
+
+element.allow =
+"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+
+element.allowFullscreen = true;
 
 element.style.border =
 "2px solid red";
