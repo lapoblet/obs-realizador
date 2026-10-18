@@ -818,27 +818,42 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-element =
+const wrapper =
+document.createElement("div");
+
+wrapper.style.display = "inline-block";
+wrapper.style.lineHeight = "0";
+wrapper.style.cursor = "move";
+
+wrapper.style.width =
+(item.width || 600) + "px";
+
+wrapper.style.height =
+(item.height || 400) + "px";
+
+const iframe =
 document.createElement("iframe");
 
-element.src =
+iframe.src =
 item.url;
 
-element.width =
-item.width || 600;
+iframe.width = "100%";
+iframe.height = "100%";
 
-element.height =
-item.height || 400;
-
-element.allow =
+iframe.allow =
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
 
-element.allowFullscreen = true;
+iframe.allowFullscreen = true;
 
-element.style.pointerEvents = "none";  
+iframe.style.border =
+"2px solid red";
 
-element.style.cursor =
-"move";
+iframe.style.pointerEvents =
+"none";
+
+wrapper.appendChild(iframe);
+
+element = wrapper;
 
 }
 
