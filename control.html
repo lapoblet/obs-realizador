@@ -835,8 +835,7 @@ element.allow =
 
 element.allowFullscreen = true;
 
-element.style.border =
-"2px solid red";
+element.style.pointerEvents = "none";  
 
 element.style.cursor =
 "move";
@@ -871,7 +870,8 @@ selectedId===item.id &&
 (
 item.type==="text" ||
 item.type==="image" ||
-item.type==="gif"
+item.type==="gif" ||
+item.type==="embed"
 )
 ){
 
@@ -921,7 +921,8 @@ ev.clientY - startY;
 
 if(
 item.type==="image" ||
-item.type==="gif"
+item.type==="gif" ||
+item.type==="embed"
 ){
 
 const nuevoAncho =
