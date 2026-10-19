@@ -721,7 +721,11 @@ function render(){
 
 canvas.innerHTML = ""; 
 
-console.log("RENDER REAL");
+console.log(
+document.getElementById(
+"embed-" + selectedId
+)
+);  
 
 canvas.style.background="transparent";
 
@@ -827,6 +831,8 @@ if(item.type==="embed"){
 
 const wrapper =
 document.createElement("div");
+
+wrapper.id = "embed-" + item.id;  
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
@@ -1126,8 +1132,7 @@ seleccionando = true;
 e.preventDefault();
 e.stopPropagation();
   
-selectedId=item.id; 
-console.log("SELECCION");   
+selectedId=item.id;  
 
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
