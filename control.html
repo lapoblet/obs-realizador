@@ -662,7 +662,8 @@ console.error(error);
 );
 
 let redimensionando = false; 
-let moviendo = false;  
+let moviendo = false; 
+let seleccionando = false;  
   
 async function cargar(){
 
@@ -702,7 +703,11 @@ table: 'overlay'
 },
 (payload) => {
 
-if(redimensionando || moviendo){
+if(
+redimensionando ||
+moviendo ||
+seleccionando
+){
 return;
 }
 
@@ -1116,6 +1121,8 @@ let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
 
+seleccionando = true;  
+
 e.preventDefault();
 e.stopPropagation();
   
@@ -1185,6 +1192,8 @@ moviendo = false;
 
 element.style.position = "absolute";
 element.style.zIndex = "10";
+
+seleccionando = false; 
 
 await guardar();
 
