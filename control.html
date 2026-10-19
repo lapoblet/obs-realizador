@@ -247,6 +247,8 @@ supabaseKey
 
 let items=[];
 let selectedId=null;
+  
+let ignorarMiUpdate = false;  
 
 const drawLayer =
 document.getElementById("drawLayer");
@@ -269,16 +271,24 @@ const EDITOR_SCALE = 0.50;
 
 async function guardar(){
 
-const { error } =
-await supabase
-.from("overlay")
-.update({
-data: { items }
-})
-.eq("id","main");
+    ignorarMiUpdate = true;
 
-if(error){
-console.error(error);
+    const { error } =
+    await supabase
+    .from("overlay")
+    .update({
+        data:{ items }
+    })
+    .eq("id","main");
+
+    setTimeout(() => {
+        ignorarMiUpdate = false;
+    },300);
+
+    if(error){
+        console.error(error);
+    }
+
 }
 
 }
@@ -702,11 +712,15 @@ table: 'overlay'
 },
 (payload) => {
 
-console.log("UPDATE LLEGANDO");
+if(
+    redimensionando ||
+    moviendo ||
+    ignorarMiUpdate
+){
+    return;
+}
 
-return;
-
-// cargar();
+cargar();
 
 }
 )
