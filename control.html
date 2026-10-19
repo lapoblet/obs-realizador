@@ -717,6 +717,8 @@ cargar();
 )
 .subscribe();
 
+const embedCache = {};  
+
 function render(){
 
 canvas.innerHTML = ""; 
@@ -829,32 +831,24 @@ element = wrapper;
 
 if(item.type==="embed"){
 
+if(embedCache[item.id]){
+
+element = embedCache[item.id];
+
+}else{
+
 const wrapper =
 document.createElement("div");
-
-wrapper.id = "embed-" + item.id;  
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
 wrapper.style.cursor = "move";
 
-wrapper.style.width =
-(item.width || 600) + "px";
-
-wrapper.style.height =
-(item.height || 400) + "px";
-
 const iframe =
 document.createElement("iframe");
 
-console.log(
-"CREANDO IFRAME",
-item.id
-);
-
 iframe.src =
 item.url;
-
 
 iframe.width = "100%";
 iframe.height = "100%";
@@ -872,7 +866,17 @@ iframe.style.pointerEvents =
 
 wrapper.appendChild(iframe);
 
+embedCache[item.id] = wrapper;
+
 element = wrapper;
+
+}
+
+element.style.width =
+(item.width || 600) + "px";
+
+element.style.height =
+(item.height || 400) + "px";
 
 }
 
