@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">  
+<meta charset="utf-8">
 <title>Panel del Realizador</title>
 
 <style>
@@ -9,8 +9,6 @@
 body{
 margin:0;
 font-family:Arial;
-
-overflow:hidden;  
 }
 
 .toolbar{
@@ -27,31 +25,26 @@ margin-right:10px;
 #workspace{
 height:calc(100vh - 60px);
 background:#ccc;
-overflow:hidden;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
+overflow:auto;
 position:relative;
+  
 }
-
 
 #canvas{
 position:relative;
 z-index:5;
-width:1920px;
-height:1080px;
-left:190;
-top:160;
+width:2300px;
+height:1400px;
+left:100px;
+top:100px;
 }
 
 #drawLayer{
 position:absolute;
-left:190px;
-top:160px;
-width:1920px;
-height:1080px;
+left:0;
+top:0;
+width:2300px;
+height:1400px;
 pointer-events:none;
 z-index:100;
 }  
@@ -59,8 +52,8 @@ z-index:100;
 #safeArea{
 position:absolute;
 
-left:190px;
-top:160px;
+left:100px;
+top:100px;
 
 width:1920px;
 height:1080px;
@@ -78,8 +71,8 @@ z-index:1;
 #twitch-embed{
 position:absolute;
 
-left:190px;
-top:160px;
+left:100px;
+top:100px;
 
 width:1920px;
 height:1080px;
@@ -103,21 +96,6 @@ height:100%;
 border:none;
 
 pointer-events:none;  
-}
-
-#editorArea{
-zoom:0.50; 
-
-width:2300px;
-height:1400px;
-
-position:absolute;
-
-left:50%;
-top:50%;
-
-transform:translate(-50%,-50%);
- 
 }
   
 .text-item{
@@ -205,11 +183,9 @@ value="#ff0000">
 
 <div id="workspace">
 
-  <div id="editorArea">
-  
-    <div id="safeArea"></div>
+  <div id="safeArea"></div>
 
-    <div id="twitch-embed">
+  <div id="twitch-embed">
 
  <iframe
 id="youtubeFrame"
@@ -220,13 +196,11 @@ allowfullscreen>
 
   </div>
 
-    <div id="canvas"></div>
+  <div id="canvas"></div>
 
-    <canvas id="drawLayer"></canvas>
+  <canvas id="drawLayer"></canvas>
 
-  </div>
-
-  </div>
+</div>
 
 <script type="module">
 
@@ -251,8 +225,8 @@ let selectedId=null;
 const drawLayer =
 document.getElementById("drawLayer");
 
-drawLayer.width = 1920;
-drawLayer.height = 1080;
+drawLayer.width = 2300;
+drawLayer.height = 1400;
 
 const ctx =
 drawLayer.getContext("2d");
@@ -264,8 +238,6 @@ let drawData = [];
 
 const canvas =
 document.getElementById("canvas");
-
-const EDITOR_SCALE = 0.50;  
 
 async function guardar(){
 
@@ -367,73 +339,78 @@ document.getElementById("nuevoVideo")
 .onclick = async ()=>{
 
 const url =
-prompt("Pega una URL de YouTube");
+prompt("Pega la URL del vídeo");
 
 if(!url) return;
 
 const id =
 Date.now().toString();
 
-let videoId = null;
+let finalUrl = url;
 
 if(url.includes("youtube.com/watch?v=")){
 
-videoId =
-url.split("watch?v=")[1]
-.split("&")[0];
+const videoId =
+url.split("watch?v=")[1].split("&")[0];
+
+finalUrl =
+"https://www.youtube.com/embed/" +
+videoId;
 
 }
 
 else if(url.includes("youtu.be/")){
 
-videoId =
-url.split("youtu.be/")[1]
-.split("?")[0];
+const videoId =
+url.split("youtu.be/")[1].split("?")[0];
+
+finalUrl =
+"https://www.youtube.com/embed/" +
+videoId;
 
 }
 
-else if(url.includes("youtube.com/shorts/")){
+else if(url.includes("tiktok.com")){
 
-videoId =
-url.split("/shorts/")[1]
-.split("?")[0];
-
-}
-
-if(!videoId){
-
-alert(
-"Solo se admiten URLs de YouTube por ahora"
-);
-
-return;
+finalUrl =
+"https://www.tiktok.com/embed/v2/" +
+url.split("/video/")[1]?.split("?")[0];
 
 }
+
+if(
+url.toLowerCase().endsWith(".mp4") ||
+url.toLowerCase().includes(".mp4?")
+){
 
 items.push({
-
 id,
-
-type:"embed",
-
-url:
-"https://www.youtube.com/embed/" +
-videoId +
-"?autoplay=1&mute=1&playsinline=1",
-
+type:"video",
+url:url,
 x:200,
 y:200,
-
 width:600,
-height:400,
-
 visible:false,
-
-rotation:0
-
+rotation:0  
 });
 
-selectedId = id;
+}else{
+
+items.push({
+id,
+type:"embed",
+url:finalUrl,
+x:200,
+y:200,
+width:600,
+height:400,
+visible:false,
+rotation:0  
+});
+
+}
+
+selectedId=id;
 
 await guardar();
 
@@ -562,8 +539,8 @@ newStroke:true
 ctx.beginPath();
 
 ctx.moveTo(
-e.offsetX / EDITOR_SCALE,
-e.offsetY / EDITOR_SCALE
+e.offsetX,
+e.offsetY
 );
 
 };
@@ -596,13 +573,13 @@ ctx.lineWidth = 5;
 ctx.lineCap = "round";
 
 ctx.lineTo(
-e.offsetX / EDITOR_SCALE,
-e.offsetY / EDITOR_SCALE
+e.offsetX,
+e.offsetY
 );
 
 drawData.push({
-x:e.offsetX / EDITOR_SCALE,
-y:e.offsetY / EDITOR_SCALE,
+x:e.offsetX - 100,
+y:e.offsetY - 100,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
@@ -662,8 +639,7 @@ console.error(error);
 );
 
 let redimensionando = false; 
-let moviendo = false; 
-let seleccionando = false;  
+let moviendo = false;  
   
 async function cargar(){
 
@@ -701,35 +677,25 @@ event: 'UPDATE',
 schema: 'public',
 table: 'overlay'
 },
-
 (payload) => {
 
-if(
-    redimensionando ||
-    moviendo ||
-    seleccionando
-){
-    return;
-}
-
-if(document.hasFocus()){
-    return;
+if(redimensionando || moviendo){
+return;
 }
 
 cargar();
 
 }
-  
 )
 .subscribe();
 
 function render(){
 
-canvas.innerHTML = "";  
+canvas.innerHTML = ""; 
 
 canvas.style.background="transparent";
 
-items.forEach(item=>{  
+items.forEach(item=>{
 
 let element;
 
@@ -829,66 +795,25 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-const existente =
-document.getElementById(
-"embed-" + item.id
-);
-
-if(existente){
-
-element = existente;
-
-}else{
-
-const wrapper =
-document.createElement("div");
-
-wrapper.id =
-"embed-" + item.id;
-
-wrapper.style.display = "inline-block";
-wrapper.style.lineHeight = "0";
-wrapper.style.cursor = "move";
-
-wrapper.style.width =
-(item.width || 600) + "px";
-
-wrapper.style.height =
-(item.height || 400) + "px";
-
-const iframe =
+element =
 document.createElement("iframe");
 
-iframe.src =
+element.src =
 item.url;
 
-iframe.width = "100%";
-iframe.height = "100%";
+element.width =
+item.width || 600;
 
-iframe.allow =
-"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+element.height =
+item.height || 400;
 
-iframe.allowFullscreen = true;
-
-iframe.style.border =
+element.style.border =
 "2px solid red";
 
-iframe.style.pointerEvents =
-"none";
-
-wrapper.appendChild(iframe);
-
-element = wrapper;
+element.style.cursor =
+"move";
 
 }
-
-}
-
-element.style.width =
-(item.width || 600) + "px";
-
-element.style.height =
-(item.height || 400) + "px";
 
 if(!element) return;
 
@@ -968,8 +893,7 @@ ev.clientY - startY;
 
 if(
 item.type==="image" ||
-item.type==="gif" ||
-item.type==="embed"
+item.type==="gif"
 ){
 
 const nuevoAncho =
@@ -1146,103 +1070,31 @@ let startX,startY,startLeft,startTop;
 
 element.onmousedown=(e)=>{
 
-seleccionando = true;  
-
 e.preventDefault();
 e.stopPropagation();
   
-selectedId=item.id;
-
-if(item.type==="embed"){
-
-moviendo = true;
-
-startX =
-e.clientX / EDITOR_SCALE;
-
-startY =
-e.clientY / EDITOR_SCALE;
-
-startLeft=item.x;
-startTop=item.y;
-
-function move(ev){
-
-item.x =
-startLeft +
-((ev.clientX / EDITOR_SCALE) - startX);
-
-item.y =
-startTop +
-((ev.clientY / EDITOR_SCALE) - startY);
-
-element.style.left =
-item.x + "px";
-
-element.style.top =
-item.y + "px";
-
-}
-
-function stop(){
-
-document.removeEventListener(
-"mousemove",
-move
-);
-
-document.removeEventListener(
-"mouseup",
-stop
-);
-
-moviendo = false;
-
-}
-
-document.addEventListener(
-"mousemove",
-move
-);
-
-document.addEventListener(
-"mouseup",
-stop
-);
-
-return;
-
-} 
-
-if(item.type !== "embed"){
+selectedId=item.id; 
 
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
 
 element.classList.add("selected");
 
-}
-
 moviendo = true;
 
-startX =
-e.clientX / EDITOR_SCALE;
-
-startY =
-e.clientY / EDITOR_SCALE;
+startX=e.clientX;
+startY=e.clientY;
 
 startLeft=item.x;
 startTop=item.y;  
   
 function move(ev){
 
-item.x =
-startLeft +
-((ev.clientX / EDITOR_SCALE) - startX);
+item.x=
+startLeft+(ev.clientX-startX);
 
-item.y =
-startTop +
-((ev.clientY / EDITOR_SCALE) - startY);
+item.y=
+startTop+(ev.clientY-startY);
 
 element.style.left=
 item.x+"px";
@@ -1283,12 +1135,6 @@ moviendo = false;
 element.style.position = "absolute";
 element.style.zIndex = "10";
 
-seleccionando = false; 
-
-setTimeout(() => {
-    seleccionando = false;
-}, 500);  
-
 await guardar();
 
 }
@@ -1305,20 +1151,7 @@ stop
 
 };  
 
-if(item.type !== "embed"){
-    element.classList.add("render-item");
-}  
-
-if(
-item.type==="embed" &&
-element.parentNode === canvas
-){
-
-}else{
-
 canvas.appendChild(element);
-
-}
 
 });
 
