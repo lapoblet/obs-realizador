@@ -823,8 +823,22 @@ element = wrapper;
 
 if(item.type==="embed"){
 
+const existente =
+document.getElementById(
+"embed-" + item.id
+);
+
+if(existente){
+
+element = existente;
+
+}else{
+
 const wrapper =
 document.createElement("div");
+
+wrapper.id =
+"embed-" + item.id;
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
@@ -859,6 +873,8 @@ iframe.style.pointerEvents =
 wrapper.appendChild(iframe);
 
 element = wrapper;
+
+}
 
 }
 
@@ -1283,7 +1299,16 @@ if(item.type !== "embed"){
     element.classList.add("render-item");
 }  
 
+if(
+item.type==="embed" &&
+element.parentNode === canvas
+){
+
+}else{
+
 canvas.appendChild(element);
+
+}
 
 });
 
