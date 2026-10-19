@@ -245,6 +245,8 @@ supabaseUrl,
 supabaseKey
 );
 
+const embeds = new Map();  
+
 let items=[];
 let selectedId=null;
 
@@ -818,31 +820,27 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-let existente =
-document.getElementById(
-"embed-" + item.id
-);
+if(embeds.has(item.id)){
 
-if(existente){
-
-element = existente;
+element = embeds.get(item.id);
 
 }else{
+
+const wrapper =
+document.createElement("div");
+
+wrapper.style.display = "inline-block";
+wrapper.style.lineHeight = "0";
+wrapper.style.cursor = "move";
 
 const iframe =
 document.createElement("iframe");
 
-iframe.id =
-"embed-" + item.id;
-
 iframe.src =
 item.url;
 
-iframe.width =
-item.width || 600;
-
-iframe.height =
-item.height || 400;
+iframe.width = "100%";
+iframe.height = "100%";
 
 iframe.allow =
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
@@ -855,9 +853,22 @@ iframe.style.border =
 iframe.style.pointerEvents =
 "none";
 
-element = iframe;
+wrapper.appendChild(iframe);
+
+embeds.set(
+item.id,
+wrapper
+);
+
+element = wrapper;
 
 }
+
+element.style.width =
+(item.width || 600) + "px";
+
+element.style.height =
+(item.height || 400) + "px";
 
 }
 
@@ -1205,15 +1216,20 @@ stop
 };  
 
 if(
-item.type==="embed" &&
-document.getElementById(
-"embed-" + item.id
-)
+item.type==="embed"
 ){
-}else{
-    canvas.appendChild(element);
+
+if(
+!canvas.contains(element)
+){
+canvas.appendChild(element);
 }
 
+}else{
+
+canvas.appendChild(element);
+
+}
 
 });
 
