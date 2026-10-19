@@ -896,8 +896,7 @@ selectedId===item.id &&
 (
 item.type==="text" ||
 item.type==="image" ||
-item.type==="gif" ||
-item.type==="embed"
+item.type==="gif"
 )
 ){
 
@@ -1136,10 +1135,14 @@ if(item.type==="embed"){
     return;
 }  
 
+if(item.type !== "embed"){
+
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
 
 element.classList.add("selected");
+
+}
 
 moviendo = true;
 
