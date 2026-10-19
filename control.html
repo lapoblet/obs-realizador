@@ -818,27 +818,31 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-const wrapper =
-document.createElement("div");
+let existente =
+document.getElementById(
+"embed-" + item.id
+);
 
-wrapper.style.display = "inline-block";
-wrapper.style.lineHeight = "0";
-wrapper.style.cursor = "move";
+if(existente){
 
-wrapper.style.width =
-(item.width || 600) + "px";
+element = existente;
 
-wrapper.style.height =
-(item.height || 400) + "px";
+}else{
 
 const iframe =
 document.createElement("iframe");
 
+iframe.id =
+"embed-" + item.id;
+
 iframe.src =
 item.url;
 
-iframe.width = "100%";
-iframe.height = "100%";
+iframe.width =
+item.width || 600;
+
+iframe.height =
+item.height || 400;
 
 iframe.allow =
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
@@ -851,9 +855,9 @@ iframe.style.border =
 iframe.style.pointerEvents =
 "none";
 
-wrapper.appendChild(iframe);
+element = iframe;
 
-element = wrapper;
+}
 
 }
 
@@ -1200,7 +1204,16 @@ stop
 
 };  
 
-canvas.appendChild(element);
+if(
+item.type==="embed" &&
+document.getElementById(
+"embed-" + item.id
+)
+){
+}else{
+    canvas.appendChild(element);
+}
+
 
 });
 
