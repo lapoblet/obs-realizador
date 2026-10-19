@@ -1129,11 +1129,68 @@ seleccionando = true;
 e.preventDefault();
 e.stopPropagation();
   
-selectedId=item.id;  
+selectedId=item.id;
 
 if(item.type==="embed"){
-    return;
-}  
+
+moviendo = true;
+
+startX =
+e.clientX / EDITOR_SCALE;
+
+startY =
+e.clientY / EDITOR_SCALE;
+
+startLeft=item.x;
+startTop=item.y;
+
+function move(ev){
+
+item.x =
+startLeft +
+((ev.clientX / EDITOR_SCALE) - startX);
+
+item.y =
+startTop +
+((ev.clientY / EDITOR_SCALE) - startY);
+
+element.style.left =
+item.x + "px";
+
+element.style.top =
+item.y + "px";
+
+}
+
+function stop(){
+
+document.removeEventListener(
+"mousemove",
+move
+);
+
+document.removeEventListener(
+"mouseup",
+stop
+);
+
+moviendo = false;
+
+}
+
+document.addEventListener(
+"mousemove",
+move
+);
+
+document.addEventListener(
+"mouseup",
+stop
+);
+
+return;
+
+} 
 
 if(item.type !== "embed"){
 
