@@ -831,6 +831,12 @@ element = wrapper;
 
 if(item.type==="embed"){
 
+console.log(
+"EMBED CACHE",
+item.id,
+!!embedCache[item.id]
+);  
+
 if(embedCache[item.id]){
 
 element = embedCache[item.id];
