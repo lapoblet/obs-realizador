@@ -721,7 +721,9 @@ const embedCache = {};
 
 function render(){
 
-canvas.innerHTML = ""; 
+canvas.querySelectorAll(
+".render-item"
+).forEach(el => el.remove());
 
 console.log(
 document.getElementById(
@@ -1232,6 +1234,10 @@ stop
 );
 
 };  
+
+if(item.type !== "embed"){
+    element.classList.add("render-item");
+}  
 
 canvas.appendChild(element);
 
