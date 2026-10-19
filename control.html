@@ -839,6 +839,8 @@ item.id,
 !!embedCache[item.id]
 );  
 
+element.dataset.embed = "1";  
+
 if(embedCache[item.id]){
 
 element = embedCache[item.id];
@@ -916,8 +918,7 @@ selectedId===item.id &&
 (
 item.type==="text" ||
 item.type==="image" ||
-item.type==="gif" ||
-item.type==="embed"
+item.type==="gif"
 )
 ){
 
