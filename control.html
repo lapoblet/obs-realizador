@@ -723,6 +723,14 @@ canvas.innerHTML = "";
 
 canvas.style.background="transparent";
 
+const embeds = [];
+
+items.forEach(item=>{
+    if(item.type==="embed"){
+        embeds.push(item);
+        return;
+    }  
+
 items.forEach(item=>{
 
 let element;
