@@ -701,11 +701,21 @@ event: 'UPDATE',
 schema: 'public',
 table: 'overlay'
 },
+
 (payload) => {
 
-return;
+if(
+    redimensionando ||
+    moviendo ||
+    seleccionando
+){
+    return;
+}
+
+cargar();
 
 }
+  
 )
 .subscribe();
 
@@ -1270,6 +1280,10 @@ element.style.position = "absolute";
 element.style.zIndex = "10";
 
 seleccionando = false; 
+
+setTimeout(() => {
+    seleccionando = false;
+}, 500);  
 
 await guardar();
 
