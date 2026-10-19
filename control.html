@@ -1132,6 +1132,10 @@ e.stopPropagation();
   
 selectedId=item.id;  
 
+if(item.type==="embed"){
+    return;
+}  
+
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
 
