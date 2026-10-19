@@ -823,26 +823,18 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-console.log(
-"EMBED CACHE",
-item.id,
-!!embedCache[item.id]
-);  
-
-element.dataset.embed = "1";  
-
-if(embedCache[item.id]){
-
-element = embedCache[item.id];
-
-}else{
-
 const wrapper =
 document.createElement("div");
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
 wrapper.style.cursor = "move";
+
+wrapper.style.width =
+(item.width || 600) + "px";
+
+wrapper.style.height =
+(item.height || 400) + "px";
 
 const iframe =
 document.createElement("iframe");
@@ -865,8 +857,6 @@ iframe.style.pointerEvents =
 "none";
 
 wrapper.appendChild(iframe);
-
-embedCache[item.id] = wrapper;
 
 element = wrapper;
 
