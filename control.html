@@ -247,8 +247,6 @@ supabaseKey
 
 let items=[];
 let selectedId=null;
-  
-let ignorarMiUpdate = false;  
 
 const drawLayer =
 document.getElementById("drawLayer");
@@ -271,23 +269,17 @@ const EDITOR_SCALE = 0.50;
 
 async function guardar(){
 
-    ignorarMiUpdate = true;
+const { error } =
+await supabase
+.from("overlay")
+.update({
+data: { items }
+})
+.eq("id","main");
 
-    const { error } =
-    await supabase
-    .from("overlay")
-    .update({
-        data:{ items }
-    })
-    .eq("id","main");
-
-    setTimeout(() => {
-        ignorarMiUpdate = false;
-    },300);
-
-    if(error){
-        console.error(error);
-    }
+if(error){
+console.error(error);
+}
 
 }
 
@@ -710,12 +702,8 @@ table: 'overlay'
 },
 (payload) => {
 
-if(
-    redimensionando ||
-    moviendo ||
-    ignorarMiUpdate
-){
-    return;
+if(redimensionando || moviendo){
+return;
 }
 
 cargar();
@@ -725,8 +713,6 @@ cargar();
 .subscribe();
 
 function render(){
-
-console.trace("RENDER"); 
 
 canvas.innerHTML = ""; 
 
@@ -1148,12 +1134,8 @@ e.clientY / EDITOR_SCALE;
 
 startLeft=item.x;
 startTop=item.y;  
-
-let huboMovimiento = false;  
   
 function move(ev){
-
-huboMovimiento = true;  
 
 item.x =
 startLeft +
@@ -1202,9 +1184,7 @@ moviendo = false;
 element.style.position = "absolute";
 element.style.zIndex = "10";
 
-if(huboMovimiento){
-    await guardar();
-}
+await guardar();
 
 }
 
