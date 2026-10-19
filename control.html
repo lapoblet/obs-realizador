@@ -245,8 +245,6 @@ supabaseUrl,
 supabaseKey
 );
 
-const embeds = new Map();  
-
 let items=[];
 let selectedId=null;
 
@@ -820,18 +818,18 @@ element = wrapper;
 
 if(item.type==="embed"){
 
-if(embeds.has(item.id)){
-
-element = embeds.get(item.id);
-
-}else{
-
 const wrapper =
 document.createElement("div");
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
 wrapper.style.cursor = "move";
+
+wrapper.style.width =
+(item.width || 600) + "px";
+
+wrapper.style.height =
+(item.height || 400) + "px";
 
 const iframe =
 document.createElement("iframe");
@@ -855,20 +853,7 @@ iframe.style.pointerEvents =
 
 wrapper.appendChild(iframe);
 
-embeds.set(
-item.id,
-wrapper
-);
-
 element = wrapper;
-
-}
-
-element.style.width =
-(item.width || 600) + "px";
-
-element.style.height =
-(item.height || 400) + "px";
 
 }
 
@@ -1215,21 +1200,7 @@ stop
 
 };  
 
-if(
-item.type==="embed"
-){
-
-if(
-!canvas.contains(element)
-){
 canvas.appendChild(element);
-}
-
-}else{
-
-canvas.appendChild(element);
-
-}
 
 });
 
