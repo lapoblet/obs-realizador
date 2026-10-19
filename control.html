@@ -1127,6 +1127,8 @@ e.preventDefault();
 e.stopPropagation();
   
 selectedId=item.id; 
+console.log("SELECCION");  
+console.log("RENDER");  
 
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
@@ -1170,7 +1172,7 @@ if(ahora - window.ultimoGuardadoMove > 50){
 
 window.ultimoGuardadoMove = ahora;
 
-//guardar();  
+guardar();  
 
 }
 
