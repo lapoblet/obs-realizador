@@ -702,6 +702,8 @@ table: 'overlay'
 },
 (payload) => {
 
+console.log("UPDATE LLEGADO");
+
 if(redimensionando || moviendo){
 return;
 }
@@ -710,6 +712,8 @@ cargar();
 
 }
 )
+.subscribe();
+
 .subscribe();
 
 function render(){
