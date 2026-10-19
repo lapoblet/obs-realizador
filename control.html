@@ -714,9 +714,7 @@ cargar();
 
 function render(){
 
-canvas.querySelectorAll(
-":not([data-embed='true'])"
-).forEach(el => el.remove());
+canvas.innerHTML = ""; 
 
 canvas.style.background="transparent";
 
@@ -822,8 +820,6 @@ if(item.type==="embed"){
 
 const wrapper =
 document.createElement("div");
-
-wrapper.dataset.embed = "true";  
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
@@ -1204,29 +1200,7 @@ stop
 
 };  
 
-if(
-item.type==="embed"
-){
-
-const existe =
-canvas.querySelector(
-`[data-item-id="${item.id}"]`
-);
-
-if(!existe){
-
-element.dataset.itemId =
-item.id;
-
 canvas.appendChild(element);
-
-}
-
-}else{
-
-canvas.appendChild(element);
-
-}
 
 });
 
