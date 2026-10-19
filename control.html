@@ -714,8 +714,7 @@ cargar();
 
 function render(){
 
-canvas.querySelectorAll(".render-item")
-.forEach(el => el.remove());
+canvas.innerHTML = ""; 
 
 canvas.style.background="transparent";
 
@@ -1201,12 +1200,7 @@ stop
 
 };  
 
-if(item.type !== "embed"){
-    element.classList.add("render-item");
-}
-
 canvas.appendChild(element);
-
 
 });
 
