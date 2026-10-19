@@ -714,7 +714,8 @@ cargar();
 
 function render(){
 
-canvas.innerHTML = ""; 
+canvas.querySelectorAll(".render-item")
+.forEach(el => el.remove());
 
 canvas.style.background="transparent";
 
@@ -1157,9 +1158,11 @@ if(!window.ultimoGuardadoMove){
 window.ultimoGuardadoMove = 0;
 }
 
-if(false){
+if(ahora - window.ultimoGuardadoMove > 50){
 
-    guardar();
+window.ultimoGuardadoMove = ahora;
+
+guardar();  
 
 }
 
@@ -1198,7 +1201,12 @@ stop
 
 };  
 
+if(item.type !== "embed"){
+    element.classList.add("render-item");
+}
+
 canvas.appendChild(element);
+
 
 });
 
