@@ -721,7 +721,7 @@ function render(){
 
 canvas.innerHTML = ""; 
 
-console.trace("RENDER");
+console.log("RENDER REAL");
 
 canvas.style.background="transparent";
 
@@ -1127,8 +1127,7 @@ e.preventDefault();
 e.stopPropagation();
   
 selectedId=item.id; 
-console.log("SELECCION");  
-console.log("RENDER");  
+console.log("SELECCION");   
 
 canvas.querySelectorAll(".selected")
 .forEach(el => el.classList.remove("selected"));
