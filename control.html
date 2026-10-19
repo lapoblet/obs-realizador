@@ -717,19 +717,9 @@ cargar();
 )
 .subscribe();
 
-const embedCache = {};  
-
 function render(){
 
-canvas.querySelectorAll(
-".render-item"
-).forEach(el => el.remove());
-
-console.log(
-document.getElementById(
-"embed-" + selectedId
-)
-);  
+canvas.innerHTML = "";  
 
 canvas.style.background="transparent";
 
