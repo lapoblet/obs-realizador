@@ -265,6 +265,8 @@ let drawData = [];
 const canvas =
 document.getElementById("canvas");
 
+const elementos = new Map();  
+
 const EDITOR_SCALE = 0.50;  
 
 async function guardar(){
@@ -714,7 +716,7 @@ cargar();
 
 function render(){
 
-canvas.innerHTML = ""; 
+canvas.replaceChildren();
 
 canvas.style.background="transparent";
 
