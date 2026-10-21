@@ -452,6 +452,18 @@ item => item.id !== selectedId
 
 selectedId = null;
 
+elementos.forEach((el,id)=>{
+
+    if(!items.find(i=>i.id===id)){
+
+        el.remove();
+
+        elementos.delete(id);
+
+    }
+
+});  
+
 render();  
 
 await guardar();
@@ -908,9 +920,14 @@ if(!elementos.has(item.id)){
 
 if(item.visible === false){
 
-element.style.opacity = "0.2";
+    element.style.opacity = "0.2";
+
+}else{
+
+    element.style.opacity = "1";
 
 }
+
 
 element.classList.remove("selected");
   
