@@ -14,8 +14,16 @@ export default async function handler(req, res) {
       `&key=${API_KEY}`
     );
 
-    const searchData =
-      await searchResponse.json();
+const searchData =
+  await searchResponse.json();
+
+if(searchData.error){
+
+  return res.status(200).json({
+    youtubeError: searchData.error
+  });
+
+}
 
     if (
       !searchData.items ||
