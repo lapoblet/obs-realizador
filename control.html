@@ -1224,7 +1224,11 @@ stop
 
 };  
 
-canvas.appendChild(element);
+if(!element.parentNode){
+
+    canvas.appendChild(element);
+
+}
 
 });
 
