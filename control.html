@@ -912,7 +912,13 @@ element.classList.remove("selected");
   
 if(selectedId===item.id && !redimensionando){
 
-element.classList.add("selected");
+    element.classList.add("selected");
+
+}else{
+
+    element.classList.remove("selected");
+
+}
   
 if(item.type==="text"){
 
