@@ -890,6 +890,14 @@ element
 
 if(!element) return;
 
+if(!elementos.has(item.id)){
+
+    elementos.set(
+        item.id,
+        element
+    );
+
+}
 
 if(item.visible === false){
 
