@@ -926,6 +926,10 @@ document.getElementById("color").value =
 item.color || "#ff0000";
 
 }  
+  
+element
+.querySelectorAll(".resize-handle")
+.forEach(el => el.remove());
 
 if(
 selectedId===item.id &&
@@ -940,7 +944,8 @@ item.type==="embed"
 
 const resizeHandle =
 document.createElement("div");
-  
+
+resizeHandle.className = "resize-handle";  
 resizeHandle.style.position = "absolute";
 resizeHandle.style.width = "18px";
 resizeHandle.style.height = "18px";
