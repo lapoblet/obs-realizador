@@ -43,7 +43,9 @@ pointer-events:none;
 <div id="overlay"></div>
 
 <canvas id="drawLayer"></canvas>  
-
+  
+<script src="https://www.youtube.com/iframe_api"></script>
+  
 <script type="module">
 
 import { createClient }
@@ -214,7 +216,7 @@ el.playsInline = true;
 
 else if(item.type==="embed"){
 
-    el = document.createElement("iframe");
+    el = document.createElement("div");
 
     el.style.border = "none";
 
