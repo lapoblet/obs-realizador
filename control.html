@@ -999,6 +999,13 @@ Math.max(
 startWidth + dx
 );
 
+if(item.type==="embed"){
+
+    item.height =
+    nuevoAncho * 0.6667;
+
+}  
+
 const diferencia =
 nuevoAncho - item.width;
 
@@ -1011,16 +1018,33 @@ nuevoAncho;
 const img =
 element.querySelector("img");
 
+const iframe =
+element.querySelector("iframe");
+
 if(img){
 
-img.style.width =
-item.width + "px";
+    img.style.width =
+    item.width + "px";
 
-element.style.width =
-item.width + "px";
+    element.style.width =
+    item.width + "px";
 
-element.style.height =
-img.offsetHeight + "px";
+    element.style.height =
+    img.offsetHeight + "px";
+
+}
+
+if(iframe){
+
+    element.style.width =
+    item.width + "px";
+
+    iframe.style.width = "100%";
+
+    iframe.style.height = "100%";
+
+    element.style.height =
+    (item.height || 400) + "px";
 
 }
 
