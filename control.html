@@ -714,7 +714,7 @@ cargar();
 )
 .subscribe();
 
-function render(){
+function render(){ 
 
 canvas.replaceChildren();
 
@@ -818,7 +818,16 @@ element = wrapper;
 
 }
 
+let existente =
+elementos.get(item.id);
+  
 if(item.type==="embed"){
+
+if(existente){
+
+element = existente;
+
+}else{  
 
 const wrapper =
 document.createElement("div");
@@ -857,6 +866,13 @@ wrapper.appendChild(iframe);
 
 element = wrapper;
 
+elementos.set(
+item.id,
+element
+);
+
+}
+  
 }
 
 if(!element) return;
