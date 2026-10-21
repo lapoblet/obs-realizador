@@ -428,11 +428,18 @@ return;
 
 }
 
+const esShort =
+url.includes(
+"youtube.com/shorts/"
+);
+  
 items.push({
 
 id,
 
 type:"embed",
+
+isShort: esShort,  
 
 url:
 "https://www.youtube.com/embed/" +
@@ -442,8 +449,8 @@ videoId +
 x:200,
 y:200,
 
-width:600,
-height:400,
+width: esShort ? 338 : 600,
+height: esShort ? 600 : 400,
 
 visible:false,
 
@@ -1090,8 +1097,17 @@ startWidth + dx
 
 if(item.type==="embed"){
 
+if(item.isShort){
+
+    item.height =
+    nuevoAncho * 1.7778;
+
+}else{
+
     item.height =
     nuevoAncho * 0.6667;
+
+}
 
 }  
 
