@@ -163,31 +163,15 @@ user-select:none;
 🎞 GIF
 </button>
 
+<button id="nuevoVideo">
+🎥 Vídeo
+</button> 
+
 <button id="nuevoTexto">
 + Texto
 </button>
 
-<input type="color" id="color" value="#ff0000">  
-
-<span style="margin-left:100px;"></span>   
-
-<button id="nuevoVideo">
-🎥 Vídeo
-</button>   
-
-<button id="playVideo">
-▶ Play
-</button>
-
-<button id="pauseVideo">
-⏸ Pausa
-</button>
-
-<button id="restartVideo">
-🔄 Reiniciar
-</button>  
-
-<span style="margin-left:100px;"></span>   
+<input type="color" id="color" value="#ff0000">   
 
 <button id="toggleVisible">
 👁 Mostrar/Ocultar
@@ -437,7 +421,7 @@ type:"embed",
 url:
 "https://www.youtube.com/embed/" +
 videoId +
-"?autoplay=0&playsinline=1&enablejsapi=1",
+"?autoplay=1&mute=1&playsinline=1",
 
 x:200,
 y:200,
@@ -447,11 +431,7 @@ height:400,
 
 visible:false,
 
-rotation:0,
-
-playerState:"paused",
-
-volume:100
+rotation:0
 
 });
 
@@ -485,54 +465,6 @@ elementos.forEach((el,id)=>{
 });  
 
 render();  
-
-await guardar();
-
-};  
-
-document.getElementById("playVideo")
-.onclick = async ()=>{
-
-if(!selectedId) return;
-
-const item =
-items.find(i => i.id === selectedId);
-
-if(!item || item.type !== "embed") return;
-
-item.playerState = "play";
-
-await guardar();
-
-};
-
-document.getElementById("pauseVideo")
-.onclick = async ()=>{
-
-if(!selectedId) return;
-
-const item =
-items.find(i => i.id === selectedId);
-
-if(!item || item.type !== "embed") return;
-
-item.playerState = "pause";
-
-await guardar();
-
-};
-
-document.getElementById("restartVideo")
-.onclick = async ()=>{
-
-if(!selectedId) return;
-
-const item =
-items.find(i => i.id === selectedId);
-
-if(!item || item.type !== "embed") return;
-
-item.playerState = "restart";
 
 await guardar();
 
