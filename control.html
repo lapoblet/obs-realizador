@@ -428,18 +428,11 @@ return;
 
 }
 
-const esShort =
-url.includes(
-"youtube.com/shorts/"
-);
-  
 items.push({
 
 id,
 
 type:"embed",
-
-isShort: esShort,  
 
 url:
 "https://www.youtube.com/embed/" +
@@ -449,8 +442,8 @@ videoId +
 x:200,
 y:200,
 
-width: esShort ? 405 : 600,
-height: esShort ? 720 : 400,
+width:600,
+height:400,
 
 visible:false,
 
@@ -952,27 +945,11 @@ wrapper.style.height =
 const iframe =
 document.createElement("iframe");
 
-if(item.isShort){
-
-    wrapper.style.overflow = "hidden";
-
-}  
-
 iframe.src =
 item.url;
 
-if(item.isShort){
-
-    iframe.style.width = "180%";
-    iframe.style.height = "100%";
-    iframe.style.marginLeft = "-40%";
-
-}else{
-
-    iframe.width = "100%";
-    iframe.height = "100%";
-
-}
+iframe.width = "100%";
+iframe.height = "100%";
 
 iframe.allow =
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
@@ -1113,17 +1090,8 @@ startWidth + dx
 
 if(item.type==="embed"){
 
-if(item.isShort){
-
-    item.height =
-    nuevoAncho * 1.7778;
-
-}else{
-
     item.height =
     nuevoAncho * 0.6667;
-
-}
 
 }  
 
@@ -1430,8 +1398,8 @@ async function actualizarDirecto() {
         "youtubeFrame"
       );
 
-const nuevaUrl =
-`https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&disablekb=1`;
+    const nuevaUrl =
+      `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&disablekb=1`;
 
     frame.src = nuevaUrl;
 
