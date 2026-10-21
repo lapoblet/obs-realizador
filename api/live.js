@@ -25,19 +25,24 @@ if(searchData.error){
 
 }
 
-    if (
-      !searchData.items ||
-      searchData.items.length === 0
-    ) {
+if(searchData.error){
 
-return res.status(200).json(searchData);
-    }
+  return res.status(200).json({
+    googleError: searchData.error
+  });
 
-    return res.status(200).json({
-      live:true,
-      videoId:
-        searchData.items[0].id.videoId
-    });
+}
+
+if (
+  !searchData.items ||
+  searchData.items.length === 0
+) {
+
+  return res.status(200).json({
+    live:false
+  });
+
+}
 
   } catch(err) {
 
