@@ -265,50 +265,15 @@ el.style.width =
 
 else if(item.type==="embed"){
 
-if(el.src !== item.url){
-el.src = item.url;
-}
+    if(el.src !== item.url){
+        el.src = item.url;
+    }
 
-el.width =
-item.width || 600;
+    el.width =
+    item.width || 600;
 
-el.height =
-item.height || 400;
-
-if(
-item.playerState === "play"
-){
-
-    el.contentWindow?.postMessage(
-        '{"event":"command","func":"playVideo","args":""}',
-        '*'
-    );
-
-}
-
-if(
-item.playerState === "pause"
-){
-
-    el.contentWindow?.postMessage(
-        '{"event":"command","func":"pauseVideo","args":""}',
-        '*'
-    );
-
-}
-
-if(
-item.playerState === "restart"
-){
-
-    el.contentWindow?.postMessage(
-        '{"event":"command","func":"seekTo","args":[0,true]}',
-        '*'
-    );
-
-    item.playerState = "pause";
-
-}
+    el.height =
+    item.height || 400;
 
 }
 
