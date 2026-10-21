@@ -446,13 +446,23 @@ document.getElementById("eliminarElemento")
 
 if(!selectedId) return;
 
+const eliminado = selectedId;
+
 items = items.filter(
-item => item.id !== selectedId
+item => item.id !== eliminado
 );
+
+const el =
+elementos.get(eliminado);
+
+if(el){
+    el.remove();
+    elementos.delete(eliminado);
+}
 
 selectedId = null;
 
-render();  
+render();
 
 await guardar();
 
@@ -908,7 +918,11 @@ if(!elementos.has(item.id)){
 
 if(item.visible === false){
 
-element.style.opacity = "0.2";
+    element.style.display = "none";
+
+}else{
+
+    element.style.display = "";
 
 }
 
@@ -1281,7 +1295,10 @@ stop
 
 };  
 
-if(!element.parentNode){
+if(
+    !element.parentNode &&
+    item.visible !== false
+){
 
     canvas.appendChild(element);
 
