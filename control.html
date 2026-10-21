@@ -818,6 +818,13 @@ element = wrapper;
 
 let existente =
 elementos.get(item.id);
+
+if(
+    item.type !== "embed" &&
+    existente
+){
+    element = existente;
+}  
   
 if(item.type==="embed"){
 
