@@ -716,7 +716,9 @@ cargar();
 
 function render(){ 
 
-canvas.replaceChildren();
+canvas.querySelectorAll(
+':not([data-persist="true"])'
+).forEach(el => el.remove());  
 
 canvas.style.background="transparent";
 
@@ -825,12 +827,20 @@ if(item.type==="embed"){
 
 if(existente){
 
-element = existente;
+        element = existente;
 
-}else{  
+        element.style.width =
+        (item.width || 600) + "px";
+
+        element.style.height =
+        (item.height || 400) + "px";
+
+    }else{
 
 const wrapper =
 document.createElement("div");
+
+wrapper.dataset.persist = "true";  
 
 wrapper.style.display = "inline-block";
 wrapper.style.lineHeight = "0";
