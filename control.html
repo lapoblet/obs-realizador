@@ -1098,9 +1098,9 @@ document.removeEventListener(
 stopResize
 );
 
-redimensionando = false;
-
 await guardar();
+
+redimensionando = false;
 
 }
 
@@ -1218,12 +1218,12 @@ document.removeEventListener(
 stop
 );
 
+await guardar();
+
 moviendo = false;
 
 element.style.position = "absolute";
 element.style.zIndex = "10";
-
-await guardar();
 
 }
 
