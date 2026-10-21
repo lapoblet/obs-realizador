@@ -680,6 +680,9 @@ console.error(error);
 return;
 }
 
+if(moviendo || redimensionando){
+    return;
+}
   
 items =
 data.data.items || [];
@@ -905,6 +908,8 @@ element.style.opacity = "0.2";
 
 }
 
+element.classList.remove("selected");
+  
 if(selectedId===item.id && !redimensionando){
 
 element.classList.add("selected");
