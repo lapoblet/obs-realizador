@@ -278,74 +278,66 @@ el.style.width =
 
 else if(item.type==="embed"){
 
-    if(el.src !== item.url){
-        el.src = item.url;
-    }
+    if(!players.has(item.id)){
 
-  console.log("URL VIDEO:", item.url);
+        const videoId =
+        item.url
+        .split("/embed/")[1]
+        .split("?")[0];
 
-    el.width =
-    item.width || 600;
+        const player =
+        new YT.Player(el,{
 
-    el.height =
-    item.height || 400;
+            videoId: videoId,
 
-    if(item.playerState === "play"){
+            playerVars:{
+                controls:0,
+                playsinline:1
+            }
 
-      console.log("ENVIANDO PLAY");
+        });
 
-        el.contentWindow.postMessage(
-            JSON.stringify({
-                event: "command",
-                func: "playVideo",
-                args: []
-            }),
-            "*"
+        players.set(
+            item.id,
+            player
         );
 
     }
 
-    if(item.playerState === "pause"){
+    const player =
+    players.get(item.id);
 
-      console.log("ENVIANDO PAUSE");
+    if(player){
 
-        el.contentWindow.postMessage(
-            JSON.stringify({
-                event: "command",
-                func: "pauseVideo",
-                args: []
-            }),
-            "*"
-        );
+        if(item.playerState === "play"){
 
-    }
+            player.playVideo();
 
-    if(item.playerState === "restart"){
+        }
 
-      console.log("ENVIANDO RESTART");
+        if(item.playerState === "pause"){
 
-        el.contentWindow.postMessage(
-            JSON.stringify({
-                event: "command",
-                func: "seekTo",
-                args: [0, true]
-            }),
-            "*"
-        );
+            player.pauseVideo();
 
-        el.contentWindow.postMessage(
-            JSON.stringify({
-                event: "command",
-                func: "playVideo",
-                args: []
-            }),
-            "*"
-        );
+        }
+
+        if(item.playerState === "restart"){
+
+            player.seekTo(0);
+
+            player.playVideo();
+
+        }
 
     }
+
+    el.style.width =
+    (item.width || 600) + "px";
+
+    el.style.height =
+    (item.height || 400) + "px";
 
 }
-
 el.style.left =
 ((item.x || 0) - 190) + "px";
 
