@@ -1167,10 +1167,19 @@ startWidth + dx
 
 if(item.type==="embed"){
 
-    item.height =
-    nuevoAncho * 0.6667;
+    if(item.isShort){
 
-}  
+        item.height =
+        nuevoAncho * 1.7778;
+
+    }else{
+
+        item.height =
+        nuevoAncho * 0.6667;
+
+    }
+
+}
 
 const diferencia =
 nuevoAncho - item.width;
