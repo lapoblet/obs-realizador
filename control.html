@@ -428,6 +428,11 @@ return;
 
 }
 
+const esShort =
+url.includes(
+"youtube.com/shorts/"
+);  
+
 items.push({
 
 id,
@@ -442,8 +447,10 @@ videoId +
 x:200,
 y:200,
 
-width:600,
-height:400,
+width: esShort ? 338 : 600,
+height: esShort ? 600 : 400,
+
+isShort: esShort,
 
 visible:false,
 
