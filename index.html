@@ -44,7 +44,7 @@ pointer-events:none;
 
 <canvas id="drawLayer"></canvas>  
 
-<script src="https://www.youtube.com/iframe_api"></script>  
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
 
@@ -66,6 +66,10 @@ supabaseKey
 const elementos = new Map();
 
 const players = new Map();  
+
+window.onYouTubeIframeAPIReady = function(){
+    window.youtubeReady = true;
+};  
 
 const playersReady = new Map();  
 
@@ -282,7 +286,10 @@ el.style.width =
 
 else if(item.type==="embed"){
 
-    if(!players.has(item.id)){
+   if(
+    window.youtubeReady &&
+    !players.has(item.id)
+){
 
       alert("Creando player");
 
