@@ -304,14 +304,14 @@ playerVars:{
 },
 
 events:{
-    onReady:function(event){
+    onReady: function(event){
 
         playersReady.set(
             item.id,
             true
         );
 
-        event.target.pauseVideo();
+        event.target.playVideo();
 
     }
 }
