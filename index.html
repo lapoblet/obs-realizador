@@ -294,21 +294,26 @@ new YT.Player(el,{
 
     videoId: videoId,
 
-    playerVars:{
-        controls:0,
-        playsinline:1
-    },
+playerVars:{
+    autoplay:0,
+    controls:0,
+    playsinline:1,
+    enablejsapi:1
+},
 
-    events:{
-        onReady: function(){
+events:{
+    onReady:function(event){
 
-            playersReady.set(
-                item.id,
-                true
-            );
+        playersReady.set(
+            item.id,
+            true
+        );
 
-        }
+        event.target.pauseVideo();
+
     }
+}
+
 
 });
 
@@ -327,25 +332,31 @@ new YT.Player(el,{
     playersReady.get(item.id)
 ){
 
-        if(item.playerState === "play"){
+       if(item.playerState === "play"){
 
-            player.playVideo();
+    try{
+        player.playVideo();
+    }catch(e){}
 
-        }
+}
+    if(item.playerState === "pause"){
 
-        if(item.playerState === "pause"){
+    try{
+        player.pauseVideo();
+    }catch(e){}
 
-            player.pauseVideo();
+}
+    if(item.playerState === "restart"){
 
-        }
+    try{
 
-        if(item.playerState === "restart"){
+        player.seekTo(0);
 
-            player.seekTo(0);
+        player.playVideo();
 
-            player.playVideo();
+    }catch(e){}
 
-        }
+}
 
     }
 
