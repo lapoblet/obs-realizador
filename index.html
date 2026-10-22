@@ -63,6 +63,10 @@ supabaseKey
 
 const elementos = new Map();
 
+const videoFrames = new Map();
+  
+const lastCommands = new Map();  
+
 const drawLayer =
 document.getElementById("drawLayer");
 
@@ -274,6 +278,71 @@ item.width || 600;
 
 el.height =
 item.height || 400;
+
+videoFrames.set(
+    item.id,
+    el
+);
+
+if(
+    item.commandId &&
+    lastCommands.get(item.id) !== item.commandId
+){
+
+    lastCommands.set(
+        item.id,
+        item.commandId
+    );
+
+    if(item.playerState === "play"){
+
+        el.contentWindow.postMessage(
+            JSON.stringify({
+                event:"command",
+                func:"playVideo",
+                args:[]
+            }),
+            "*"
+        );
+
+    }
+
+    if(item.playerState === "pause"){
+
+        el.contentWindow.postMessage(
+            JSON.stringify({
+                event:"command",
+                func:"pauseVideo",
+                args:[]
+            }),
+            "*"
+        );
+
+    }
+
+    if(item.playerState === "restart"){
+
+        el.contentWindow.postMessage(
+            JSON.stringify({
+                event:"command",
+                func:"seekTo",
+                args:[0,true]
+            }),
+            "*"
+        );
+
+        el.contentWindow.postMessage(
+            JSON.stringify({
+                event:"command",
+                func:"playVideo",
+                args:[]
+            }),
+            "*"
+        );
+
+    }
+
+}
 
 }
 
