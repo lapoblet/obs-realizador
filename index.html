@@ -67,6 +67,8 @@ const elementos = new Map();
 
 const players = new Map();  
 
+const playersReady = new Map();  
+
 const drawLayer =
 document.getElementById("drawLayer");
 
@@ -287,17 +289,28 @@ else if(item.type==="embed"){
         .split("/embed/")[1]
         .split("?")[0];
 
-        const player =
-        new YT.Player(el,{
+const player =
+new YT.Player(el,{
 
-            videoId: videoId,
+    videoId: videoId,
 
-            playerVars:{
-                controls:0,
-                playsinline:1
-            }
+    playerVars:{
+        controls:0,
+        playsinline:1
+    },
 
-        });
+    events:{
+        onReady: function(){
+
+            playersReady.set(
+                item.id,
+                true
+            );
+
+        }
+    }
+
+});
 
         players.set(
             item.id,
@@ -309,7 +322,10 @@ else if(item.type==="embed"){
     const player =
     players.get(item.id);
 
-    if(player){
+  if(
+    player &&
+    playersReady.get(item.id)
+){
 
         if(item.playerState === "play"){
 
