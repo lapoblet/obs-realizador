@@ -178,6 +178,13 @@ const idsActuales = new Set();
 
 items.forEach(item=>{
 
+console.log(
+    "ITEM",
+    item.id,
+    item.type,
+    item.playerState
+);  
+
 if(item.visible === false){
 return;
 }
