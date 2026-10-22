@@ -44,8 +44,6 @@ pointer-events:none;
 
 <canvas id="drawLayer"></canvas>  
 
-<script src="https://www.youtube.com/iframe_api"></script>
-
 <script type="module">
 
 import { createClient }
@@ -64,14 +62,6 @@ supabaseKey
 );
 
 const elementos = new Map();
-
-const players = new Map();  
-
-window.onYouTubeIframeAPIReady = function(){
-    window.youtubeReady = true;
-};  
-
-const playersReady = new Map();  
 
 const drawLayer =
 document.getElementById("drawLayer");
@@ -101,8 +91,6 @@ document.getElementById("overlay");
 
 const items =
 data.data.items || [];
-
-console.log(items);  
 
 const drawData =
 data.data.drawData || [];  
@@ -188,13 +176,6 @@ const idsActuales = new Set();
 
 items.forEach(item=>{
 
-console.log(
-    "ITEM",
-    item.id,
-    item.type,
-    item.playerState
-);  
-
 if(item.visible === false){
 return;
 }
@@ -231,13 +212,11 @@ el.playsInline = true;
 
 else if(item.type==="embed"){
 
-    el = document.createElement("div");
+el = document.createElement("iframe");
 
-    el.style.border = "none";
+el.style.border = "none";
 
 }
-
-  overlay.appendChild(el);
 
 if(!el) return;
 
@@ -286,96 +265,18 @@ el.style.width =
 
 else if(item.type==="embed"){
 
-   if(
-    window.youtubeReady &&
-    !players.has(item.id)
-){
-
-      alert("Creando player");
-
-        const videoId =
-        item.url
-        .split("/embed/")[1]
-        .split("?")[0];
-
-const player =
-new YT.Player(el,{
-
-    videoId: videoId,
-
-playerVars:{
-    autoplay:0,
-    controls:0,
-    playsinline:1,
-    enablejsapi:1
-},
-
-events:{
-    onReady: function(event){
-
-        playersReady.set(
-            item.id,
-            true
-        );
-
-        event.target.playVideo();
-
-    }
+if(el.src !== item.url){
+el.src = item.url;
 }
 
+el.width =
+item.width || 600;
 
-});
-
-        players.set(
-            item.id,
-            player
-        );
-
-    }
-
-    const player =
-    players.get(item.id);
-
-  if(
-    player &&
-    playersReady.get(item.id)
-){
-
-       if(item.playerState === "play"){
-
-    try{
-        player.playVideo();
-    }catch(e){}
-
-}
-    if(item.playerState === "pause"){
-
-    try{
-        player.pauseVideo();
-    }catch(e){}
-
-}
-    if(item.playerState === "restart"){
-
-    try{
-
-        player.seekTo(0);
-
-        player.playVideo();
-
-    }catch(e){}
+el.height =
+item.height || 400;
 
 }
 
-    }
-
-    el.style.width =
-    (item.width || 600) + "px";
-
-    el.style.height =
-    (item.height || 400) + "px";
-
-}
 el.style.left =
 ((item.x || 0) - 190) + "px";
 
