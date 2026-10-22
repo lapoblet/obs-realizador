@@ -502,28 +502,23 @@ await guardar();
 document.getElementById("playVideo")
 .onclick = async ()=>{
 
-console.log("PLAY PULSADO");
+if(!selectedId) return;
 
-if(!selectedId){
-    console.log("No hay elemento seleccionado");
-    return;
+const iframe =
+videoFrames.get(selectedId);
+
+if(iframe){
+
+    iframe.contentWindow.postMessage(
+        JSON.stringify({
+            event:"command",
+            func:"playVideo",
+            args:[]
+        }),
+        "*"
+    );
+
 }
-
-const item =
-items.find(i => i.id === selectedId);
-
-console.log(item);
-
-if(!item || item.type !== "embed"){
-    console.log("No es un embed");
-    return;
-}
-
-item.playerState = "play";
-
-console.log("Guardando play");
-
-await guardar();
 
 };
 
