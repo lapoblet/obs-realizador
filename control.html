@@ -283,6 +283,8 @@ document.getElementById("canvas");
 
 const elementos = new Map();  
 
+const videoFrames = new Map();  
+
 const EDITOR_SCALE = 0.50;  
 
 async function guardar(){
@@ -982,6 +984,11 @@ iframe.style.pointerEvents =
 "none";
 
 wrapper.appendChild(iframe);
+
+videoFrames.set(
+    item.id,
+    iframe
+);  
 
 element = wrapper;
 
