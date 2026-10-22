@@ -500,14 +500,26 @@ await guardar();
 document.getElementById("playVideo")
 .onclick = async ()=>{
 
-if(!selectedId) return;
+console.log("PLAY PULSADO");
+
+if(!selectedId){
+    console.log("No hay elemento seleccionado");
+    return;
+}
 
 const item =
 items.find(i => i.id === selectedId);
 
-if(!item || item.type !== "embed") return;
+console.log(item);
+
+if(!item || item.type !== "embed"){
+    console.log("No es un embed");
+    return;
+}
 
 item.playerState = "play";
+
+console.log("Guardando play");
 
 await guardar();
 
