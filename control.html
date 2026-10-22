@@ -527,14 +527,21 @@ document.getElementById("pauseVideo")
 
 if(!selectedId) return;
 
-const item =
-items.find(i => i.id === selectedId);
+const iframe =
+videoFrames.get(selectedId);
 
-if(!item || item.type !== "embed") return;
+if(iframe){
 
-item.playerState = "pause";
+    iframe.contentWindow.postMessage(
+        JSON.stringify({
+            event:"command",
+            func:"pauseVideo",
+            args:[]
+        }),
+        "*"
+    );
 
-await guardar();
+}
 
 };
 
