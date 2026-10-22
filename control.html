@@ -550,16 +550,32 @@ document.getElementById("restartVideo")
 
 if(!selectedId) return;
 
-const item =
-items.find(i => i.id === selectedId);
+const iframe =
+videoFrames.get(selectedId);
 
-if(!item || item.type !== "embed") return;
+if(iframe){
 
-item.playerState = "restart";
+    iframe.contentWindow.postMessage(
+        JSON.stringify({
+            event:"command",
+            func:"seekTo",
+            args:[0,true]
+        }),
+        "*"
+    );
 
-await guardar();
+    iframe.contentWindow.postMessage(
+        JSON.stringify({
+            event:"command",
+            func:"playVideo",
+            args:[]
+        }),
+        "*"
+    );
 
-};  
+}
+
+};
 
 document.getElementById("color")
 .oninput = async (e)=>{
