@@ -286,6 +286,8 @@ else if(item.type==="embed"){
 
     if(item.playerState === "play"){
 
+      console.log("ENVIANDO PLAY");
+
         el.contentWindow.postMessage(
             JSON.stringify({
                 event: "command",
@@ -299,6 +301,8 @@ else if(item.type==="embed"){
 
     if(item.playerState === "pause"){
 
+      console.log("ENVIANDO PAUSE");
+
         el.contentWindow.postMessage(
             JSON.stringify({
                 event: "command",
@@ -311,6 +315,8 @@ else if(item.type==="embed"){
     }
 
     if(item.playerState === "restart"){
+
+      console.log("ENVIANDO RESTART");
 
         el.contentWindow.postMessage(
             JSON.stringify({
