@@ -519,7 +519,18 @@ if(iframe){
     );
 
 }
+const item =
+items.find(i => i.id === selectedId);
 
+if(item){
+
+    item.playerState = "play";
+
+    item.commandId = Date.now();
+
+    await guardar();
+
+}
 };
 
 document.getElementById("pauseVideo")
@@ -542,7 +553,18 @@ if(iframe){
     );
 
 }
+const item =
+items.find(i => i.id === selectedId);
 
+if(item){
+
+    item.playerState = "pause";
+
+    item.commandId = Date.now();
+
+    await guardar();
+
+}
 };
 
 document.getElementById("restartVideo")
@@ -574,7 +596,18 @@ if(iframe){
     );
 
 }
+const item =
+items.find(i => i.id === selectedId);
 
+if(item){
+
+    item.playerState = "restart";
+
+    item.commandId = Date.now();
+
+    await guardar();
+
+}
 };
 
 document.getElementById("color")
