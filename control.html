@@ -316,7 +316,7 @@ text:"Nuevo texto",
 x:100,
 y:100,
 size:72,
-color:"#ff0000",
+color: document.getElementById("color").value,
 visible:false,
 rotation:0
 });
@@ -1107,6 +1107,10 @@ if(!elementos.has(item.id)){
 
 }
 
+if(item.type==="text"){
+element.style.color = item.color || "#ff0000";
+}  
+
 if(item.visible === false){
 
     element.style.opacity = "0.2";
@@ -1130,12 +1134,12 @@ if(selectedId===item.id && !redimensionando){
 
 }
   
-if(item.type==="text"){
+if(item.type==="text" && selectedId===item.id){
 
 document.getElementById("color").value =
 item.color || "#ff0000";
 
-}  
+}
   
 element
 .querySelectorAll(".resize-handle")
