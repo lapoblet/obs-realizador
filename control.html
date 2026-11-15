@@ -1718,6 +1718,20 @@ if(!element.parentNode){
 
 });
 
+elementos.forEach((el,id)=>{
+
+if(!items.find(i => i.id === id)){
+
+el.remove();
+
+elementos.delete(id);
+
+videoFrames.delete(id);
+
+}
+
+});  
+
 }
 
 async function actualizarDirecto() {
