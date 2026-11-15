@@ -658,6 +658,27 @@ if(!item) return;
 
 item.visible = !item.visible;
 
+if(item.type === "embed" && !item.visible){
+
+const iframe = videoFrames.get(item.id);
+
+if(iframe){
+
+iframe.contentWindow.postMessage(
+JSON.stringify({
+event:"command",
+func:"pauseVideo",
+args:[]
+}),
+"*"
+);
+
+}
+
+item.playerState = "pause";
+
+}  
+
 render();  
 
 await guardar();
