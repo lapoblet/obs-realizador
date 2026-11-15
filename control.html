@@ -204,6 +204,10 @@ user-select:none;
 🗑 Eliminar
 </button>  
 
+<button id="duplicarElemento">
+📄 Duplicar
+</button>  
+
 <span style="margin-left:100px;"></span>  
 
 <button id="drawMode">
@@ -1632,6 +1636,44 @@ if(!selectedId) return;
 document.getElementById("eliminarElemento").click();
 
 });  
+
+document.getElementById("duplicarElemento")
+.onclick = async ()=>{
+
+if(!selectedId) return;
+
+const original =
+items.find(i => i.id === selectedId);
+
+if(!original) return;
+
+const copia =
+JSON.parse(JSON.stringify(original));
+
+copia.id = Date.now().toString();
+
+copia.x = (original.x || 0) + 40;
+copia.y = (original.y || 0) + 40;
+
+copia.visible = false;
+
+if(copia.type === "embed"){
+
+copia.playerState = "pause";
+
+delete copia.commandId;
+
+}
+
+items.push(copia);
+
+selectedId = copia.id;
+
+render();
+
+await guardar();
+
+};  
   
 </script>
 
