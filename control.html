@@ -208,6 +208,14 @@ user-select:none;
 📄 Duplicar
 </button>  
 
+<button id="capaDelante">
+⬆ Delante
+</button>
+
+<button id="capaDetras">
+⬇ Detrás
+</button>  
+
 <span style="margin-left:100px;"></span>  
 
 <button id="drawMode">
@@ -1424,7 +1432,7 @@ stopResize
   
 element.style.position="absolute";
 element.style.position = "absolute";
-element.style.zIndex = "10";
+element.style.zIndex = String(1000 + (item.z || 0));
 element.style.left = item.x + "px";
 element.style.top = item.y + "px";
 element.style.overflow="visible";
@@ -1529,7 +1537,7 @@ await guardar();
 moviendo = false;
 
 element.style.position = "absolute";
-element.style.zIndex = "10";
+element.style.zIndex = String(1000 + (item.z || 0));
 
 }
 
@@ -1668,6 +1676,48 @@ delete copia.commandId;
 items.push(copia);
 
 selectedId = copia.id;
+
+render();
+
+await guardar();
+
+};  
+
+document.getElementById("capaDelante")
+.onclick = async ()=>{
+
+if(!selectedId) return;
+
+const item =
+items.find(i => i.id === selectedId);
+
+if(!item) return;
+
+const maxZ =
+Math.max(0, ...items.map(i => i.z || 0));
+
+item.z = maxZ + 1;
+
+render();
+
+await guardar();
+
+};
+
+document.getElementById("capaDetras")
+.onclick = async ()=>{
+
+if(!selectedId) return;
+
+const item =
+items.find(i => i.id === selectedId);
+
+if(!item) return;
+
+const minZ =
+Math.min(0, ...items.map(i => i.z || 0));
+
+item.z = minZ - 1;
 
 render();
 
