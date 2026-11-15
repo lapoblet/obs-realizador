@@ -633,6 +633,8 @@ if(item.type !== "text") return;
 item.color =
 e.target.value;
 
+render();  
+
 await guardar();
 
 };
@@ -1410,6 +1412,8 @@ prompt("Texto",item.text);
 if(nuevo!==null){
 
 item.text=nuevo;
+
+render();  
 
 await guardar();
 
