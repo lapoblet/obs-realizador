@@ -160,6 +160,41 @@ enviar("play");
 }
 
 }  
+
+window.addEventListener("message",(e)=>{
+
+const m = e.data;
+
+if(!m || m["x-tiktok-player"] !== true) return;
+
+if(m.type !== "onStateChange" || m.value !== 1) return;
+
+for(const [id, el] of elementos){
+
+if(
+el.dataset.tiktok === "1" &&
+el.dataset.calentado !== "1" &&
+el.contentWindow === e.source
+){
+
+el.dataset.calentado = "1";
+
+comandoTikTok(el, "pause");
+
+el.contentWindow.postMessage(
+{ type:"seekTo", value:0, "x-tiktok-player":true },
+"*"
+);
+
+if(el.dataset.oculto !== "1"){
+el.style.visibility = "visible";
+}
+
+}
+
+}
+
+});
   
 async function cargar(datos){
 
@@ -272,6 +307,24 @@ el = document.createElement("iframe");
 el.style.border = "none";
 
 el.allow = "autoplay; fullscreen; encrypted-media";  
+
+if(item.platform === "tiktok"){
+
+el.dataset.tiktok = "1";
+
+el.style.visibility = "hidden";
+
+setTimeout(()=>{
+
+el.dataset.calentado = "1";
+
+if(el.dataset.oculto !== "1"){
+el.style.visibility = "visible";
+}
+
+}, 6000);
+
+}  
 
 }
 
@@ -415,7 +468,10 @@ args:[]
 
 }
 
+if(el.dataset.tiktok !== "1" || el.dataset.calentado === "1"){
 el.style.visibility = "visible";
+}
+
 el.dataset.oculto = "0";
 
 el.style.zIndex = String(1000 + (item.z || 0));  
