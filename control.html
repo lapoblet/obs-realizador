@@ -1108,8 +1108,17 @@ if(!elementos.has(item.id)){
 }
 
 if(item.type==="text"){
+
 element.style.color = item.color || "#ff0000";
-}  
+
+element.style.fontSize = (item.size || 72) + "px";
+
+if(element.dataset.texto !== item.text){
+    element.dataset.texto = item.text;
+    element.innerText = item.text;
+}
+
+}
 
 if(item.visible === false){
 
