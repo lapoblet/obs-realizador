@@ -2337,6 +2337,16 @@ comandoTikTok(videoFrames.get(item.id), "pause");
 }
 
 });  
+
+window.addEventListener("message",(e)=>{
+
+if(e.data && e.data["x-tiktok-player"]){
+
+console.log("TikTok:", JSON.stringify(e.data));
+
+}
+
+});  
   
 </script>
 
