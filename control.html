@@ -960,7 +960,7 @@ if(ultimo && ultimo.x !== undefined){
 const dx = x - ultimo.x;
 const dy = y - ultimo.y;
 
-if(dx * dx + dy * dy < 4) return;
+if(dx * dx + dy * dy < 1) return;
 
 }
 
@@ -2118,7 +2118,7 @@ const ultimo = trazoLive[trazoLive.length - 1];
 const dx = x - ultimo.x;
 const dy = y - ultimo.y;
 
-if(dx * dx + dy * dy < 4) return;
+if(dx * dx + dy * dy < 1) return;
 
 drawData.push(punto);
 trazoLive.push(punto);
@@ -2188,6 +2188,18 @@ drawData
 };
 
 drawLayer.addEventListener("mouseleave", ()=>{
+
+trazoLive = [];
+
+});  
+
+document.addEventListener("mouseup", ()=>{
+
+if(trazoLive.length > 1){
+
+pintarDibujo(ctx, drawData);
+
+}
 
 trazoLive = [];
 
