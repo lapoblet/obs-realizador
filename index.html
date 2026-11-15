@@ -257,8 +257,6 @@ el.style.fontSize =
 else if(item.type==="image" || item.type==="gif"){
 
 if(el.dataset.url !== item.url){ el.dataset.url = item.url; el.src = item.url; }
-el.src = item.url;
-}
 
 el.style.width =
 (item.width || 300) + "px";
@@ -268,8 +266,6 @@ el.style.width =
 else if(item.type==="video"){
 
 if(el.dataset.url !== item.url){ el.dataset.url = item.url; el.src = item.url; }
-el.src = item.url;
-}
 
 el.style.width =
 (item.width || 600) + "px";
@@ -279,8 +275,6 @@ el.style.width =
 else if(item.type==="embed"){
 
 if(el.dataset.url !== item.url){ el.dataset.url = item.url; el.src = item.url; }
-el.src = item.url;
-}
 
 el.width =
 item.width || 600;
