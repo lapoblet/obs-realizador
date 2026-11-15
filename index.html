@@ -190,7 +190,34 @@ const idsActuales = new Set();
 items.forEach(item=>{
 
 if(item.visible === false){
+
+if(item.type === "embed" && elementos.has(item.id)){
+
+idsActuales.add(item.id);
+
+const elOculto = elementos.get(item.id);
+
+elOculto.style.visibility = "hidden";
+
+if(elOculto.dataset.oculto !== "1"){
+
+elOculto.dataset.oculto = "1";
+
+elOculto.contentWindow.postMessage(
+JSON.stringify({
+event:"command",
+func:"pauseVideo",
+args:[]
+}),
+"*"
+);
+
+}
+
+}
+
 return;
+
 }
 
 idsActuales.add(item.id);
@@ -349,6 +376,9 @@ if(
 
 }
 
+el.style.visibility = "visible";
+el.dataset.oculto = "0";  
+  
 el.style.left =
 ((item.x || 0) - 190) + "px";
 
