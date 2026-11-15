@@ -139,7 +139,97 @@ user-select:none;
 -webkit-user-select:none;
 }
 
+body{
+display:flex;
+flex-direction:column;
+height:100vh;
+}
 
+#workspace{
+height:auto;
+flex:1;
+min-height:0;
+}
+
+.toolbar{
+display:flex;
+flex-wrap:wrap;
+align-items:stretch;
+gap:10px;
+padding:10px 14px;
+background:#17171c;
+border-bottom:1px solid #000;
+}
+
+.grupo{
+display:flex;
+flex-direction:column;
+gap:6px;
+padding:6px 10px 8px;
+background:#22222a;
+border:1px solid #33333d;
+border-radius:10px;
+}
+
+.grupo-titulo{
+font-size:10px;
+font-weight:bold;
+letter-spacing:1px;
+text-transform:uppercase;
+color:#8a8a99;
+}
+
+.grupo-botones{
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:6px;
+}
+
+.toolbar button{
+margin:0;
+padding:8px 12px;
+background:#33333d;
+color:#f0f0f5;
+border:1px solid #44444f;
+border-radius:6px;
+font-size:13px;
+cursor:pointer;
+transition:background .15s;
+}
+
+.toolbar button:hover{
+background:#44444f;
+}
+
+.toolbar button:active{
+transform:translateY(1px);
+}
+
+.toolbar button.activo{
+background:#0a84ff;
+border-color:#0a84ff;
+color:white;
+}
+
+.toolbar button.peligro{
+background:#4a2326;
+border-color:#7a3238;
+}
+
+.toolbar button.peligro:hover{
+background:#7a2d33;
+}
+
+.toolbar input[type="color"]{
+width:34px;
+height:34px;
+padding:2px;
+background:none;
+border:1px solid #44444f;
+border-radius:6px;
+cursor:pointer;
+}
 
 </style>
 
@@ -156,86 +246,48 @@ user-select:none;
 
 <div class="toolbar">
 
-<button id="selectMode">
-🖱 Seleccionar
-</button>    
+<div class="grupo">
+<div class="grupo-titulo">Herramientas</div>
+<div class="grupo-botones">
+<button id="selectMode">🖱 Seleccionar</button>
+<button id="drawMode">🎨 Dibujar</button>
+<input type="color" id="drawColor" value="#ff0000" title="Color del dibujo">
+<button id="eraserMode">🩹 Borrador</button>
+<button id="clearDraw" class="peligro">🗑 Limpiar dibujo</button>
+</div>
+</div>
 
-<span style="margin-left:100px;"></span>     
+<div class="grupo">
+<div class="grupo-titulo">Añadir</div>
+<div class="grupo-botones">
+<button id="nuevaImagen">+ Imagen</button>
+<button id="nuevoGif">🎞 GIF</button>
+<button id="nuevoTexto">+ Texto</button>
+<input type="color" id="color" value="#ff0000" title="Color del texto">
+</div>
+</div>
 
-<button id="nuevaImagen">
-+ Imagen
-</button>
+<div class="grupo">
+<div class="grupo-titulo">Vídeo</div>
+<div class="grupo-botones">
+<button id="nuevoVideo">🎥 Vídeo</button>
+<button id="playVideo">▶ Play</button>
+<button id="pauseVideo">⏸ Pausa</button>
+<button id="restartVideo">🔄 Reiniciar</button>
+</div>
+</div>
 
-<button id="nuevoGif">
-🎞 GIF
-</button>
+<div class="grupo">
+<div class="grupo-titulo">Objeto seleccionado</div>
+<div class="grupo-botones">
+<button id="toggleVisible">👁 Mostrar/Ocultar</button>
+<button id="duplicarElemento">📄 Duplicar</button>
+<button id="capaDelante">⬆ Delante</button>
+<button id="capaDetras">⬇ Detrás</button>
+<button id="eliminarElemento" class="peligro">🗑 Eliminar</button>
+</div>
+</div>
 
-<button id="nuevoTexto">
-+ Texto
-</button>
-
-<input type="color" id="color" value="#ff0000">  
-
-<span style="margin-left:100px;"></span>   
-
-<button id="nuevoVideo">
-🎥 Vídeo
-</button>   
-
-<button id="playVideo">
-▶ Play
-</button>
-
-<button id="pauseVideo">
-⏸ Pausa
-</button>
-
-<button id="restartVideo">
-🔄 Reiniciar
-</button>  
-
-<span style="margin-left:100px;"></span>   
-
-<button id="toggleVisible">
-👁 Mostrar/Ocultar
-</button>
-
-<button id="eliminarElemento">
-🗑 Eliminar
-</button>  
-
-<button id="duplicarElemento">
-📄 Duplicar
-</button>  
-
-<button id="capaDelante">
-⬆ Delante
-</button>
-
-<button id="capaDetras">
-⬇ Detrás
-</button>  
-
-<span style="margin-left:100px;"></span>  
-
-<button id="drawMode">
-🎨 Dibujar
-</button>  
-
-<input
-type="color"
-id="drawColor"
-value="#ff0000">  
-
-<button id="eraserMode">
-🩹 Borrador
-</button>
-
-<button id="clearDraw">
-🗑 Limpiar dibujo
-</button>  
-
-  
 </div>
 
 <div id="alertaSync" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#cc0000; color:white; font-family:Arial; font-weight:bold; font-size:20px; text-align:center; padding:14px; z-index:99998;">
@@ -1737,6 +1789,26 @@ render();
 await guardar();
 
 };  
+
+const modos = ["selectMode","drawMode","eraserMode"];
+
+modos.forEach(id=>{
+
+document.getElementById(id)
+.addEventListener("click",()=>{
+
+modos.forEach(m=>{
+document.getElementById(m).classList.remove("activo");
+});
+
+document.getElementById(id).classList.add("activo");
+
+});
+
+});
+
+document.getElementById("selectMode")
+.classList.add("activo");  
   
 </script>
 
