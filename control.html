@@ -2262,6 +2262,82 @@ render();
 await guardar();
 
 };  
+
+function comandoTikTok(iframe, accion){
+
+if(!iframe || !iframe.contentWindow) return;
+
+function enviar(type, value){
+
+const msg = { type: type, "x-tiktok-player": true };
+
+if(value !== undefined) msg.value = value;
+
+iframe.contentWindow.postMessage(msg, "*");
+
+}
+
+if(accion === "play") enviar("play");
+
+if(accion === "pause") enviar("pause");
+
+if(accion === "restart"){
+
+enviar("seekTo", 0);
+
+enviar("play");
+
+}
+
+}
+
+function tiktokSeleccionado(){
+
+const item = items.find(i => i.id === selectedId);
+
+return (item && item.platform === "tiktok") ? item : null;
+
+}
+
+document.getElementById("playVideo")
+.addEventListener("click", ()=>{
+
+const item = tiktokSeleccionado();
+
+if(item) comandoTikTok(videoFrames.get(item.id), "play");
+
+});
+
+document.getElementById("pauseVideo")
+.addEventListener("click", ()=>{
+
+const item = tiktokSeleccionado();
+
+if(item) comandoTikTok(videoFrames.get(item.id), "pause");
+
+});
+
+document.getElementById("restartVideo")
+.addEventListener("click", ()=>{
+
+const item = tiktokSeleccionado();
+
+if(item) comandoTikTok(videoFrames.get(item.id), "restart");
+
+});
+
+document.getElementById("toggleVisible")
+.addEventListener("click", ()=>{
+
+const item = tiktokSeleccionado();
+
+if(item && !item.visible){
+
+comandoTikTok(videoFrames.get(item.id), "pause");
+
+}
+
+});  
   
 </script>
 
