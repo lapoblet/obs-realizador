@@ -1619,6 +1619,19 @@ document.getElementById("loginBtn").onclick = async ()=>{
 
 };  
 
+document.addEventListener("keydown", (e)=>{
+
+if(e.key !== "Delete") return;
+
+const tag = e.target.tagName;
+
+if(tag === "INPUT" || tag === "TEXTAREA") return;
+
+if(!selectedId) return;
+
+document.getElementById("eliminarElemento").click();
+
+});  
   
 </script>
 
