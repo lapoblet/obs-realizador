@@ -185,7 +185,7 @@ el.contentWindow.postMessage(
 );
 
 if(el.dataset.oculto !== "1"){
-el.style.visibility = "visible";
+el.style.opacity = "1";
 }
 
 }
@@ -310,7 +310,7 @@ if(item.platform === "tiktok"){
 
 el.dataset.tiktok = "1";
 
-el.style.visibility = "hidden";
+el.style.opacity = "0";
 
 let intentos = 0;
 
@@ -327,7 +327,7 @@ if(el.isConnected && el.dataset.calentado !== "1"){
 el.dataset.calentado = "1";
 
 if(el.dataset.oculto !== "1"){
-el.style.visibility = "visible";
+el.style.opacity = "1";
 }
 
 }
