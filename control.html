@@ -371,6 +371,7 @@ height:0;
 <div class="grupo-titulo">Vídeo</div>
 <div class="grupo-botones">
 <button id="nuevoVideo">🎥 YouTube</button>
+<button id="nuevoTikTok">🎵 TikTok</button>  
 <div class="salto"></div>
 <button id="playVideo">▶ Play</button>
 <button id="pauseVideo">⏸ Pausa</button>
@@ -2204,6 +2205,63 @@ pintarDibujo(ctx, drawData);
 trazoLive = [];
 
 });  
+
+document.getElementById("nuevoTikTok")
+.onclick = async ()=>{
+
+const url =
+prompt("Pega la URL LARGA del TikTok (con /video/ y números)");
+
+if(!url) return;
+
+let videoId = null;
+
+const m = url.match(/tiktok\.com\/.*\/video\/(\d+)/);
+
+if(m){
+videoId = m[1];
+}else if(/^\d{10,}$/.test(url.trim())){
+videoId = url.trim();
+}
+
+if(!videoId){
+
+alert(
+"No he podido sacar el ID. Usa la URL larga: tiktok.com/@usuario/video/123456... " +
+"Los enlaces cortos (vm.tiktok.com o tiktok.com/t/...) no valen: " +
+"ábrelos en el navegador y copia la URL que sale en la barra de direcciones."
+);
+
+return;
+
+}
+
+const id = Date.now().toString();
+
+items.push({
+id,
+type:"embed",
+platform:"tiktok",
+url:"https://www.tiktok.com/player/v1/" + videoId +
+"?autoplay=0&loop=0&controls=0&music_info=0&description=0&closed_caption=0&rel=0",
+x:200,
+y:200,
+width:338,
+height:600,
+isShort:true,
+visible:false,
+rotation:0,
+playerState:"paused",
+volume:100
+});
+
+selectedId = id;
+
+render();
+
+await guardar();
+
+};  
   
 </script>
 
