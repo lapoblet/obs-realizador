@@ -238,6 +238,10 @@ value="#ff0000">
   
 </div>
 
+<div id="alertaSync" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#cc0000; color:white; font-family:Arial; font-weight:bold; font-size:20px; text-align:center; padding:14px; z-index:99998;">
+⚠ ALERTA: WEB Y OBS DESINCRONIZADOS. RECARGA Y VUELVE A INICIAR SESIÓN ⚠
+</div>  
+
 <div id="workspace">
 
   <div id="editorArea">
@@ -308,16 +312,25 @@ const EDITOR_SCALE = 0.50;
 
 async function guardar(){
 
-const { error } =
+const { data, error } =
 await supabase
 .from("overlay")
 .update({
 data: { items, drawData }
 })
-.eq("id","main");
+.eq("id","main")
+.select("id");
 
-if(error){
-console.error(error);
+if(error || !data || data.length === 0){
+
+console.error(error || "Guardado rechazado");
+
+document.getElementById("alertaSync").style.display = "block";
+
+}else{
+
+document.getElementById("alertaSync").style.display = "none";
+
 }
 
 }
