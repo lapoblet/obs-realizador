@@ -186,7 +186,7 @@ align-items:center;
 gap:6px;
 }
 
-.toolbar {
+.toolbar button{
 margin:0;
 padding:8px 12px;
 background:#33333d;
@@ -198,21 +198,21 @@ cursor:pointer;
 transition:background .15s;
 }
 
-.toolbar :hover{
+.toolbar button:hover{
 background:#44444f;
 }
 
-.toolbar :active{
+.toolbar button:active{
 transform:translateY(1px);
 }
 
-.toolbar .activo{
+.toolbar button.activo{
 background:#0a84ff;
 border-color:#0a84ff;
 color:white;
 }
 
-.toolbar .peligro{
+.toolbar button.peligro{
 background:#4a2326;
 border-color:#7a3238;
 }
@@ -329,7 +329,6 @@ height:0;
 <div class="grupo-titulo">Herramientas</div>
 <div class="grupo-botones">
 <button id="selectMode">🖱 Seleccionar</button>
-<div class="salto"></div>  
 <button id="drawMode">🎨 Dibujar</button>
 <input type="color" id="drawColor" value="#ff0000" title="Color del dibujo">
 <label class="slider">Pincel
