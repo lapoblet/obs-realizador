@@ -149,8 +149,7 @@ user-select:none;
 
 <div id="loginBox" style="display:flex; position:fixed; inset:0; background:#222; z-index:99999; color:white; align-items:center; justify-content:center; flex-direction:column; gap:10px; font-family:Arial;">
 <h2>Panel del Realizador</h2>
-<input type="email" id="loginEmail" placeholder="Email" style="padding:10px;">
-<input type="password" id="loginPass" placeholder="Contraseña" style="padding:10px;">
+<input type="password" id="loginPass" placeholder="Contraseña" style="padding:10px;" autofocus>
 <button id="loginBtn">Entrar</button>
 <div id="loginError" style="color:#ff6666;"></div>
 </div>  
@@ -1581,10 +1580,14 @@ supabase.auth.getSession().then(({ data })=>{
   if(data.session) loginBox.style.display = "none";
 });
 
+document.getElementById("loginPass").addEventListener("keydown", (e)=>{
+  if(e.key === "Enter") document.getElementById("loginBtn").click();
+});  
+
 document.getElementById("loginBtn").onclick = async ()=>{
 
   const { error } = await supabase.auth.signInWithPassword({
-    email: document.getElementById("loginEmail").value,
+    email: "lapobletstream@gmail.com",
     password: document.getElementById("loginPass").value
   });
 
