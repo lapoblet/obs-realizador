@@ -1077,41 +1077,7 @@ drawData = data.data.drawData || [];
 
 }
 
-ctx.clearRect(0, 0, drawLayer.width, drawLayer.height);
-
-let lastPoint = null;
-
-drawData.forEach(point => {
-
-  if(point.newStroke){
-    lastPoint = null;
-    return;
-  }
-
-  if(!lastPoint){
-    lastPoint = point;
-    return;
-  }
-
-  if(point.color === "eraser"){
-    ctx.globalCompositeOperation = "destination-out";
-  }else{
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = point.color;
-  }
-
-  ctx.lineWidth = point.size;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  ctx.beginPath();
-  ctx.moveTo(lastPoint.x, lastPoint.y);
-  ctx.lineTo(point.x, point.y);
-  ctx.stroke();
-
-  lastPoint = point;
-
-});  
+pintarDibujo(ctx, drawData);
 
 render();
 
@@ -2041,6 +2007,191 @@ drawData.push({ newStroke:true });
 ctx.beginPath();
 
 }); 
+
+function pintarDibujo(c, datos){
+
+c.clearRect(0, 0, c.canvas.width, c.canvas.height);
+
+let t = [];
+
+function cerrar(){
+
+if(t.length >= 2){
+
+const p0 = t[0];
+
+c.globalCompositeOperation =
+p0.color === "eraser" ? "destination-out" : "source-over";
+
+c.strokeStyle = p0.color === "eraser" ? "#000" : p0.color;
+c.lineWidth = p0.size;
+c.lineCap = "round";
+c.lineJoin = "round";
+
+c.beginPath();
+c.moveTo(t[0].x, t[0].y);
+c.lineTo((t[0].x + t[1].x) / 2, (t[0].y + t[1].y) / 2);
+
+for(let i = 1; i < t.length - 1; i++){
+c.quadraticCurveTo(
+t[i].x, t[i].y,
+(t[i].x + t[i+1].x) / 2, (t[i].y + t[i+1].y) / 2
+);
+}
+
+c.lineTo(t[t.length - 1].x, t[t.length - 1].y);
+c.stroke();
+
+}
+
+t = [];
+
+}
+
+datos.forEach(p=>{
+
+if(p.newStroke){
+cerrar();
+return;
+}
+
+t.push(p);
+
+});
+
+cerrar();
+
+}
+
+let trazoLive = [];
+
+drawLayer.onmousedown = (e)=>{
+
+drawing = true;
+
+const colorPincel = document.getElementById("drawColor").value;
+
+const primero = {
+x: e.offsetX / EDITOR_SCALE,
+y: e.offsetY / EDITOR_SCALE,
+color: eraserMode ? "eraser" : colorPincel,
+size: eraserMode ? eraserSize : brushSize
+};
+
+drawData.push({ newStroke:true });
+drawData.push(primero);
+
+trazoLive = [primero];
+
+};
+
+drawLayer.onpointermove = (e)=>{
+
+if(!drawing) return;
+
+const muestras =
+e.getCoalescedEvents ? e.getCoalescedEvents() : [];
+
+if(muestras.length === 0) muestras.push(e);
+
+const colorPincel = document.getElementById("drawColor").value;
+
+muestras.forEach(ev=>{
+
+const x = (e.offsetX + (ev.clientX - e.clientX)) / EDITOR_SCALE;
+const y = (e.offsetY + (ev.clientY - e.clientY)) / EDITOR_SCALE;
+
+const punto = {
+x: x,
+y: y,
+color: eraserMode ? "eraser" : colorPincel,
+size: eraserMode ? eraserSize : brushSize
+};
+
+if(trazoLive.length === 0){
+drawData.push(punto);
+trazoLive.push(punto);
+return;
+}
+
+const ultimo = trazoLive[trazoLive.length - 1];
+const dx = x - ultimo.x;
+const dy = y - ultimo.y;
+
+if(dx * dx + dy * dy < 4) return;
+
+drawData.push(punto);
+trazoLive.push(punto);
+
+ctx.globalCompositeOperation =
+eraserMode ? "destination-out" : "source-over";
+
+ctx.strokeStyle = eraserMode ? "#000" : colorPincel;
+ctx.lineWidth = punto.size;
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
+
+const n = trazoLive.length;
+
+ctx.beginPath();
+
+if(n === 2){
+
+ctx.moveTo(trazoLive[0].x, trazoLive[0].y);
+
+ctx.lineTo(
+(trazoLive[0].x + trazoLive[1].x) / 2,
+(trazoLive[0].y + trazoLive[1].y) / 2
+);
+
+}else{
+
+const a = trazoLive[n - 3];
+const b = trazoLive[n - 2];
+const c = trazoLive[n - 1];
+
+ctx.moveTo((a.x + b.x) / 2, (a.y + b.y) / 2);
+
+ctx.quadraticCurveTo(
+b.x, b.y,
+(b.x + c.x) / 2, (b.y + c.y) / 2
+);
+
+}
+
+ctx.stroke();
+
+});
+
+const ahora = Date.now();
+
+if(!window.ultimoGuardadoDraw){
+window.ultimoGuardadoDraw = 0;
+}
+
+if(ahora - window.ultimoGuardadoDraw > 100){
+
+window.ultimoGuardadoDraw = ahora;
+
+supabase
+.from("overlay")
+.update({
+data:{
+items,
+drawData
+}
+})
+.eq("id","main");
+
+}
+
+};
+
+drawLayer.addEventListener("mouseleave", ()=>{
+
+trazoLive = [];
+
+});  
   
 </script>
 
