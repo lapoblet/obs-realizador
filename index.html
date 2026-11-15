@@ -376,8 +376,24 @@ if(
 
 }
 
+if(
+el.dataset.oculto === "1" &&
+(item.playerState === "play" || item.playerState === "restart")
+){
+
+el.contentWindow.postMessage(
+JSON.stringify({
+event:"command",
+func:"playVideo",
+args:[]
+}),
+"*"
+);
+
+}
+
 el.style.visibility = "visible";
-el.dataset.oculto = "0";  
+el.dataset.oculto = "0";
   
 el.style.left =
 ((item.x || 0) - 190) + "px";
