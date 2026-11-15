@@ -77,7 +77,11 @@ drawLayer.height = 1080;
 const drawCtx =
 drawLayer.getContext("2d");
   
-async function cargar(){
+async function cargar(datos){
+
+let contenido = datos;
+
+if(!contenido){
 
 const { data, error } =
 await supabase
@@ -91,14 +95,18 @@ console.error(error);
 return;
 }
 
+contenido = data.data;
+
+}
+
 const overlay =
 document.getElementById("overlay");
 
 const items =
-data.data.items || [];
+contenido.items || [];
 
 const drawData =
-data.data.drawData || [];  
+contenido.drawData || [];  
 
 drawCtx.clearRect(
 0,
@@ -388,9 +396,9 @@ event: 'UPDATE',
 schema: 'public',
 table: 'overlay'
 },
-() => {
+(payload) => {
 
-cargar();
+cargar(payload.new?.data);
 
 }
 )
