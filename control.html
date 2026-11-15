@@ -1045,6 +1045,8 @@ console.error(error);
 
 let redimensionando = false; 
 let moviendo = false;  
+
+let dibujoCargado = false;  
   
 async function cargar(){
 
@@ -1067,8 +1069,13 @@ if(moviendo || redimensionando){
 items =
 data.data.items || [];
 
-drawData =
-data.data.drawData || [];  
+if(!dibujoCargado && !drawing){
+
+dibujoCargado = true;
+
+drawData = data.data.drawData || [];
+
+}
 
 ctx.clearRect(0, 0, drawLayer.width, drawLayer.height);
 
