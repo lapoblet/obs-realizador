@@ -132,6 +132,34 @@ t.push(p);
 cerrar();
 
 }  
+
+function comandoTikTok(iframe, accion){
+
+if(!iframe || !iframe.contentWindow) return;
+
+function enviar(type, value){
+
+const msg = { type: type, "x-tiktok-player": true };
+
+if(value !== undefined) msg.value = value;
+
+iframe.contentWindow.postMessage(msg, "*");
+
+}
+
+if(accion === "play") enviar("play");
+
+if(accion === "pause") enviar("pause");
+
+if(accion === "restart"){
+
+enviar("seekTo", 0);
+
+enviar("play");
+
+}
+
+}  
   
 async function cargar(datos){
 
@@ -183,6 +211,12 @@ elOculto.style.visibility = "hidden";
 if(elOculto.dataset.oculto !== "1"){
 
 elOculto.dataset.oculto = "1";
+
+if(item.platform === "tiktok"){
+
+comandoTikTok(elOculto, "pause");
+
+}  
 
 elOculto.contentWindow.postMessage(
 JSON.stringify({
@@ -236,6 +270,8 @@ else if(item.type==="embed"){
 el = document.createElement("iframe");
 
 el.style.border = "none";
+
+el.allow = "autoplay; fullscreen; encrypted-media";  
 
 }
 
@@ -304,6 +340,12 @@ if(
         item.id,
         item.commandId
     );
+
+  if(item.platform === "tiktok"){
+
+comandoTikTok(el, item.playerState);
+
+}
 
     if(item.playerState === "play"){
 
