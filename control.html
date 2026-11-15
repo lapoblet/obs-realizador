@@ -231,6 +231,42 @@ border-radius:6px;
 cursor:pointer;
 }
 
+.slider{
+display:flex;
+align-items:center;
+gap:6px;
+font-size:12px;
+color:#c8c8d4;
+}
+
+.slider input[type="range"]{
+width:90px;
+cursor:pointer;
+}
+
+.slider span{
+min-width:22px;
+text-align:right;
+color:#fff;
+font-weight:bold;
+}
+
+#cursorCirculo{
+display:none;
+position:fixed;
+pointer-events:none;
+border-radius:50%;
+transform:translate(-50%,-50%);
+box-sizing:border-box;
+z-index:99997;
+border:1px solid #fff;
+box-shadow:0 0 0 1px #000;
+}
+
+#cursorCirculo.borrador{
+border:2px dashed #fff;
+}  
+  
 </style>
 
 </head>
@@ -252,7 +288,15 @@ cursor:pointer;
 <button id="selectMode">🖱 Seleccionar</button>
 <button id="drawMode">🎨 Dibujar</button>
 <input type="color" id="drawColor" value="#ff0000" title="Color del dibujo">
+<label class="slider">Pincel
+<input type="range" id="brushSize" min="1" max="60" value="5">
+<span id="brushSizeVal">5</span>
+</label>
 <button id="eraserMode">🩹 Borrador</button>
+<label class="slider">Borrador
+<input type="range" id="eraserSize" min="5" max="150" value="30">
+<span id="eraserSizeVal">30</span>
+</label>
 <button id="clearDraw" class="peligro">🗑 Limpiar dibujo</button>
 </div>
 </div>
@@ -290,6 +334,8 @@ cursor:pointer;
 
 </div>
 
+<div id="cursorCirculo"></div>  
+  
 <div id="alertaSync" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#cc0000; color:white; font-family:Arial; font-weight:bold; font-size:20px; text-align:center; padding:14px; z-index:99998;">
 ⚠ ALERTA: WEB Y OBS DESINCRONIZADOS. RECARGA Y VUELVE A INICIAR SESIÓN ⚠
 </div>  
@@ -850,7 +896,7 @@ if(eraserMode){
 ctx.globalCompositeOperation =
 "destination-out";
 
-ctx.lineWidth = 30;
+ctx.lineWidth = eraserSize;
 
 }else{
 
@@ -862,7 +908,7 @@ document.getElementById(
 "drawColor"
 ).value;
 
-ctx.lineWidth = 5;
+ctx.lineWidth = brushSize;
 
 }
 
@@ -879,7 +925,7 @@ y:e.offsetY / EDITOR_SCALE,
 color:eraserMode
 ? "eraser"
 : document.getElementById("drawColor").value,
-size:eraserMode ? 30 : 5
+size:eraserMode ? eraserSize : brushSize
 });
 
 ctx.stroke();
@@ -1809,6 +1855,98 @@ document.getElementById(id).classList.add("activo");
 
 document.getElementById("selectMode")
 .classList.add("activo");  
+
+let brushSize = 5;
+let eraserSize = 30;
+
+const cursorCirculo = document.getElementById("cursorCirculo");
+let temporizadorPreview = null;
+
+function mostrarCirculo(x, y, esBorrador){
+
+const size = esBorrador ? eraserSize : brushSize;
+const diametro = Math.max(6, size * EDITOR_SCALE);
+
+cursorCirculo.style.width = diametro + "px";
+cursorCirculo.style.height = diametro + "px";
+cursorCirculo.style.left = x + "px";
+cursorCirculo.style.top = y + "px";
+
+cursorCirculo.className = esBorrador ? "borrador" : "";
+
+cursorCirculo.style.background = esBorrador
+? "rgba(255,255,255,0.25)"
+: document.getElementById("drawColor").value + "99";
+
+cursorCirculo.style.display = "block";
+
+}
+
+function ocultarCirculo(){
+cursorCirculo.style.display = "none";
+}
+
+drawLayer.addEventListener("mousemove",(e)=>{
+
+if(!drawMode && !eraserMode) return;
+
+mostrarCirculo(e.clientX, e.clientY, eraserMode);
+
+});
+
+drawLayer.addEventListener("mouseleave", ocultarCirculo);
+
+document.getElementById("drawMode")
+.addEventListener("click",()=>{
+drawLayer.style.cursor = "none";
+});
+
+document.getElementById("eraserMode")
+.addEventListener("click",()=>{
+drawLayer.style.cursor = "none";
+});
+
+document.getElementById("selectMode")
+.addEventListener("click",()=>{
+drawLayer.style.cursor = "default";
+ocultarCirculo();
+});
+
+function previsualizar(esBorrador){
+
+mostrarCirculo(
+window.innerWidth / 2,
+window.innerHeight / 2,
+esBorrador
+);
+
+clearTimeout(temporizadorPreview);
+
+temporizadorPreview = setTimeout(ocultarCirculo, 800);
+
+}
+
+document.getElementById("brushSize")
+.addEventListener("input",(e)=>{
+
+brushSize = Number(e.target.value);
+
+document.getElementById("brushSizeVal").innerText = brushSize;
+
+previsualizar(false);
+
+});
+
+document.getElementById("eraserSize")
+.addEventListener("input",(e)=>{
+
+eraserSize = Number(e.target.value);
+
+document.getElementById("eraserSizeVal").innerText = eraserSize;
+
+previsualizar(true);
+
+});
   
 </script>
 
