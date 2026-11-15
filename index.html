@@ -147,13 +147,21 @@ iframe.contentWindow.postMessage(msg, "*");
 
 }
 
-if(accion === "play") enviar("play");
+if(accion === "play"){
+
+enviar("unMute");
+
+enviar("play");
+
+}
 
 if(accion === "pause") enviar("pause");
 
 if(accion === "restart"){
 
 enviar("seekTo", 0);
+
+enviar("unMute");  
 
 enviar("play");
 
