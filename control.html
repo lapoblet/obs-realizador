@@ -293,7 +293,7 @@ const { error } =
 await supabase
 .from("overlay")
 .update({
-data: { items }
+data: { items, drawData }
 })
 .eq("id","main");
 
@@ -853,6 +853,42 @@ data.data.items || [];
 
 drawData =
 data.data.drawData || [];  
+
+ctx.clearRect(0, 0, drawLayer.width, drawLayer.height);
+
+let lastPoint = null;
+
+drawData.forEach(point => {
+
+  if(point.newStroke){
+    lastPoint = null;
+    return;
+  }
+
+  if(!lastPoint){
+    lastPoint = point;
+    return;
+  }
+
+  if(point.color === "eraser"){
+    ctx.globalCompositeOperation = "destination-out";
+  }else{
+    ctx.globalCompositeOperation = "source-over";
+    ctx.strokeStyle = point.color;
+  }
+
+  ctx.lineWidth = point.size;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  ctx.beginPath();
+  ctx.moveTo(lastPoint.x, lastPoint.y);
+  ctx.lineTo(point.x, point.y);
+  ctx.stroke();
+
+  lastPoint = point;
+
+});  
 
 render();
 
