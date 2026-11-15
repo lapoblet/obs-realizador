@@ -933,45 +933,62 @@ e.offsetY / EDITOR_SCALE
 
 };
 
-drawLayer.onmousemove = (e)=>{
+drawLayer.onpointermove = (e)=>{
 
 if(!drawing) return;
 
+const muestras =
+e.getCoalescedEvents ? e.getCoalescedEvents() : [];
+
+if(muestras.length === 0) muestras.push(e);
+
+const colorPincel =
+document.getElementById("drawColor").value;
+
+muestras.forEach(ev=>{
+
+const x =
+(e.offsetX + (ev.clientX - e.clientX)) / EDITOR_SCALE;
+
+const y =
+(e.offsetY + (ev.clientY - e.clientY)) / EDITOR_SCALE;
+
+const ultimo = drawData[drawData.length - 1];
+
+if(ultimo && ultimo.x !== undefined){
+
+const dx = x - ultimo.x;
+const dy = y - ultimo.y;
+
+if(dx * dx + dy * dy < 4) return;
+
+}
+
 if(eraserMode){
 
-ctx.globalCompositeOperation =
-"destination-out";
-
+ctx.globalCompositeOperation = "destination-out";
 ctx.lineWidth = eraserSize;
 
 }else{
 
-ctx.globalCompositeOperation =
-"source-over";
-
-ctx.strokeStyle =
-document.getElementById(
-"drawColor"
-).value;
-
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = colorPincel;
 ctx.lineWidth = brushSize;
 
 }
 
 ctx.lineCap = "round";
+ctx.lineJoin = "round";
 
-ctx.lineTo(
-e.offsetX / EDITOR_SCALE,
-e.offsetY / EDITOR_SCALE
-);
+ctx.lineTo(x, y);
 
 drawData.push({
-x:e.offsetX / EDITOR_SCALE,
-y:e.offsetY / EDITOR_SCALE,
-color:eraserMode
-? "eraser"
-: document.getElementById("drawColor").value,
+x:x,
+y:y,
+color:eraserMode ? "eraser" : colorPincel,
 size:eraserMode ? eraserSize : brushSize
+});
+
 });
 
 ctx.stroke();
@@ -2007,6 +2024,16 @@ document.getElementById("eraserSizeVal").innerText = eraserSize;
 previsualizar(true);
 
 });
+
+ drawLayer.addEventListener("mouseleave", ()=>{
+
+if(!drawing) return;
+
+drawData.push({ newStroke:true });
+
+ctx.beginPath();
+
+}); 
   
 </script>
 
