@@ -77,6 +77,61 @@ drawLayer.height = 1080;
 
 const drawCtx =
 drawLayer.getContext("2d");
+
+function pintarDibujo(c, datos){
+
+c.clearRect(0, 0, c.canvas.width, c.canvas.height);
+
+let t = [];
+
+function cerrar(){
+
+if(t.length >= 2){
+
+const p0 = t[0];
+
+c.globalCompositeOperation =
+p0.color === "eraser" ? "destination-out" : "source-over";
+
+c.strokeStyle = p0.color === "eraser" ? "#000" : p0.color;
+c.lineWidth = p0.size;
+c.lineCap = "round";
+c.lineJoin = "round";
+
+c.beginPath();
+c.moveTo(t[0].x, t[0].y);
+c.lineTo((t[0].x + t[1].x) / 2, (t[0].y + t[1].y) / 2);
+
+for(let i = 1; i < t.length - 1; i++){
+c.quadraticCurveTo(
+t[i].x, t[i].y,
+(t[i].x + t[i+1].x) / 2, (t[i].y + t[i+1].y) / 2
+);
+}
+
+c.lineTo(t[t.length - 1].x, t[t.length - 1].y);
+c.stroke();
+
+}
+
+t = [];
+
+}
+
+datos.forEach(p=>{
+
+if(p.newStroke){
+cerrar();
+return;
+}
+
+t.push(p);
+
+});
+
+cerrar();
+
+}  
   
 async function cargar(datos){
 
@@ -109,83 +164,8 @@ contenido.items || [];
 const drawData =
 contenido.drawData || [];  
 
-drawCtx.clearRect(
-0,
-0,
-drawLayer.width,
-drawLayer.height
-);
-
-let lastPoint = null;
-
-drawData.forEach(point=>{
-
-if(point.newStroke){
-
-lastPoint = null;
-
-return;
-
-}
-
-if(!lastPoint){
-
-lastPoint = point;
-
-drawCtx.globalCompositeOperation =
-point.color === "eraser"
-? "destination-out"
-: "source-over";
-
-drawCtx.beginPath();
-
-drawCtx.moveTo(
-point.x,
-point.y
-);
-
-return;
-
-}
-
-if(point.color === "eraser"){
-
-drawCtx.globalCompositeOperation =
-"destination-out";
-
-}else{
-
-drawCtx.globalCompositeOperation =
-"source-over";
-
-drawCtx.strokeStyle =
-point.color;
-
-}
-
-drawCtx.lineWidth =
-point.size;
-
-drawCtx.lineCap = "round";
-drawCtx.lineJoin = "round";
-
-drawCtx.beginPath();
-
-drawCtx.moveTo(
-lastPoint.x,
-lastPoint.y
-);
-
-drawCtx.lineTo(
-point.x,
-point.y
-);
-
-drawCtx.stroke();
-
-lastPoint = point;
-
-});
+pintarDibujo(drawCtx, drawData);
+  
 const idsActuales = new Set();
 
 items.forEach(item=>{
