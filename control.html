@@ -266,6 +266,44 @@ box-shadow:0 0 0 1px #000;
 #cursorCirculo.borrador{
 border:2px dashed #fff;
 }  
+
+body{
+flex-direction:row;
+}
+
+.toolbar{
+flex:0 0 300px;
+width:300px;
+box-sizing:border-box;
+flex-direction:column;
+flex-wrap:nowrap;
+overflow-y:auto;
+border-bottom:none;
+border-right:1px solid #000;
+}
+
+.grupo{
+width:100%;
+box-sizing:border-box;
+flex-shrink:0;
+}
+
+.slider{
+flex:1 1 100%;
+}
+
+.slider input[type="range"]{
+flex:1;
+width:auto;
+}
+
+#workspace{
+min-width:0;
+}
+
+#alertaSync{
+left:300px !important;
+}
   
 </style>
 
@@ -302,6 +340,17 @@ border:2px dashed #fff;
 </div>
 
 <div class="grupo">
+<div class="grupo-titulo">Objeto seleccionado</div>
+<div class="grupo-botones">
+<button id="toggleVisible">👁 Mostrar/Ocultar</button>
+<button id="duplicarElemento">📄 Duplicar</button>
+<button id="capaDelante">⬆ Delante</button>
+<button id="capaDetras">⬇ Detrás</button>
+<button id="eliminarElemento" class="peligro">🗑 Eliminar</button>
+</div>
+</div>
+
+<div class="grupo">
 <div class="grupo-titulo">Añadir</div>
 <div class="grupo-botones">
 <button id="nuevaImagen">+ Imagen</button>
@@ -318,17 +367,6 @@ border:2px dashed #fff;
 <button id="playVideo">▶ Play</button>
 <button id="pauseVideo">⏸ Pausa</button>
 <button id="restartVideo">🔄 Reiniciar</button>
-</div>
-</div>
-
-<div class="grupo">
-<div class="grupo-titulo">Objeto seleccionado</div>
-<div class="grupo-botones">
-<button id="toggleVisible">👁 Mostrar/Ocultar</button>
-<button id="duplicarElemento">📄 Duplicar</button>
-<button id="capaDelante">⬆ Delante</button>
-<button id="capaDetras">⬇ Detrás</button>
-<button id="eliminarElemento" class="peligro">🗑 Eliminar</button>
 </div>
 </div>
 
